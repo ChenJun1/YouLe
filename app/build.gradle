@@ -1,0 +1,92 @@
+apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
+apply plugin: 'com.jakewharton.butterknife'
+
+Properties prop = new Properties()
+prop.load(new FileInputStream(file("signing.properties")))
+android {
+
+    compileSdkVersion 26
+    buildToolsVersion '26.0.2'
+    defaultConfig {
+        applicationId "com.laiding.yl.youle"
+        minSdkVersion 15
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        // dex突破65535的限制
+        multiDexEnabled true
+    }
+
+    signingConfigs {
+        release {
+            storeFile file(prop['KEY_FILE'])
+            storePassword prop['STORE_PASSWORD']
+            keyAlias prop['KEY_ALIAS']
+            keyPassword prop['KEY_PASSWORD']
+        }
+    }
+
+    buildTypes {
+
+        debug {
+            debuggable true
+            //开启混淆
+            minifyEnabled false
+            //apk签名
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        release {
+            debuggable false
+
+            //开启混淆
+            minifyEnabled false
+            //删除无用的资源
+            shrinkResources false
+            //apk签名
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    lintOptions {
+        abortOnError false//lint时候终止错误上报,防止编译的时候莫名的失败
+        disable 'MissingTranslation' // 禁用中英文string.xml的强制lint
+        disable 'InvalidPackage'  //忽略无用包
+        ignoreWarnings true // 如果为 true，则只报告错误
+    }
+    //greendao配置
+    greendao {
+        //版本号，升级时可配置
+        schemaVersion 1
+    }
+
+    sourceSets {
+        main {
+            res.srcDirs = ['src/main/res-activity',
+                           'src/main/res-im',
+                           'src/main/res-public',
+            ]
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation project(':mvprxretrofitlibrary')
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:design:26.1.0'
+    implementation 'com.android.support:recyclerview-v7:26.1.0'
+    compile 'org.greenrobot:greendao:3.2.2'
+    /*数据库*/
+    compile 'com.jakewharton:butterknife:8.4.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+    /*view依赖注入*/
+    implementation project(':easeui')
+    implementation files('libs/umeng-analytics-v5.2.4.jar')
+    implementation files('libs/umeng-update-v2.6.0.1.jar')
+    compile 'com.parse:parse-android:1.13.1'
+    /*IM*/
+    implementation 'com.android.support:support-v4:26.0.2'
+}

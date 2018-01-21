@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="SpnStyle">
+        <item name="android:colorControlNormal">#F795A4</item>
+    </style>
+</resources>

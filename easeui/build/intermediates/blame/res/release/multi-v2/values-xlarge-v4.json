@@ -1,0 +1,48 @@
+{
+    "logs": [
+        {
+            "outputFile": "E:\\AndroidStudioProjects\\YouLe\\easeui\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-xlarge-v4\\values-xlarge-v4.xml",
+            "map": [
+                {
+                    "source": "E:\\AndroidStudioProjects\\YouLe\\easeui\\src\\main\\res\\values-xlarge\\ease_dimens.xml",
+                    "from": {
+                        "startLines": "19,20",
+                        "startColumns": "4,4",
+                        "startOffsets": "663,716",
+                        "endColumns": "52,53",
+                        "endOffsets": "711,765"
+                    },
+                    "to": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,108",
+                        "endColumns": "52,53",
+                        "endOffsets": "103,157"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "E:\\AndroidStudioProjects\\YouLe\\easeui\\build\\intermediates\\res\\merged\\release\\values-xlarge-v4\\values-xlarge-v4.xml",
+            "map": [
+                {
+                    "source": "E:\\AndroidStudioProjects\\YouLe\\easeui\\src\\main\\res\\values-xlarge\\ease_dimens.xml",
+                    "from": {
+                        "startLines": "19,20",
+                        "startColumns": "4,4",
+                        "startOffsets": "663,716",
+                        "endColumns": "52,53",
+                        "endOffsets": "711,765"
+                    },
+                    "to": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,108",
+                        "endColumns": "52,53",
+                        "endOffsets": "103,157"
+                    }
+                }
+            ]
+        }
+    ]
+}

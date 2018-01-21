@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.laiding.yl.youle">
+
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:name=".MyApplication"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".login.activity.ActivityPhoneLogin">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+
+
+        <!-- 设置环信应用的AppKey -->
+        <meta-data android:name="EASEMOB_APPKEY"  android:value="1193171229115612#youle" />
+        <!-- 声明SDK所需的service SDK核心功能-->
+        <service android:name="com.hyphenate.chat.EMChatService" android:exported="true"/>
+        <service android:name="com.hyphenate.chat.EMJobService"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:exported="true"
+            />
+        <!-- 声明SDK所需的receiver -->
+        <receiver android:name="com.hyphenate.chat.EMMonitorReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REMOVED"/>
+                <data android:scheme="package"/>
+            </intent-filter>
+            <!-- 可选filter -->
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.USER_PRESENT" />
+            </intent-filter>
+        </receiver>
+
+        <!--即时通讯=======================================================================-->
+        <!-- 聊天页面 -->
+        <activity
+            android:name=".im.activity.ActivityChat"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide"
+            android:windowSoftInputMode="adjustResize" />
+        <!-- choose video -->
+        <activity android:name=".im.activity.ImageGridActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity android:name=".im.activity.RecorderVideoActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <!--show the video-->
+        <activity
+            android:name="com.hyphenate.easeui.ui.EaseShowVideoActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+
+        <!-- 显示下载大图页面 -->
+        <activity
+            android:name="com.hyphenate.easeui.ui.EaseShowBigImageActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide" />
+
+        <!-- 自定义的contextmenu -->
+        <activity
+            android:name=".im.activity.ContextMenuActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyDialogStyle" />
+
+        <!--=========即时通讯=============================================================-->
+        <!-- 首页 -->
+        <activity android:name=".home.activty.ActivityHome"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
+        <!-- 密码登陆 -->
+        <activity android:name=".login.activity.ActivityPassLogin"
+            android:screenOrientation="portrait"/>
+        <!-- 找回密码 -->
+        <activity android:name=".login.activity.ActivityGetPassWord"
+            android:screenOrientation="portrait"/>
+        <!--重置密码-->
+        <activity android:name=".login.activity.ActivityReSetPassWord"
+            android:screenOrientation="portrait"/>
+        <!-- 试管婴儿流程 -->
+        <activity android:name=".home.activty.ActivityTestTubeBabyProcess"
+            android:screenOrientation="portrait"/>
+        <!-- 试管婴儿成功率-->
+        <activity android:name=".home.activty.ActivityIVFSuccessRate"
+            android:screenOrientation="portrait"/>
+        <!-- 诊疗记录 -->
+        <activity android:name=".home.activty.ActivityMedicalRecords"
+            android:screenOrientation="portrait"/>
+        <!-- 饮食助手 -->
+        <activity android:name=".home.activty.ActivityDietAssistant"
+            android:screenOrientation="portrait"/>
+        <!-- 好孕指导-->
+        <activity android:name=".home.activty.ActivityGoodPregnancyGuidance"
+            android:screenOrientation="portrait"/>
+        <!-- 备孕检查-->
+        <activity android:name=".home.activty.ActivityPregnancyTest"
+            android:screenOrientation="portrait"/>
+        <!-- 试管指导-->
+        <activity android:name=".home.activty.ActivityTestTubeGuidance"
+            android:screenOrientation="portrait"/>
+        <!-- 合法代孕-->
+        <activity android:name=".home.activty.ActivityLegitimateSurrogacy"
+            android:screenOrientation="portrait"/>
+
+    </application>
+
+</manifest>
