@@ -15,6 +15,7 @@ public class ActivityDietAssistant extends MyBaseActivity {
     public static void start(Context context) {
         Intent starter = new Intent(context, ActivityDietAssistant.class);
         context.startActivity(starter);
+
     }
     @Override
     protected int getContentViewId() {
