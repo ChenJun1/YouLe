@@ -51,8 +51,7 @@ public abstract class BaseActivity extends RxActivity implements EasyPermissions
         if (mLoadingDialog == null) {
             mLoadingDialog = new RLoadingDialog(this, true);
         }
-        initBundleData();
-        init();
+
     }
 
     @Override

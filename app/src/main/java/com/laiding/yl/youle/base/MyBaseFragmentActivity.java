@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.laiding.yl.mvprxretrofitlibrary.base.BaseFragmentActivity;
@@ -23,14 +24,16 @@ import static com.vondear.rxtools.RxBarTool.getStatusBarHeight;
 
 public abstract class MyBaseFragmentActivity extends BaseFragmentActivity {
     protected TextView mTitle;
-    protected ImageView mIvBack;
+    protected LinearLayout mIvBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initBar();
 //        RxBarTool.setTransparentStatusBar(this);//状态栏透明化
+        initBar();
         initWindows();
+        initBundleData();
+        init();
     }
 
     @SuppressLint("WrongViewCast")

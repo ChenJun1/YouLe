@@ -1,18 +1,16 @@
 package com.laiding.yl.youle.base;
 
-import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.laiding.yl.mvprxretrofitlibrary.base.BaseActivity;
 import com.laiding.yl.youle.R;
-import com.vondear.rxtools.RxBarTool;
 
 import static com.vondear.rxtools.RxBarTool.getStatusBarHeight;
 
@@ -24,7 +22,7 @@ import static com.vondear.rxtools.RxBarTool.getStatusBarHeight;
 
 public abstract class MyBaseActivity extends BaseActivity {
     protected TextView mTitle;
-    protected ImageView mIvBack;
+    protected LinearLayout mIvBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +30,10 @@ public abstract class MyBaseActivity extends BaseActivity {
         initBar();
 //        RxBarTool.setTransparentStatusBar(this);//状态栏透明化
         initWindows();
+        initBundleData();
+        init();
     }
 
-    @SuppressLint("WrongViewCast")
     private void initBar() {
         mTitle = findViewById(R.id.tv_title);
         mIvBack =  findViewById(R.id.ll_back);

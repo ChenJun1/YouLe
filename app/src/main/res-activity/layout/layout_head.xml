@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:id="@+id/ll_top_head"
     android:layout_height="46dp"
     android:background="@color/colorPrimary"
     android:orientation="horizontal">
@@ -11,12 +12,12 @@
 
         <LinearLayout
             android:gravity="center_vertical"
+            android:visibility="invisible"
             android:id="@+id/ll_back"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1">
             <ImageView
-                android:visibility="gone"
                 android:layout_marginLeft="@dimen/margin_16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -44,7 +45,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:visibility="visible"
+                android:visibility="gone"
                 android:id="@+id/tv_bar_right"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

@@ -221,8 +221,8 @@ public class ActivityPhoneLogin extends MyBaseActivity implements ILoginView {
 //                checkPhone();
                 break;
             case R.id.login_bt:
-                                presenter.login("ruffian", "EA8A706C4C34A168");
-//                presenter.login();
+//                                presenter.login("ruffian", "EA8A706C4C34A168");
+                presenter.login();
 //                ActivityHome.start(this);
                 break;
             case R.id.pass_login_tv:

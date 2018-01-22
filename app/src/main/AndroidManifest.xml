@@ -46,7 +46,8 @@
 
 
         <!-- 设置环信应用的AppKey -->
-        <meta-data android:name="EASEMOB_APPKEY"  android:value="1193171229115612#youle" />
+        <meta-data android:name="EASEMOB_APPKEY"
+            android:value="1193171229115612#youle" />
         <!-- 声明SDK所需的service SDK核心功能-->
         <service android:name="com.hyphenate.chat.EMChatService" android:exported="true"/>
         <service android:name="com.hyphenate.chat.EMJobService"
@@ -140,6 +141,13 @@
             android:screenOrientation="portrait"/>
         <!-- 合法代孕-->
         <activity android:name=".home.activty.ActivityLegitimateSurrogacy"
+            android:screenOrientation="portrait"/>
+        <!-- 设置-->
+        <activity android:name=".mine.activity.ActivitySet"
+            android:screenOrientation="portrait"/>
+        <!-- 个人资料-->
+        +
+        <activity android:name=".mine.activity.ActivityPersonalInformation"
             android:screenOrientation="portrait"/>
 
     </application>

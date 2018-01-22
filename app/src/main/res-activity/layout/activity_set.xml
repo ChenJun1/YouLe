@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/color_F1F1F1"
+    tools:context=".mine.activity.ActivitySet"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/layout_head"/>
+
+    <TextView
+        android:id="@+id/tv_personal_information"
+        android:background="@color/colorWhite"
+        android:layout_marginTop="@dimen/margin_16"
+        android:paddingLeft="@dimen/margin_8"
+        android:paddingRight="@dimen/margin_8"
+        android:gravity="center_vertical"
+        android:textColor="@color/color_1d1d1d"
+        android:text="个人资料"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_45" />
+
+
+    <TextView
+        android:id="@+id/tv_account_binding"
+        android:background="@color/colorWhite"
+        android:layout_marginTop="@dimen/margin_1"
+        android:paddingLeft="@dimen/margin_8"
+        android:paddingRight="@dimen/margin_8"
+        android:gravity="center_vertical"
+        android:textColor="@color/color_1d1d1d"
+        android:text="账号绑定"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_45" />
+
+    <TextView
+        android:id="@+id/tv_change_password"
+        android:background="@color/colorWhite"
+        android:layout_marginTop="@dimen/margin_1"
+        android:paddingLeft="@dimen/margin_8"
+        android:paddingRight="@dimen/margin_8"
+        android:gravity="center_vertical"
+        android:textColor="@color/color_1d1d1d"
+        android:text="修改密码"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_45" />
+
+    <TextView
+        android:id="@+id/tv_about_us"
+        android:background="@color/colorWhite"
+        android:layout_marginTop="@dimen/margin_16"
+        android:paddingLeft="@dimen/margin_8"
+        android:paddingRight="@dimen/margin_8"
+        android:gravity="center_vertical"
+        android:textColor="@color/color_1d1d1d"
+        android:text="关于我们"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_45" />
+
+
+
+</LinearLayout>

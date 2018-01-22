@@ -9,6 +9,7 @@ import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.ui.EaseChatFragment;
 import com.laiding.yl.youle.clinic.fragment.FragmentClinic;
 import com.laiding.yl.youle.home.fragment.FragmentHome;
+import com.laiding.yl.youle.mine.fragment.FragmentMine;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,11 +29,11 @@ public class AdapterHomeViewPage extends FragmentPagerAdapter{
         Bundle bundle=new Bundle();
         bundle.putString(EaseConstant.EXTRA_USER_ID,"8001");
         fragment.setArguments(bundle);
+        list.add(FragmentHome.newInstance());
+        list.add(FragmentClinic.newInstance());
         list.add(new FragmentHome());
-        list.add(new FragmentClinic());
         list.add(new FragmentHome());
-        list.add(new FragmentHome());
-        list.add(new FragmentHome());
+        list.add(FragmentMine.newInstance());
     }
 
     @Override

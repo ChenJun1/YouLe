@@ -4,8 +4,10 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -14,12 +16,13 @@ import com.laiding.yl.youle.MyApplication;
 import com.laiding.yl.youle.R;
 import com.laiding.yl.youle.base.MyBaseFragment;
 import com.laiding.yl.youle.home.activty.ActivityDietAssistant;
+import com.laiding.yl.youle.home.activty.ActivityGoodPregnancyGuidance;
 import com.laiding.yl.youle.home.activty.ActivityIVFSuccessRate;
-import com.laiding.yl.youle.home.activty.ActivityTestTubeGuidance;
 import com.laiding.yl.youle.home.activty.ActivityLegitimateSurrogacy;
 import com.laiding.yl.youle.home.activty.ActivityMedicalRecords;
 import com.laiding.yl.youle.home.activty.ActivityPregnancyTest;
 import com.laiding.yl.youle.home.activty.ActivityTestTubeBabyProcess;
+import com.laiding.yl.youle.home.activty.ActivityTestTubeGuidance;
 import com.laiding.yl.youle.home.adapter.AdapterHomeFragement;
 import com.laiding.yl.youle.home.entity.ForumPostsBean;
 import com.laiding.yl.youle.home.fragment.view.IHomeFragment;
@@ -32,7 +35,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 
 /**
@@ -49,6 +54,8 @@ public class FragmentHome extends MyBaseFragment implements IHomeFragment {
     RecyclerView homeRl;
     @BindView(R.id.swipeLayout)
     SwipeRefreshLayout swipeLayout;
+    @BindView(R.id.ll_top_head)
+    LinearLayout mLlTopHead;
 
     public static FragmentHome newInstance() {
 
@@ -80,6 +87,7 @@ public class FragmentHome extends MyBaseFragment implements IHomeFragment {
     }
 
     private void initbar() {
+        mLlTopHead.setVisibility(View.GONE);
         mTvTitle.setVisibility(View.VISIBLE);
         mTvBarRight.setVisibility(View.VISIBLE);
         mTvTitle.setText("首页");
@@ -120,7 +128,7 @@ public class FragmentHome extends MyBaseFragment implements IHomeFragment {
         head.findViewById(R.id.btn_Process).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LogUtils.d("btn_Process"+"=========");
+                LogUtils.d("btn_Process" + "=========");
                 ActivityTestTubeBabyProcess.start(mContext);
             }
         });
@@ -128,7 +136,7 @@ public class FragmentHome extends MyBaseFragment implements IHomeFragment {
         head.findViewById(R.id.btn_success_rate).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LogUtils.d("btn_Process"+"=========");
+                LogUtils.d("btn_Process" + "=========");
                 ActivityIVFSuccessRate.start(mContext);
             }
         });
@@ -136,7 +144,7 @@ public class FragmentHome extends MyBaseFragment implements IHomeFragment {
         head.findViewById(R.id.ll_today_to_be_done).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LogUtils.d("btn_Process"+"=========");
+                LogUtils.d("btn_Process" + "=========");
                 presenter.startCalendar();
             }
         });
@@ -144,7 +152,7 @@ public class FragmentHome extends MyBaseFragment implements IHomeFragment {
         head.findViewById(R.id.ll_medical_records).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LogUtils.d("btn_Process"+"=========");
+                LogUtils.d("btn_Process" + "=========");
                 ActivityMedicalRecords.start(mContext);
             }
         });
@@ -152,7 +160,7 @@ public class FragmentHome extends MyBaseFragment implements IHomeFragment {
         head.findViewById(R.id.ll_diet_assistant).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LogUtils.d("btn_Process"+"=========");
+                LogUtils.d("btn_Process" + "=========");
                 ActivityDietAssistant.start(mContext);
             }
         });
@@ -160,14 +168,15 @@ public class FragmentHome extends MyBaseFragment implements IHomeFragment {
         head.findViewById(R.id.ll_good_prgegnancy_guidance).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LogUtils.d("btn_Process"+"=========");
+                LogUtils.d("btn_Process" + "=========");
+                ActivityGoodPregnancyGuidance.start(mContext);
             }
         });
         //备孕检查
         head.findViewById(R.id.ll_pregnancy_test).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LogUtils.d("btn_Process"+"=========");
+                LogUtils.d("btn_Process" + "=========");
                 ActivityPregnancyTest.start(mContext);
             }
         });
@@ -175,7 +184,7 @@ public class FragmentHome extends MyBaseFragment implements IHomeFragment {
         head.findViewById(R.id.ll_test_tube_guidance).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LogUtils.d("btn_Process"+"=========");
+                LogUtils.d("btn_Process" + "=========");
                 ActivityTestTubeGuidance.start(mContext);
             }
         });
@@ -183,7 +192,7 @@ public class FragmentHome extends MyBaseFragment implements IHomeFragment {
         head.findViewById(R.id.ll_legitimate_surrogacy).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LogUtils.d("btn_Process"+"=========");
+                LogUtils.d("btn_Process" + "=========");
                 ActivityLegitimateSurrogacy.start(mContext);
             }
         });
@@ -271,9 +280,9 @@ public class FragmentHome extends MyBaseFragment implements IHomeFragment {
     }
 
 
-
     @OnClick(R.id.tv_bar_right)
     public void onViewClicked() {
-        ActivityChat.start(mContext,"8899");
+        ActivityChat.start(mContext, "8899");
     }
+
 }

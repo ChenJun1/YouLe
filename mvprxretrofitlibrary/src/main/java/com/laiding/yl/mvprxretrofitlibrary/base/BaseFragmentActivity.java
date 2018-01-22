@@ -44,8 +44,7 @@ public abstract class BaseFragmentActivity extends RxFragmentActivity implements
         if (mLoadingDialog == null) {
             mLoadingDialog = new RLoadingDialog(this, false);
         }
-        initBundleData();
-        init();
+
     }
 
 

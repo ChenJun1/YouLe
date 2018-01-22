@@ -36,6 +36,15 @@ import butterknife.OnClick;
  */
 
 public class FragmentClinic extends MyBaseFragment implements IFragmentClinic {
+
+    public static FragmentClinic newInstance() {
+
+        Bundle args = new Bundle();
+
+        FragmentClinic fragment = new FragmentClinic();
+        fragment.setArguments(args);
+        return fragment;
+    }
     @BindView(R.id.et_search)
     EditText mEtSearch;
     @BindView(R.id.iv_clean_phone)
@@ -58,15 +67,6 @@ public class FragmentClinic extends MyBaseFragment implements IFragmentClinic {
     private List<String> areaList = new ArrayList<>();
     private List<String> gradeList = new ArrayList<>();
     private List<String> serviceList = new ArrayList<>();
-
-    public static FragmentClinic newInstance() {
-
-        Bundle args = new Bundle();
-
-        FragmentClinic fragment = new FragmentClinic();
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     protected int getContentViewId() {

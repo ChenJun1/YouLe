@@ -178,7 +178,7 @@ public class RecorderVideoActivity extends BaseActivity implements
 		}
 
 		// get all resolutions which camera provide
-		List<Size> resolutionList = Utils.getResolutionList(mCamera);
+		List<Camera.Size> resolutionList = Utils.getResolutionList(mCamera);
 		if (resolutionList != null && resolutionList.size() > 0) {
 			Collections.sort(resolutionList, new Utils.ResolutionComparator());
 			Camera.Size previewSize = null;
@@ -226,66 +226,66 @@ public class RecorderVideoActivity extends BaseActivity implements
 	@Override
 	public void onClick(View view) {
 		switch (view.getId()) {
-		case R.id.switch_btn:
-			switchCamera();
-			break;
-		case R.id.recorder_start:
-			// start recording
-		    if(!startRecording())
-		        return;
-			Toast.makeText(this, R.string.The_video_to_start, Toast.LENGTH_SHORT).show();
-			btn_switch.setVisibility(View.INVISIBLE);
-			btnStart.setVisibility(View.INVISIBLE);
-			btnStart.setEnabled(false);
-			btnStop.setVisibility(View.VISIBLE);
-			chronometer.setBase(SystemClock.elapsedRealtime());
-			chronometer.start();
-			break;
-		case R.id.recorder_stop:
-		    btnStop.setEnabled(false);
-			stopRecording();
-			btn_switch.setVisibility(View.VISIBLE);
-			chronometer.stop();
-			btnStart.setVisibility(View.VISIBLE);
-			btnStop.setVisibility(View.INVISIBLE);
-			new AlertDialog.Builder(this)
-					.setMessage(R.string.Whether_to_send)
-					.setPositiveButton(R.string.ok,
-							new DialogInterface.OnClickListener() {
+			case R.id.switch_btn:
+				switchCamera();
+				break;
+			case R.id.recorder_start:
+				// start recording
+				if(!startRecording())
+					return;
+				Toast.makeText(this, R.string.The_video_to_start, Toast.LENGTH_SHORT).show();
+				btn_switch.setVisibility(View.INVISIBLE);
+				btnStart.setVisibility(View.INVISIBLE);
+				btnStart.setEnabled(false);
+				btnStop.setVisibility(View.VISIBLE);
+				chronometer.setBase(SystemClock.elapsedRealtime());
+				chronometer.start();
+				break;
+			case R.id.recorder_stop:
+				btnStop.setEnabled(false);
+				stopRecording();
+				btn_switch.setVisibility(View.VISIBLE);
+				chronometer.stop();
+				btnStart.setVisibility(View.VISIBLE);
+				btnStop.setVisibility(View.INVISIBLE);
+				new AlertDialog.Builder(this)
+						.setMessage(R.string.Whether_to_send)
+						.setPositiveButton(R.string.ok,
+								new DialogInterface.OnClickListener() {
 
-								@Override
-								public void onClick(DialogInterface dialog,
-										int which) {
-									dialog.dismiss();
-									sendVideo(null);
+									@Override
+									public void onClick(DialogInterface dialog,
+														int which) {
+										dialog.dismiss();
+										sendVideo(null);
 
-								}
-							})
-					.setNegativeButton(R.string.cancel,
-							new DialogInterface.OnClickListener() {
+									}
+								})
+						.setNegativeButton(R.string.cancel,
+								new DialogInterface.OnClickListener() {
 
-								@Override
-								public void onClick(DialogInterface dialog,
-										int which) {
-								    if(localPath != null){
-								        File file = new File(localPath);
-								        if(file.exists())
-								            file.delete();
-								    }
-								    finish();
-									
-								}
-							}).setCancelable(false).show();
-			break;
+									@Override
+									public void onClick(DialogInterface dialog,
+														int which) {
+										if(localPath != null){
+											File file = new File(localPath);
+											if(file.exists())
+												file.delete();
+										}
+										finish();
 
-		default:
-			break;
+									}
+								}).setCancelable(false).show();
+				break;
+
+			default:
+				break;
 		}
 	}
 
 	@Override
 	public void surfaceChanged(SurfaceHolder holder, int format, int width,
-                               int height) {
+							   int height) {
 		mSurfaceHolder = holder;
 	}
 
@@ -293,10 +293,10 @@ public class RecorderVideoActivity extends BaseActivity implements
 	public void surfaceCreated(SurfaceHolder holder) {
 		if (mCamera == null){
 			if(!initCamera()){
-			    showFailDialog();
-			    return;
+				showFailDialog();
+				return;
 			}
-			
+
 		}
 		try {
 			mCamera.setPreviewDisplay(mSurfaceHolder);
@@ -316,7 +316,7 @@ public class RecorderVideoActivity extends BaseActivity implements
 	public boolean startRecording(){
 		if (mediaRecorder == null){
 			if(!initRecorder())
-			    return false;
+				return false;
 		}
 		mediaRecorder.setOnInfoListener(this);
 		mediaRecorder.setOnErrorListener(this);
@@ -326,15 +326,15 @@ public class RecorderVideoActivity extends BaseActivity implements
 
 	@SuppressLint("NewApi")
 	private boolean initRecorder(){
-	    if(!EaseCommonUtils.isSdcardExist()){
-	        showNoSDCardDialog();
-	        return false;
-	    }
-	    
+		if(!EaseCommonUtils.isSdcardExist()){
+			showNoSDCardDialog();
+			return false;
+		}
+
 		if (mCamera == null) {
 			if(!initCamera()){
-			    showFailDialog();
-			    return false;
+				showFailDialog();
+				return false;
 			}
 		}
 		mVideoView.setVisibility(View.VISIBLE);
@@ -367,14 +367,14 @@ public class RecorderVideoActivity extends BaseActivity implements
 		mediaRecorder.setMaxDuration(30000);
 		mediaRecorder.setPreviewDisplay(mSurfaceHolder.getSurface());
 		try {
-            mediaRecorder.prepare();
-        } catch (IllegalStateException e) {
-            e.printStackTrace();
-            return false;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
+			mediaRecorder.prepare();
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+			return false;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
 		return true;
 
 	}
@@ -430,14 +430,14 @@ public class RecorderVideoActivity extends BaseActivity implements
 			}
 
 			switch (frontCamera) {
-			case 0:
-				mCamera = Camera.open(CameraInfo.CAMERA_FACING_FRONT);
-				frontCamera = 1;
-				break;
-			case 1:
-				mCamera = Camera.open(CameraInfo.CAMERA_FACING_BACK);
-				frontCamera = 0;
-				break;
+				case 0:
+					mCamera = Camera.open(CameraInfo.CAMERA_FACING_FRONT);
+					frontCamera = 1;
+					break;
+				case 1:
+					mCamera = Camera.open(CameraInfo.CAMERA_FACING_BACK);
+					frontCamera = 0;
+					break;
 			}
 			try {
 				mCamera.lock();
@@ -463,29 +463,29 @@ public class RecorderVideoActivity extends BaseActivity implements
 			return;
 		}
 		if(msc == null)
-    		msc = new MediaScannerConnection(this,
-    				new MediaScannerConnectionClient() {
-    
-    					@Override
-    					public void onScanCompleted(String path, Uri uri) {
-    						EMLog.d(TAG, "scanner completed");
-    						msc.disconnect();
-    						progressDialog.dismiss();
-    						setResult(RESULT_OK, getIntent().putExtra("uri", uri));
-    						finish();
-    					}
-    
-    					@Override
-    					public void onMediaScannerConnected() {
-    						msc.scanFile(localPath, "video/*");
-    					}
-    				});
-		
-		
+			msc = new MediaScannerConnection(this,
+					new MediaScannerConnectionClient() {
+
+						@Override
+						public void onScanCompleted(String path, Uri uri) {
+							EMLog.d(TAG, "scanner completed");
+							msc.disconnect();
+							progressDialog.dismiss();
+							setResult(RESULT_OK, getIntent().putExtra("uri", uri));
+							finish();
+						}
+
+						@Override
+						public void onMediaScannerConnected() {
+							msc.scanFile(localPath, "video/*");
+						}
+					});
+
+
 		if(progressDialog == null){
-		    progressDialog = new ProgressDialog(this);
-		    progressDialog.setMessage("processing...");
-		    progressDialog.setCancelable(false);
+			progressDialog = new ProgressDialog(this);
+			progressDialog.setMessage("processing...");
+			progressDialog.setCancelable(false);
 		}
 		progressDialog.show();
 		msc.connect();
@@ -514,7 +514,7 @@ public class RecorderVideoActivity extends BaseActivity implements
 
 								@Override
 								public void onClick(DialogInterface arg0,
-										int arg1) {
+													int arg1) {
 									arg0.dismiss();
 									sendVideo(null);
 
@@ -575,28 +575,28 @@ public class RecorderVideoActivity extends BaseActivity implements
 
 							@Override
 							public void onClick(DialogInterface dialog,
-									int which) {
+												int which) {
 								finish();
 
 							}
 						}).setCancelable(false).show();
 
 	}
-	
+
 	private void showNoSDCardDialog() {
-	    new AlertDialog.Builder(this)
-        .setTitle(R.string.prompt)
-        .setMessage("No sd card!")
-        .setPositiveButton(R.string.ok,
-                new DialogInterface.OnClickListener() {
+		new AlertDialog.Builder(this)
+				.setTitle(R.string.prompt)
+				.setMessage("No sd card!")
+				.setPositiveButton(R.string.ok,
+						new DialogInterface.OnClickListener() {
 
-                    @Override
-                    public void onClick(DialogInterface dialog,
-                            int which) {
-                        finish();
+							@Override
+							public void onClick(DialogInterface dialog,
+												int which) {
+								finish();
 
-                    }
-                }).setCancelable(false).show();
+							}
+						}).setCancelable(false).show();
 	}
 
 }
