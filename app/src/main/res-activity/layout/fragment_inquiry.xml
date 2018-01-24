@@ -1,9 +1,739 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.laiding.yl.youle.inquiry.fragment.FragmentInquiry"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.laiding.yl.youle.inquiry.fragment.FragmentInquiry">
+
+    <include layout="@layout/layout_head" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_FAFAFA"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/margin_16">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_20"
+                    android:src="@mipmap/icon_inquiry_tupian" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_5"
+                    android:text="免费问医生"
+                    android:textColor="@color/color_1e1e1e"
+                    android:textSize="@dimen/text_small_title"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_5"
+                    android:text="备孕问题，快速解答"
+                    android:textColor="@color/color_505050" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="@dimen/margin_6"
+                android:background="@color/colorWhite"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/margin_16"
+                android:text="子宫问题"
+                android:textColor="@color/color_1e1e1e"
+                android:textSize="@dimen/text_small_title"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_1"
+                android:background="@color/colorWhite"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/margin_8"
+                android:paddingLeft="@dimen/margin_16"
+                android:paddingRight="@dimen/margin_16"
+                android:paddingTop="@dimen/margin_8">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/margin_8">
+
+                    <TextView
+                        android:id="@+id/tv_gwy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/tvbg_home_top"
+                        android:paddingBottom="@dimen/margin_4"
+                        android:paddingLeft="@dimen/margin_20"
+                        android:paddingRight="@dimen/margin_20"
+                        android:paddingTop="@dimen/margin_4"
+                        android:text="宫外孕"
+                        android:textColor="@color/color_1d1d1d" />
+
+                    <TextView
+                        android:id="@+id/tv_zgjx"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_8"
+                        android:background="@drawable/tvbg_home_top"
+                        android:paddingBottom="@dimen/margin_4"
+                        android:paddingLeft="@dimen/margin_20"
+                        android:paddingRight="@dimen/margin_20"
+                        android:paddingTop="@dimen/margin_4"
+                        android:text="子宫畸形"
+                        android:textColor="@color/color_1d1d1d" />
+
+                    <TextView
+                        android:id="@+id/tv_zgnmb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_8"
+                        android:background="@drawable/tvbg_home_top"
+                        android:paddingBottom="@dimen/margin_4"
+                        android:paddingLeft="@dimen/margin_20"
+                        android:paddingRight="@dimen/margin_20"
+                        android:paddingTop="@dimen/margin_4"
+                        android:text="子宫内膜薄"
+                        android:textColor="@color/color_1d1d1d" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/margin_8">
+
+                    <TextView
+                        android:id="@+id/tv_zgnmxr"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/tvbg_home_top"
+                        android:paddingBottom="@dimen/margin_4"
+                        android:paddingLeft="@dimen/margin_20"
+                        android:paddingRight="@dimen/margin_20"
+                        android:paddingTop="@dimen/margin_4"
+                        android:text="子宫内膜息肉"
+                        android:textColor="@color/color_1d1d1d" />
+
+                    <TextView
+                        android:id="@+id/tv_zgnmzs"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_8"
+                        android:background="@drawable/tvbg_home_top"
+                        android:paddingBottom="@dimen/margin_4"
+                        android:paddingLeft="@dimen/margin_20"
+                        android:paddingRight="@dimen/margin_20"
+                        android:paddingTop="@dimen/margin_4"
+                        android:text="子宫内膜增生"
+                        android:textColor="@color/color_1d1d1d" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/margin_8">
+
+                    <TextView
+                        android:id="@+id/tv_zgjl"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/tvbg_home_top"
+                        android:paddingBottom="@dimen/margin_4"
+                        android:paddingLeft="@dimen/margin_20"
+                        android:paddingRight="@dimen/margin_20"
+                        android:paddingTop="@dimen/margin_4"
+                        android:text="子宫肌瘤"
+                        android:textColor="@color/color_1d1d1d" />
+
+                    <TextView
+                        android:id="@+id/tv_zgll"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_8"
+                        android:background="@drawable/tvbg_home_top"
+                        android:paddingBottom="@dimen/margin_4"
+                        android:paddingLeft="@dimen/margin_20"
+                        android:paddingRight="@dimen/margin_20"
+                        android:paddingTop="@dimen/margin_4"
+                        android:text="宫腔黏连"
+                        android:textColor="@color/color_1d1d1d" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="@dimen/margin_6"
+                android:background="@color/colorWhite"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/margin_16"
+                android:text="卵巢问题"
+                android:textColor="@color/color_1e1e1e"
+                android:textSize="@dimen/text_small_title"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_1"
+                android:background="@color/colorWhite"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/margin_8"
+                android:paddingLeft="@dimen/margin_16"
+                android:paddingRight="@dimen/margin_16"
+                android:paddingTop="@dimen/margin_8">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/margin_8">
+
+                    <TextView
+                        android:id="@+id/tv_lcfybh"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/tvbg_home_top"
+                        android:paddingBottom="@dimen/margin_4"
+                        android:paddingLeft="@dimen/margin_20"
+                        android:paddingRight="@dimen/margin_20"
+                        android:paddingTop="@dimen/margin_4"
+                        android:text="卵巢发育不好"
+                        android:textColor="@color/color_1d1d1d" />
+
+                    <TextView
+                        android:id="@+id/tv_dnlc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_8"
+                        android:background="@drawable/tvbg_home_top"
+                        android:paddingBottom="@dimen/margin_4"
+                        android:paddingLeft="@dimen/margin_20"
+                        android:paddingRight="@dimen/margin_20"
+                        android:paddingTop="@dimen/margin_4"
+                        android:text="多囊卵巢"
+                        android:textColor="@color/color_1d1d1d" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/margin_8">
+
+                    <TextView
+                        android:id="@+id/tv_lczs"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/tvbg_home_top"
+                        android:paddingBottom="@dimen/margin_4"
+                        android:paddingLeft="@dimen/margin_20"
+                        android:paddingRight="@dimen/margin_20"
+                        android:paddingTop="@dimen/margin_4"
+                        android:text="卵巢早衰"
+                        android:textColor="@color/color_1d1d1d" />
+
+                    <TextView
+                        android:id="@+id/tv_lcnz"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_8"
+                        android:background="@drawable/tvbg_home_top"
+                        android:paddingBottom="@dimen/margin_4"
+                        android:paddingLeft="@dimen/margin_20"
+                        android:paddingRight="@dimen/margin_20"
+                        android:paddingTop="@dimen/margin_4"
+                        android:text="卵巢囊肿"
+                        android:textColor="@color/color_1d1d1d" />
+
+                    <TextView
+                        android:id="@+id/tv_nyqn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_8"
+                        android:background="@drawable/tvbg_home_top"
+                        android:paddingBottom="@dimen/margin_4"
+                        android:paddingLeft="@dimen/margin_20"
+                        android:paddingRight="@dimen/margin_20"
+                        android:paddingTop="@dimen/margin_4"
+                        android:text="内异巧囊"
+                        android:textColor="@color/color_1d1d1d" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="@dimen/margin_6"
+                android:background="@color/colorWhite"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/margin_16"
+                android:text="流产问题"
+                android:textColor="@color/color_1e1e1e"
+                android:textSize="@dimen/text_small_title"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_1"
+                android:background="@color/colorWhite"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/margin_8"
+                android:paddingLeft="@dimen/margin_16"
+                android:paddingRight="@dimen/margin_16"
+                android:paddingTop="@dimen/margin_8">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/margin_8">
+
+                    <TextView
+                        android:id="@+id/tv_dcttlc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/tvbg_home_top"
+                        android:paddingBottom="@dimen/margin_4"
+                        android:paddingLeft="@dimen/margin_20"
+                        android:paddingRight="@dimen/margin_20"
+                        android:paddingTop="@dimen/margin_4"
+                        android:text="多次胎停流产"
+                        android:textColor="@color/color_1d1d1d" />
+
+                    <TextView
+                        android:id="@+id/tv_zrlc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_8"
+                        android:background="@drawable/tvbg_home_top"
+                        android:paddingBottom="@dimen/margin_4"
+                        android:paddingLeft="@dimen/margin_20"
+                        android:paddingRight="@dimen/margin_20"
+                        android:paddingTop="@dimen/margin_4"
+                        android:text="自然流产"
+                        android:textColor="@color/color_1d1d1d" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/margin_8">
+
+                    <TextView
+                        android:id="@+id/tv_xzlc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/tvbg_home_top"
+                        android:paddingBottom="@dimen/margin_4"
+                        android:paddingLeft="@dimen/margin_20"
+                        android:paddingRight="@dimen/margin_20"
+                        android:paddingTop="@dimen/margin_4"
+                        android:text="先兆流产"
+                        android:textColor="@color/color_1d1d1d" />
+
+                    <TextView
+                        android:id="@+id/tv_xgxlc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_8"
+                        android:background="@drawable/tvbg_home_top"
+                        android:paddingBottom="@dimen/margin_4"
+                        android:paddingLeft="@dimen/margin_20"
+                        android:paddingRight="@dimen/margin_20"
+                        android:paddingTop="@dimen/margin_4"
+                        android:text="习惯性流产"
+                        android:textColor="@color/color_1d1d1d" />
+
+                    <TextView
+                        android:id="@+id/tv_shrs"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_8"
+                        android:background="@drawable/tvbg_home_top"
+                        android:paddingBottom="@dimen/margin_4"
+                        android:paddingLeft="@dimen/margin_20"
+                        android:paddingRight="@dimen/margin_20"
+                        android:paddingTop="@dimen/margin_4"
+                        android:text="生化妊娠"
+                        android:textColor="@color/color_1d1d1d" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="@dimen/margin_6"
+                android:background="@color/colorWhite"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/margin_16"
+                android:text="输卵管问题"
+                android:textColor="@color/color_1e1e1e"
+                android:textSize="@dimen/text_small_title"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_1"
+                android:background="@color/colorWhite"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/margin_8"
+                android:paddingLeft="@dimen/margin_16"
+                android:paddingRight="@dimen/margin_16"
+                android:paddingTop="@dimen/margin_8">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/margin_8">
+
+                    <TextView
+                        android:id="@+id/tv_slgwt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/tvbg_home_top"
+                        android:paddingBottom="@dimen/margin_4"
+                        android:paddingLeft="@dimen/margin_20"
+                        android:paddingRight="@dimen/margin_20"
+                        android:paddingTop="@dimen/margin_4"
+                        android:text="输卵管问题"
+                        android:textColor="@color/color_1d1d1d" />
+
+                    <TextView
+                        android:id="@+id/tv_slgtrbc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_8"
+                        android:background="@drawable/tvbg_home_top"
+                        android:paddingBottom="@dimen/margin_4"
+                        android:paddingLeft="@dimen/margin_20"
+                        android:paddingRight="@dimen/margin_20"
+                        android:paddingTop="@dimen/margin_4"
+                        android:text="输卵管通而不畅"
+                        android:textColor="@color/color_1d1d1d" />
+
+                </LinearLayout>
 
 
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="@dimen/margin_6"
+                android:background="@color/colorWhite"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/margin_16"
+                android:text="内分泌问题"
+                android:textColor="@color/color_1e1e1e"
+                android:textSize="@dimen/text_small_title"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_1"
+                android:background="@color/colorWhite"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/margin_8"
+                android:paddingLeft="@dimen/margin_16"
+                android:paddingRight="@dimen/margin_16"
+                android:paddingTop="@dimen/margin_8">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/margin_8">
+
+                    <TextView
+                        android:id="@+id/tv_jslxwt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/tvbg_home_top"
+                        android:paddingBottom="@dimen/margin_4"
+                        android:paddingLeft="@dimen/margin_20"
+                        android:paddingRight="@dimen/margin_20"
+                        android:paddingTop="@dimen/margin_4"
+                        android:text="激素六项问题"
+                        android:textColor="@color/color_1d1d1d" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="@dimen/margin_6"
+                android:background="@color/colorWhite"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/margin_16"
+                android:text="男士问题"
+                android:textColor="@color/color_1e1e1e"
+                android:textSize="@dimen/text_small_title"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_1"
+                android:background="@color/colorWhite"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/margin_8"
+                android:paddingLeft="@dimen/margin_16"
+                android:paddingRight="@dimen/margin_16"
+                android:paddingTop="@dimen/margin_8">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/margin_8">
+
+                    <TextView
+                        android:id="@+id/tv_rj"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/tvbg_home_top"
+                        android:paddingBottom="@dimen/margin_4"
+                        android:paddingLeft="@dimen/margin_20"
+                        android:paddingRight="@dimen/margin_20"
+                        android:paddingTop="@dimen/margin_4"
+                        android:text="弱精"
+                        android:textColor="@color/color_1d1d1d" />
+
+                    <TextView
+                        android:layout_marginLeft="@dimen/margin_8"
+                        android:id="@+id/tv_qlxy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/tvbg_home_top"
+                        android:paddingBottom="@dimen/margin_4"
+                        android:paddingLeft="@dimen/margin_20"
+                        android:paddingRight="@dimen/margin_20"
+                        android:paddingTop="@dimen/margin_4"
+                        android:text="前列腺炎"
+                        android:textColor="@color/color_1d1d1d" />
+
+                    <TextView
+                        android:layout_marginLeft="@dimen/margin_8"
+                        android:id="@+id/tv_jzjx"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/tvbg_home_top"
+                        android:paddingBottom="@dimen/margin_4"
+                        android:paddingLeft="@dimen/margin_20"
+                        android:paddingRight="@dimen/margin_20"
+                        android:paddingTop="@dimen/margin_4"
+                        android:text="精子畸形"
+                        android:textColor="@color/color_1d1d1d" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/margin_8">
+
+                    <TextView
+                        android:id="@+id/tv_sj"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/tvbg_home_top"
+                        android:paddingBottom="@dimen/margin_4"
+                        android:paddingLeft="@dimen/margin_20"
+                        android:paddingRight="@dimen/margin_20"
+                        android:paddingTop="@dimen/margin_4"
+                        android:text="少精"
+                        android:textColor="@color/color_1d1d1d" />
+
+                    <TextView
+                        android:layout_marginLeft="@dimen/margin_8"
+                        android:id="@+id/tv_sijin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/tvbg_home_top"
+                        android:paddingBottom="@dimen/margin_4"
+                        android:paddingLeft="@dimen/margin_20"
+                        android:paddingRight="@dimen/margin_20"
+                        android:paddingTop="@dimen/margin_4"
+                        android:text="死精"
+                        android:textColor="@color/color_1d1d1d" />
+
+                    <TextView
+                        android:id="@+id/tv_ldlz"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_8"
+                        android:background="@drawable/tvbg_home_top"
+                        android:paddingBottom="@dimen/margin_4"
+                        android:paddingLeft="@dimen/margin_20"
+                        android:paddingRight="@dimen/margin_20"
+                        android:paddingTop="@dimen/margin_4"
+                        android:text="冷冻卵子"
+                        android:textColor="@color/color_1d1d1d" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/margin_8">
+
+                    <TextView
+                        android:id="@+id/tv_jzbyh"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/tvbg_home_top"
+                        android:paddingBottom="@dimen/margin_4"
+                        android:paddingLeft="@dimen/margin_20"
+                        android:paddingRight="@dimen/margin_20"
+                        android:paddingTop="@dimen/margin_4"
+                        android:text="精子不液化"
+                        android:textColor="@color/color_1d1d1d" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="@dimen/margin_6"
+                android:background="@color/colorWhite"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/margin_16"
+                android:text="其他问题"
+                android:textColor="@color/color_1e1e1e"
+                android:textSize="@dimen/text_small_title"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_1"
+                android:background="@color/colorWhite"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/margin_8"
+                android:paddingLeft="@dimen/margin_16"
+                android:paddingRight="@dimen/margin_16"
+                android:paddingTop="@dimen/margin_8">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/margin_8">
+
+                    <TextView
+                        android:id="@+id/tv_rtby"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/tvbg_home_top"
+                        android:paddingBottom="@dimen/margin_4"
+                        android:paddingLeft="@dimen/margin_20"
+                        android:paddingRight="@dimen/margin_20"
+                        android:paddingTop="@dimen/margin_4"
+                        android:text="二胎备孕"
+                        android:textColor="@color/color_1d1d1d" />
+
+                    <TextView
+                        android:id="@+id/tv_snsn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_8"
+                        android:background="@drawable/tvbg_home_top"
+                        android:paddingBottom="@dimen/margin_4"
+                        android:paddingLeft="@dimen/margin_20"
+                        android:paddingRight="@dimen/margin_20"
+                        android:paddingTop="@dimen/margin_4"
+                        android:text="生男生女"
+                        android:textColor="@color/color_1d1d1d" />
+
+                    <TextView
+                        android:id="@+id/tv_fjsz"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_8"
+                        android:background="@drawable/tvbg_home_top"
+                        android:paddingBottom="@dimen/margin_4"
+                        android:paddingLeft="@dimen/margin_20"
+                        android:paddingRight="@dimen/margin_20"
+                        android:paddingTop="@dimen/margin_4"
+                        android:text="赴美生子"
+                        android:textColor="@color/color_1d1d1d" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/margin_8">
+
+                    <TextView
+                        android:id="@+id/tv_hfdy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/tvbg_home_top"
+                        android:paddingBottom="@dimen/margin_4"
+                        android:paddingLeft="@dimen/margin_20"
+                        android:paddingRight="@dimen/margin_20"
+                        android:paddingTop="@dimen/margin_4"
+                        android:text="合法代孕"
+                        android:textColor="@color/color_1d1d1d" />
+
+                    <TextView
+                        android:id="@+id/tv_hfgr"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_8"
+                        android:background="@drawable/tvbg_home_top"
+                        android:paddingBottom="@dimen/margin_4"
+                        android:paddingLeft="@dimen/margin_20"
+                        android:paddingRight="@dimen/margin_20"
+                        android:paddingTop="@dimen/margin_4"
+                        android:text="合法供卵"
+                        android:textColor="@color/color_1d1d1d" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

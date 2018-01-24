@@ -25,7 +25,7 @@ public class AdapterHomeFragement extends BaseQuickAdapter<ForumPostsBean, BaseV
 
     @Override
     protected void convert(BaseViewHolder helper, ForumPostsBean item) {
-        helper.setText(R.id.title_tv, "11111111111");
+        helper.setText(R.id.title_tv, "假如风不停");
         GlideImageView imageView = helper.getView(R.id.pic_iv);
         imageView.loadImage("https://www.zhuangbi.info/uploads/i/2017-12-27-33edf85858c00f22a9ec69c1037eb88b.jpg",R.mipmap.ic_launcher);
 

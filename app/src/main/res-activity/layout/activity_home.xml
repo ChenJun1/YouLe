@@ -11,8 +11,6 @@
     tools:context=".home.activty.ActivityHome">
 
 
-    <!--<include layout="@layout/layout_head"/>-->
-
     <android.support.v4.view.ViewPager
         android:id="@+id/home_vp"
         android:layout_width="match_parent"
@@ -75,9 +73,9 @@
             android:layout_weight="1"
             android:background="#FFFFFF"
             android:padding="5dp"
-            app:tabIconNormal="@mipmap/home_icon_shequ"
-            app:tabIconSelected="@mipmap/home_icon_shequ_2"
-            app:tabText="@string/home_community"
+            app:tabIconNormal="@mipmap/home_icon_zixunheise"
+            app:tabIconSelected="@mipmap/home_icon_zixun"
+            app:tabText="@string/home_information"
             app:tabTextSize="13sp"
             app:textColorNormal="@color/color_545454"
             app:textColorSelected="@color/color_f993a6" />

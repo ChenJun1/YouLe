@@ -1,6 +1,8 @@
 package com.laiding.yl.youle.login.activity;
 
 import android.animation.ObjectAnimator;
+import android.content.Context;
+import android.content.Intent;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -42,6 +44,10 @@ import butterknife.OnClick;
  */
 
 public class ActivityPhoneLogin extends MyBaseActivity implements ILoginView {
+    public static void start(Context context) {
+        Intent starter = new Intent(context, ActivityPhoneLogin.class);
+        context.startActivity(starter);
+    }
     @BindView(R.id.login_bt)
     Button loginBt;
     @BindView(R.id.countDown)
@@ -171,6 +177,7 @@ public class ActivityPhoneLogin extends MyBaseActivity implements ILoginView {
     @Override
     public void toChat() {
         ActivityHome.start(this);
+        this.finish();
     }
 
 

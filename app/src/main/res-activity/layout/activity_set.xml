@@ -57,6 +57,13 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/margin_45" />
 
-
+        <Button
+            android:id="@+id/btn_out_login"
+            android:textColor="@color/color_1d1d1d"
+            android:text="退出账号"
+            android:background="@color/colorWhite"
+            android:layout_marginTop="@dimen/margin_40"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/margin_45" />
 
 </LinearLayout>

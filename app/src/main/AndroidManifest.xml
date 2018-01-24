@@ -28,11 +28,11 @@
 
 
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:name=".MyApplication"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".login.activity.ActivityPhoneLogin">
@@ -44,25 +44,27 @@
         </activity>
 
 
-
         <!-- 设置环信应用的AppKey -->
-        <meta-data android:name="EASEMOB_APPKEY"
+        <meta-data
+            android:name="EASEMOB_APPKEY"
             android:value="1193171229115612#youle" />
         <!-- 声明SDK所需的service SDK核心功能-->
-        <service android:name="com.hyphenate.chat.EMChatService" android:exported="true"/>
-        <service android:name="com.hyphenate.chat.EMJobService"
-            android:permission="android.permission.BIND_JOB_SERVICE"
+        <service
+            android:name="com.hyphenate.chat.EMChatService"
+            android:exported="true" />
+        <service
+            android:name="com.hyphenate.chat.EMJobService"
             android:exported="true"
-            />
+            android:permission="android.permission.BIND_JOB_SERVICE" />
         <!-- 声明SDK所需的receiver -->
         <receiver android:name="com.hyphenate.chat.EMMonitorReceiver">
             <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_REMOVED"/>
-                <data android:scheme="package"/>
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+                <data android:scheme="package" />
             </intent-filter>
             <!-- 可选filter -->
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.USER_PRESENT" />
             </intent-filter>
         </receiver>
@@ -76,11 +78,13 @@
             android:theme="@style/horizontal_slide"
             android:windowSoftInputMode="adjustResize" />
         <!-- choose video -->
-        <activity android:name=".im.activity.ImageGridActivity"
+        <activity
+            android:name=".im.activity.ImageGridActivity"
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide"
-            android:windowSoftInputMode="stateAlwaysHidden"/>
-        <activity android:name=".im.activity.RecorderVideoActivity"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".im.activity.RecorderVideoActivity"
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide"
             android:windowSoftInputMode="stateAlwaysHidden" />
@@ -105,50 +109,67 @@
 
         <!--=========即时通讯=============================================================-->
         <!-- 首页 -->
-        <activity android:name=".home.activty.ActivityHome"
-            android:windowSoftInputMode="adjustPan|stateAlwaysHidden"
+        <activity
+            android:name=".home.activty.ActivityHome"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
         <!-- 密码登陆 -->
-        <activity android:name=".login.activity.ActivityPassLogin"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".login.activity.ActivityPassLogin"
+            android:screenOrientation="portrait" />
         <!-- 找回密码 -->
-        <activity android:name=".login.activity.ActivityGetPassWord"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".login.activity.ActivityGetPassWord"
+            android:screenOrientation="portrait" />
         <!--重置密码-->
-        <activity android:name=".login.activity.ActivityReSetPassWord"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".login.activity.ActivityReSetPassWord"
+            android:screenOrientation="portrait" />
         <!-- 试管婴儿流程 -->
-        <activity android:name=".home.activty.ActivityTestTubeBabyProcess"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".home.activty.ActivityTestTubeBabyProcess"
+            android:screenOrientation="portrait" />
         <!-- 试管婴儿成功率-->
-        <activity android:name=".home.activty.ActivityIVFSuccessRate"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".home.activty.ActivityIVFSuccessRate"
+            android:screenOrientation="portrait" />
         <!-- 诊疗记录 -->
-        <activity android:name=".home.activty.ActivityMedicalRecords"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".home.activty.ActivityMedicalRecords"
+            android:screenOrientation="portrait" />
         <!-- 饮食助手 -->
-        <activity android:name=".home.activty.ActivityDietAssistant"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".home.activty.ActivityDietAssistant"
+            android:screenOrientation="portrait" />
         <!-- 好孕指导-->
-        <activity android:name=".home.activty.ActivityGoodPregnancyGuidance"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".home.activty.ActivityGoodPregnancyGuidance"
+            android:screenOrientation="portrait" />
         <!-- 备孕检查-->
-        <activity android:name=".home.activty.ActivityPregnancyTest"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".home.activty.ActivityPregnancyTest"
+            android:screenOrientation="portrait" />
         <!-- 试管指导-->
-        <activity android:name=".home.activty.ActivityTestTubeGuidance"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".home.activty.ActivityTestTubeGuidance"
+            android:screenOrientation="portrait" />
         <!-- 合法代孕-->
-        <activity android:name=".home.activty.ActivityLegitimateSurrogacy"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".home.activty.ActivityLegitimateSurrogacy"
+            android:screenOrientation="portrait" />
         <!-- 设置-->
-        <activity android:name=".mine.activity.ActivitySet"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".mine.activity.ActivitySet"
+            android:screenOrientation="portrait" />
         <!-- 个人资料-->
-        +
-        <activity android:name=".mine.activity.ActivityPersonalInformation"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".mine.activity.ActivityPersonalInformation"
+            android:screenOrientation="portrait" />
+        <!-- 资讯详情-->
+        <activity
+            android:name=".Information.activity.ActivityInformationDetail"
+            android:screenOrientation="portrait" />
 
     </application>
 

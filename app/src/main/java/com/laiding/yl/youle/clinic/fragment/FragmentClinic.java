@@ -45,6 +45,7 @@ public class FragmentClinic extends MyBaseFragment implements IFragmentClinic {
         fragment.setArguments(args);
         return fragment;
     }
+
     @BindView(R.id.et_search)
     EditText mEtSearch;
     @BindView(R.id.iv_clean_phone)
@@ -83,6 +84,10 @@ public class FragmentClinic extends MyBaseFragment implements IFragmentClinic {
     }
 
     private void initStringArray() {
+        areaList.clear();
+        gradeList.clear();
+        serviceList.clear();
+
         areaList.add("地区");
         areaList.add("上海");
         areaList.add("北京");

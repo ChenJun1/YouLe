@@ -7,8 +7,10 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.ui.EaseChatFragment;
+import com.laiding.yl.youle.Information.fragment.FragmentInformation;
 import com.laiding.yl.youle.clinic.fragment.FragmentClinic;
 import com.laiding.yl.youle.home.fragment.FragmentHome;
+import com.laiding.yl.youle.inquiry.fragment.FragmentInquiry;
 import com.laiding.yl.youle.mine.fragment.FragmentMine;
 
 import java.util.ArrayList;
@@ -31,8 +33,8 @@ public class AdapterHomeViewPage extends FragmentPagerAdapter{
         fragment.setArguments(bundle);
         list.add(FragmentHome.newInstance());
         list.add(FragmentClinic.newInstance());
-        list.add(new FragmentHome());
-        list.add(new FragmentHome());
+        list.add(FragmentInquiry.newInstance());
+        list.add(FragmentInformation.newInstance());
         list.add(FragmentMine.newInstance());
     }
 

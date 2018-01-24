@@ -1,18 +1,23 @@
 package com.laiding.yl.youle.home.activty;
 
 import android.annotation.TargetApi;
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
+import android.widget.Toast;
 
 import com.laiding.yl.mvprxretrofitlibrary.base.BaseFragmentActivity;
+import com.laiding.yl.mvprxretrofitlibrary.manager.ActivityStackManager;
+import com.laiding.yl.youle.MyApplication;
 import com.laiding.yl.youle.R;
 import com.laiding.yl.youle.base.MyBaseFragmentActivity;
 import com.laiding.yl.youle.home.adapter.AdapterHomeViewPage;
 import com.laiding.yl.youle.runtimepermissions.PermissionsManager;
 import com.laiding.yl.youle.runtimepermissions.PermissionsResultAction;
+import com.vondear.rxtools.RxAppTool;
 import com.yinglan.alphatabs.AlphaTabsIndicator;
 
 import butterknife.BindView;
@@ -32,7 +37,9 @@ public class ActivityHome extends MyBaseFragmentActivity {
     ViewPager homeVp;
     @BindView(R.id.alphaIndicator)
     AlphaTabsIndicator alphaIndicator;
-
+    //双击返回键 退出
+    private static final int TIME_INTERVAL = 2000; // # milliseconds, desired time passed between two back presses.
+    private long mBackPressed;
     @Override
     protected int getContentViewId() {
         return R.layout.activity_home;
@@ -55,10 +62,8 @@ public class ActivityHome extends MyBaseFragmentActivity {
             @Override
             public void onPageSelected(int position) {
                 if (0 == position) {
-                    setTitle("");
                     alphaIndicator.getTabView(0).showNumber(alphaIndicator.getTabView(0).getBadgeNumber() - 1);
                 }else if(1==position){
-                    setTitle("问诊");
                 }else if (2 == position) {
                     alphaIndicator.getCurrentItemView().removeShow();
                 } else if (3 == position) {
@@ -104,6 +109,19 @@ public class ActivityHome extends MyBaseFragmentActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
         PermissionsManager.getInstance().notifyPermissionsChange(permissions, grantResults);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mBackPressed + TIME_INTERVAL > System.currentTimeMillis()) {
+            ActivityStackManager.getManager().finishAllActivity();
+            ActivityStackManager.getManager().exitApp(MyApplication.app);
+            super.onBackPressed();
+            return;
+        } else {
+            Toast.makeText(getBaseContext(), "再次点击返回键退出", Toast.LENGTH_SHORT).show();
+        }
+        mBackPressed = System.currentTimeMillis();
     }
 
 }

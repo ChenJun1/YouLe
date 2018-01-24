@@ -4,14 +4,14 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemChildClickListener;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.laiding.yl.mvprxretrofitlibrary.utlis.LogUtils;
+import com.laiding.yl.youle.Information.activity.ActivityInformationDetail;
 import com.laiding.yl.youle.MyApplication;
 import com.laiding.yl.youle.R;
 import com.laiding.yl.youle.base.MyBaseFragment;
@@ -27,7 +27,6 @@ import com.laiding.yl.youle.home.adapter.AdapterHomeFragement;
 import com.laiding.yl.youle.home.entity.ForumPostsBean;
 import com.laiding.yl.youle.home.fragment.view.IHomeFragment;
 import com.laiding.yl.youle.home.presenter.PresenterHomeFragment;
-import com.laiding.yl.youle.im.activity.ActivityChat;
 import com.laiding.yl.youle.login.entity.UserBean;
 import com.laiding.yl.youle.widget.MyItemDecoration;
 
@@ -35,9 +34,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
 
 
 /**
@@ -46,16 +42,11 @@ import butterknife.Unbinder;
  */
 
 public class FragmentHome extends MyBaseFragment implements IHomeFragment {
-    @BindView(R.id.tv_title)
-    TextView mTvTitle;
-    @BindView(R.id.tv_bar_right)
-    TextView mTvBarRight;
+
     @BindView(R.id.home_rl)
     RecyclerView homeRl;
     @BindView(R.id.swipeLayout)
     SwipeRefreshLayout swipeLayout;
-    @BindView(R.id.ll_top_head)
-    LinearLayout mLlTopHead;
 
     public static FragmentHome newInstance() {
 
@@ -80,18 +71,12 @@ public class FragmentHome extends MyBaseFragment implements IHomeFragment {
     protected void init() {
         presenter.login("ruffian", "EA8A706C4C34A168");
 
-        initbar();
         initAdapter();
         addHeadView();
         initRefresh();
     }
 
-    private void initbar() {
-        mLlTopHead.setVisibility(View.GONE);
-        mTvTitle.setVisibility(View.VISIBLE);
-        mTvBarRight.setVisibility(View.VISIBLE);
-        mTvTitle.setText("首页");
-    }
+
 
     /**
      * 初始化刷新控件
@@ -223,6 +208,13 @@ public class FragmentHome extends MyBaseFragment implements IHomeFragment {
             }
         }, homeRl);
         homeRl.setAdapter(adapter);
+
+        homeRl.addOnItemTouchListener(new OnItemClickListener() {
+            @Override
+            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                ActivityInformationDetail.start(mContext);
+            }
+        });
     }
 
     /**
@@ -277,12 +269,6 @@ public class FragmentHome extends MyBaseFragment implements IHomeFragment {
 //        } else {
 //            mAdapter.loadMoreComplete();
 //        }
-    }
-
-
-    @OnClick(R.id.tv_bar_right)
-    public void onViewClicked() {
-        ActivityChat.start(mContext, "8899");
     }
 
 }
