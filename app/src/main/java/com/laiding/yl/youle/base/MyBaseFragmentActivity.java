@@ -3,6 +3,7 @@ package com.laiding.yl.youle.base;
 import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -13,7 +14,10 @@ import android.widget.TextView;
 
 import com.laiding.yl.mvprxretrofitlibrary.base.BaseFragmentActivity;
 import com.laiding.yl.youle.R;
+import com.sunfusheng.glideimageview.GlideImageView;
 import com.vondear.rxtools.RxBarTool;
+
+import org.w3c.dom.Text;
 
 import static com.vondear.rxtools.RxBarTool.getStatusBarHeight;
 
@@ -58,6 +62,24 @@ public abstract class MyBaseFragmentActivity extends BaseFragmentActivity {
                 }
             });
         }
+    }
+
+    /**
+     * 头部右侧文字
+     * @param
+     */
+    protected void setRightText(TextView mText,String content){
+        mText.setText(content);
+        mText.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * 头部右侧图标
+     * @param
+     */
+    protected void setRightImag(GlideImageView mBarRightImgView,@DrawableRes int resId){
+        mBarRightImgView.loadLocalImage(resId, resId);
+        mBarRightImgView.setVisibility(View.VISIBLE);
     }
 
     /**

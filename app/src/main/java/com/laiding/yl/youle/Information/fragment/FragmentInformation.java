@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -18,7 +17,7 @@ import com.laiding.yl.mvprxretrofitlibrary.utlis.LogUtils;
 import com.laiding.yl.youle.Information.activity.ActivityInformationDetail;
 import com.laiding.yl.youle.Information.adapter.AdapterInformationFragment;
 import com.laiding.yl.youle.Information.fragment.view.IInformationFragment;
-import com.laiding.yl.youle.Information.presenter.PresenterInformationFragment;
+import com.laiding.yl.youle.Information.presenter.PresenterInformation;
 import com.laiding.yl.youle.MyApplication;
 import com.laiding.yl.youle.R;
 import com.laiding.yl.youle.base.MyBaseFragment;
@@ -58,7 +57,7 @@ public class FragmentInformation extends MyBaseFragment implements IInformationF
     private AdapterInformationFragment adapter;
     private List<ForumPostsBean> list = new ArrayList<>();
     private boolean isRefresh = true;
-    private PresenterInformationFragment mPresenter = new PresenterInformationFragment(this, this);
+    private PresenterInformation mPresenter = new PresenterInformation(this, this);
 
     @Override
     protected int getContentViewId() {

@@ -26,8 +26,8 @@ import io.reactivex.disposables.Disposable;
  * Remarks
  */
 
-public class PresenterHomeFragment extends MyBaseFrgPresenter<IHomeFragment,FragmentHome> {
-    private static final String TAG = "PresenterHomeFragment";
+public class PresenterHome extends MyBaseFrgPresenter<IHomeFragment,FragmentHome> {
+    private static final String TAG = "PresenterHome";
     private static String calanderEventURL = null;
     static {
         if (Integer.parseInt(Build.VERSION.SDK) >= 8) {
@@ -36,7 +36,7 @@ public class PresenterHomeFragment extends MyBaseFrgPresenter<IHomeFragment,Frag
             calanderEventURL = "content://calendar/events";
         }
     }
-    public PresenterHomeFragment(FragmentHome view, FragmentHome fragmet) {
+    public PresenterHome(FragmentHome view, FragmentHome fragmet) {
         super(view, fragmet);
     }
 

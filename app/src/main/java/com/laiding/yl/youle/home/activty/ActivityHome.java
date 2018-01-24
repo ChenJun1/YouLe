@@ -1,15 +1,12 @@
 package com.laiding.yl.youle.home.activty;
 
 import android.annotation.TargetApi;
-import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.widget.Toast;
 
-import com.laiding.yl.mvprxretrofitlibrary.base.BaseFragmentActivity;
 import com.laiding.yl.mvprxretrofitlibrary.manager.ActivityStackManager;
 import com.laiding.yl.youle.MyApplication;
 import com.laiding.yl.youle.R;
@@ -17,7 +14,6 @@ import com.laiding.yl.youle.base.MyBaseFragmentActivity;
 import com.laiding.yl.youle.home.adapter.AdapterHomeViewPage;
 import com.laiding.yl.youle.runtimepermissions.PermissionsManager;
 import com.laiding.yl.youle.runtimepermissions.PermissionsResultAction;
-import com.vondear.rxtools.RxAppTool;
 import com.yinglan.alphatabs.AlphaTabsIndicator;
 
 import butterknife.BindView;

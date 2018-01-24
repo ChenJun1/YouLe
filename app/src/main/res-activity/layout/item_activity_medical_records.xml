@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:paddingLeft="@dimen/margin_16"
+    android:paddingRight="@dimen/margin_16"
+    android:layout_width="match_parent"
+    android:background="@color/color_FAFAFA"
+    android:gravity="center_vertical"
+    android:layout_height="50dp">
+
+    <TextView
+        android:textColor="#f993a6"
+        android:padding="@dimen/margin_8"
+        android:background="@drawable/tv_medical_records"
+        android:text="2018-01-11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:background="#f993a6"
+        android:layout_width="@dimen/margin_30"
+        android:layout_height="@dimen/margin_1" />
+    <ImageView
+        android:src="@mipmap/icon_anniu_fuxuan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:background="#f993a6"
+        android:layout_width="@dimen/margin_30"
+        android:layout_height="@dimen/margin_1" />
+    <TextView
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:textColor="#f993a6"
+        android:padding="@dimen/margin_8"
+        android:background="@drawable/tv_medical_records"
+        android:text="输卵管整形术"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content" />
+</LinearLayout>

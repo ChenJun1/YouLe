@@ -1,12 +1,9 @@
 package com.laiding.yl.youle.home.adapter;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.hyphenate.easeui.EaseConstant;
-import com.hyphenate.easeui.ui.EaseChatFragment;
 import com.laiding.yl.youle.Information.fragment.FragmentInformation;
 import com.laiding.yl.youle.clinic.fragment.FragmentClinic;
 import com.laiding.yl.youle.home.fragment.FragmentHome;
@@ -27,10 +24,7 @@ public class AdapterHomeViewPage extends FragmentPagerAdapter{
 
     public AdapterHomeViewPage(FragmentManager fm) {
         super(fm);
-        EaseChatFragment fragment=new EaseChatFragment();
-        Bundle bundle=new Bundle();
-        bundle.putString(EaseConstant.EXTRA_USER_ID,"8001");
-        fragment.setArguments(bundle);
+        list.clear();
         list.add(FragmentHome.newInstance());
         list.add(FragmentClinic.newInstance());
         list.add(FragmentInquiry.newInstance());

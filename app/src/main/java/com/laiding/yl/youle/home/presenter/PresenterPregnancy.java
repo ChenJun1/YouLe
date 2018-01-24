@@ -1,14 +1,14 @@
-package com.laiding.yl.youle.Information.presenter;
+package com.laiding.yl.youle.home.presenter;
 
 import com.laiding.yl.mvprxretrofitlibrary.http.exception.ApiException;
 import com.laiding.yl.mvprxretrofitlibrary.http.observer.HttpRxObservable;
 import com.laiding.yl.mvprxretrofitlibrary.http.observer.HttpRxObserver;
 import com.laiding.yl.mvprxretrofitlibrary.http.retrofit.HttpRequest;
 import com.laiding.yl.mvprxretrofitlibrary.http.retrofit.HttpResponse;
-import com.laiding.yl.youle.Information.fragment.FragmentInformation;
-import com.laiding.yl.youle.Information.fragment.view.IInformationFragment;
 import com.laiding.yl.youle.api.ApiUtlis;
 import com.laiding.yl.youle.base.MyBaseFrgPresenter;
+import com.laiding.yl.youle.home.fragment.FragmentPrepareForPregnancy;
+import com.laiding.yl.youle.home.fragment.view.IPregnancyFragment;
 import com.laiding.yl.youle.login.entity.UserBean;
 import com.trello.rxlifecycle2.android.FragmentEvent;
 
@@ -17,17 +17,15 @@ import java.util.Map;
 import io.reactivex.disposables.Disposable;
 
 /**
- * Created by JunChen on 2018/1/23.
- * Remarks
+ * Created by JunChen on 2018/1/24.
+ * Remarks 备孕检查
  */
 
-public class PresenterInformationFragment extends MyBaseFrgPresenter<IInformationFragment,FragmentInformation> {
-    private static final String TAG = "PresenterInformationFra";
-
-    public PresenterInformationFragment(IInformationFragment view, FragmentInformation fragmet) {
+public class PresenterPregnancy extends MyBaseFrgPresenter<IPregnancyFragment,FragmentPrepareForPregnancy> {
+    private static final String TAG = "PresenterPregnancyFragm";
+    public PresenterPregnancy(IPregnancyFragment view, FragmentPrepareForPregnancy fragmet) {
         super(view, fragmet);
     }
-
 
     /**
      * 登陆

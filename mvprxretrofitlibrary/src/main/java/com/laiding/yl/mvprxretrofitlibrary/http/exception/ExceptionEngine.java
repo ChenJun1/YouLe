@@ -7,6 +7,7 @@ import org.json.JSONException;
 
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
 import java.text.ParseException;
 
 import retrofit2.HttpException;
@@ -43,7 +44,7 @@ public class ExceptionEngine {
             ex = new ApiException(e, ANALYTIC_SERVER_DATA_ERROR);
             ex.setMsg("解析错误");
             return ex;
-        } else if (e instanceof ConnectException) {//连接网络错误
+        } else if (e instanceof ConnectException || e instanceof UnknownHostException) {//连接网络错误
             ex = new ApiException(e, CONNECT_ERROR);
             ex.setMsg("连接失败");
             return ex;

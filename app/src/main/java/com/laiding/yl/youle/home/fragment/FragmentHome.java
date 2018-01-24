@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.laiding.yl.mvprxretrofitlibrary.utlis.LogUtils;
 import com.laiding.yl.youle.Information.activity.ActivityInformationDetail;
@@ -26,7 +25,7 @@ import com.laiding.yl.youle.home.activty.ActivityTestTubeGuidance;
 import com.laiding.yl.youle.home.adapter.AdapterHomeFragement;
 import com.laiding.yl.youle.home.entity.ForumPostsBean;
 import com.laiding.yl.youle.home.fragment.view.IHomeFragment;
-import com.laiding.yl.youle.home.presenter.PresenterHomeFragment;
+import com.laiding.yl.youle.home.presenter.PresenterHome;
 import com.laiding.yl.youle.login.entity.UserBean;
 import com.laiding.yl.youle.widget.MyItemDecoration;
 
@@ -57,7 +56,7 @@ public class FragmentHome extends MyBaseFragment implements IHomeFragment {
         return fragment;
     }
 
-    private PresenterHomeFragment presenter = new PresenterHomeFragment(this, this);
+    private PresenterHome presenter = new PresenterHome(this, this);
     private AdapterHomeFragement adapter;
     private List<ForumPostsBean> list = new ArrayList<>();
     private boolean isRefresh = true;

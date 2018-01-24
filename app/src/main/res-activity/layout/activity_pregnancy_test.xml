@@ -1,9 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".home.activty.ActivityPregnancyTest"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".home.activty.ActivityPregnancyTest">
 
-    <include layout="@layout/layout_head"/>
+    <include layout="@layout/layout_head" />
+
+    <com.yinglan.alphatabs.AlphaTabsIndicator
+        android:id="@+id/alphaIndicator"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:gravity="bottom"
+        android:orientation="horizontal">
+
+        <com.yinglan.alphatabs.AlphaTabView
+            android:layout_width="0dp"
+            android:layout_height="55dp"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:padding="5dp"
+            app:tabText="@string/PrepareForPregnancy"
+            app:tabTextSize="13sp"
+            app:textColorNormal="@color/color_545454"
+            app:textColorSelected="@color/color_f993a6" />
+
+        <com.yinglan.alphatabs.AlphaTabView
+            android:layout_width="0dp"
+            android:layout_height="55dp"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:padding="5dp"
+            app:tabText="@string/OvulationTest"
+            app:tabTextSize="13sp"
+            app:textColorNormal="@color/color_545454"
+            app:textColorSelected="@color/color_f993a6" />
+
+        <com.yinglan.alphatabs.AlphaTabView
+            android:layout_width="0dp"
+            android:layout_height="55dp"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:padding="5dp"
+            app:tabText="@string/Pregnancy"
+            app:tabTextSize="13sp"
+            app:textColorNormal="@color/color_545454"
+            app:textColorSelected="@color/color_f993a6" />
+
+        <com.yinglan.alphatabs.AlphaTabView
+            android:layout_width="0dp"
+            android:layout_height="55dp"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:padding="5dp"
+            app:tabText="@string/TestTube"
+            app:tabTextSize="13sp"
+            app:textColorNormal="@color/color_545454"
+            app:textColorSelected="@color/color_f993a6" />
+
+        <com.yinglan.alphatabs.AlphaTabView
+            android:layout_width="0dp"
+            android:layout_height="55dp"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:padding="5dp"
+            app:tabText="@string/AndroLogy"
+            app:tabTextSize="13sp"
+            app:textColorNormal="@color/color_545454"
+            app:textColorSelected="@color/color_f993a6" />
+
+        <com.yinglan.alphatabs.AlphaTabView
+            android:layout_width="0dp"
+            android:layout_height="55dp"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:padding="5dp"
+            app:tabText="@string/LoveEggs"
+            app:tabTextSize="13sp"
+            app:textColorNormal="@color/color_545454"
+            app:textColorSelected="@color/color_f993a6" />
+
+    </com.yinglan.alphatabs.AlphaTabsIndicator>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
 </LinearLayout>
