@@ -16,9 +16,11 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.laiding.yl.mvprxretrofitlibrary.utlis.LogUtils;
 import com.laiding.yl.youle.R;
 import com.laiding.yl.youle.base.MyBaseFragment;
+import com.laiding.yl.youle.clinic.activity.ActivityClinicDetail;
 import com.laiding.yl.youle.clinic.adapter.AdapterClinicFragment;
 import com.laiding.yl.youle.clinic.fragment.view.IFragmentClinic;
 import com.laiding.yl.youle.home.entity.ForumPostsBean;
@@ -153,6 +155,12 @@ public class FragmentClinic extends MyBaseFragment implements IFragmentClinic {
     private void initAdapter() {
         mClinicRl.setLayoutManager(new LinearLayoutManager(mContext));
         mClinicRl.addItemDecoration(new MyItemDecoration());
+        mClinicRl.addOnItemTouchListener(new OnItemClickListener() {
+            @Override
+            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                ActivityClinicDetail.start(mContext);
+            }
+        });
         list.add(new ForumPostsBean());
         list.add(new ForumPostsBean());
         list.add(new ForumPostsBean());

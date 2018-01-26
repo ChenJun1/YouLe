@@ -3,6 +3,7 @@ package com.laiding.yl.youle.home.presenter;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
+import android.provider.CalendarContract;
 
 import com.google.gson.Gson;
 import com.laiding.yl.mvprxretrofitlibrary.http.exception.ApiException;
@@ -28,14 +29,6 @@ import io.reactivex.disposables.Disposable;
 
 public class PresenterHome extends MyBaseFrgPresenter<IHomeFragment,FragmentHome> {
     private static final String TAG = "PresenterHome";
-    private static String calanderEventURL = null;
-    static {
-        if (Integer.parseInt(Build.VERSION.SDK) >= 8) {
-            calanderEventURL = "content://com.android.calendar/events";
-        } else {
-            calanderEventURL = "content://calendar/events";
-        }
-    }
     public PresenterHome(FragmentHome view, FragmentHome fragmet) {
         super(view, fragmet);
     }
@@ -82,8 +75,8 @@ public class PresenterHome extends MyBaseFrgPresenter<IHomeFragment,FragmentHome
      * 跳转日历日程
      */
     public void startCalendar(){
-        Intent intent = new Intent(Intent.ACTION_INSERT)
-                .setData(Uri.parse(calanderEventURL));
+        Intent intent = new Intent(Intent.ACTION_INSERT);
+        intent.setData(CalendarContract.Events.CONTENT_URI);
         getFrgment().startActivity(intent);
     }
 }

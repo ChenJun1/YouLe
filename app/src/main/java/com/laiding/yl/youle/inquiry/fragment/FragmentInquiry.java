@@ -19,7 +19,7 @@ import butterknife.Unbinder;
 
 /**
  * Created by JunChen on 2018/1/22.
- * Remarks
+ * Remarks 问诊
  */
 
 public class FragmentInquiry extends MyBaseFragment {

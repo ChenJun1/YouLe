@@ -1,5 +1,6 @@
 package com.hyphenate.easeui.ui;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ClipboardManager;
@@ -41,6 +42,9 @@ import com.hyphenate.easeui.R;
 import com.hyphenate.easeui.domain.EaseEmojicon;
 import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.model.EaseAtMessageHelper;
+import com.hyphenate.easeui.runtimepermissions.PermissionsAPI;
+import com.hyphenate.easeui.runtimepermissions.PermissionsManager;
+import com.hyphenate.easeui.runtimepermissions.PermissionsResultAction;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.hyphenate.easeui.utils.EaseUserUtils;
 import com.hyphenate.easeui.widget.EaseAlertDialog;
@@ -60,6 +64,8 @@ import java.io.File;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+
 
 /**
  * you can new an EaseChatFragment to use or you can inherit it to expand.
@@ -139,6 +145,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
     /**
      * init view
      */
+
     protected void initView() {
         // hold to record voice
         //noinspection ConstantConditions
@@ -163,15 +170,28 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
                 sendTextMessage(content);
             }
 
-            @Override
-            public boolean onPressToSpeakBtnTouch(View v, MotionEvent event) {
-                return voiceRecorderView.onPressToSpeakBtnTouch(v, event, new EaseVoiceRecorderCallback() {
-                    
-                    @Override
-                    public void onVoiceRecordComplete(String voiceFilePath, int voiceTimeLength) {
-                        sendVoiceMessage(voiceFilePath, voiceTimeLength);
-                    }
-                });
+            @Override //发送语音得监听
+            public boolean onPressToSpeakBtnTouch(final View v,final MotionEvent event) {
+                if(PermissionsManager.getInstance().hasAllPermissions(EaseChatFragment.this.getContext(), PermissionsAPI.recordingerms)){
+                    return voiceRecorderView.onPressToSpeakBtnTouch(v, event, new EaseVoiceRecorderCallback() {
+                        @Override
+                        public void onVoiceRecordComplete(String voiceFilePath, int voiceTimeLength) {
+                            sendVoiceMessage(voiceFilePath, voiceTimeLength);
+                        }
+                    });
+                }else{
+                    PermissionsManager.getInstance().requestPermissionsIfNecessaryForResult(EaseChatFragment.this, PermissionsAPI.recordingerms, new PermissionsResultAction() {
+
+                        @Override
+                        public void onGranted() {
+                        }
+
+                        @Override
+                        public void onDenied(String permission) {
+                        }
+                    });
+                    return true;
+                }
             }
 
             @Override
@@ -636,7 +656,11 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
             }
             switch (itemId) {
             case ITEM_TAKE_PICTURE:
-                selectPicFromCamera();
+                if(!PermissionsManager.getInstance().hasAllPermissions(getContext(),PermissionsAPI.photoPermissions)){
+                    initCAMERAPermissions();
+                }else{
+                    selectPicFromCamera();
+                }
                 break;
             case ITEM_PICTURE:
                 selectPicFromLocal();
@@ -772,7 +796,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
     
 
     /**
-     * send image
+     * 发送图片
      * 
      * @param selectedImage
      */
@@ -808,7 +832,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
     }
     
     /**
-     * send file
+     * 发送文件
      * @param uri
      */
     protected void sendFileByUri(Uri uri){
@@ -843,11 +867,31 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
         }
         sendFileMessage(filePath);
     }
+    /**
+     * 拍照权限
+     */
+    private void initCAMERAPermissions() {
+        PermissionsManager.getInstance().requestPermissionsIfNecessaryForResult(this, PermissionsAPI.photoPermissions, new PermissionsResultAction() {
+            @Override
+            public void onGranted() {
+                selectPicFromCamera();
+            }
+
+            @Override
+            public void onDenied(String permission) {
+               Toast.makeText(getActivity(),"拍照权限被拒绝，无法拍摄视频",Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
+
 
     /**
-     * capture new image
+     * 拍照
      */
     protected void selectPicFromCamera() {
+
         if (!EaseCommonUtils.isSdcardExist()) {
             Toast.makeText(getActivity(), R.string.sd_card_does_not_exist, Toast.LENGTH_SHORT).show();
             return;

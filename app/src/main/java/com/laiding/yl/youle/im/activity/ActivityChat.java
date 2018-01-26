@@ -3,16 +3,13 @@ package com.laiding.yl.youle.im.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 import com.hyphenate.easeui.EaseConstant;
+import com.hyphenate.easeui.runtimepermissions.PermissionsManager;
 import com.hyphenate.easeui.ui.EaseChatFragment;
 import com.laiding.yl.youle.R;
-import com.laiding.yl.youle.base.MyBaseFragmentActivity;
 import com.laiding.yl.youle.im.fragment.ChatFragment;
-import com.laiding.yl.youle.runtimepermissions.PermissionsManager;
 
 /**
  * Created by JunChen on 2018/1/12.

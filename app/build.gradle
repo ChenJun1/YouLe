@@ -61,12 +61,15 @@ android {
         //版本号，升级时可配置
         schemaVersion 1
     }
-
+    dataBinding {
+        enabled = true
+    }
     sourceSets {
         main {
             res.srcDirs = ['src/main/res-activity',
                            'src/main/res-im',
                            'src/main/res-public',
+                           'src/main/res-photo',
             ]
         }
     }
@@ -75,6 +78,7 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':mvprxretrofitlibrary')
+    //noinspection GradleCompatible
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support:design:26.1.0'
     implementation 'com.android.support:support-v4:26.0.2'
@@ -92,4 +96,11 @@ dependencies {
     /*IM*/
     compile 'com.jorge.circleview:circlelibrary:1.1.1'
     /*轮播广告图*/
+
+    implementation 'cn.bingoogolapple:bga-baseadapter:1.2.7@aar'
+    /*图片选择*/
+
+    compile 'com.sunfusheng:glideimageview:1.2.0'
+    //Glide 图片框架
+
 }

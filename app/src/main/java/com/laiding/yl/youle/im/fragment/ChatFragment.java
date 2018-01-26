@@ -1,5 +1,6 @@
 package com.laiding.yl.youle.im.fragment;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.Intent;
@@ -26,6 +27,9 @@ import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMTextMessageBody;
 
 import com.hyphenate.easeui.EaseConstant;
+import com.hyphenate.easeui.runtimepermissions.PermissionsAPI;
+import com.hyphenate.easeui.runtimepermissions.PermissionsManager;
+import com.hyphenate.easeui.runtimepermissions.PermissionsResultAction;
 import com.hyphenate.easeui.ui.EaseChatFragment;
 import com.hyphenate.easeui.ui.EaseChatFragment.EaseChatFragmentHelper;
 import com.hyphenate.easeui.widget.chatrow.EaseCustomChatRowProvider;
@@ -44,6 +48,7 @@ import com.laiding.yl.youle.im.activity.VoiceCallActivity;
 import com.laiding.yl.youle.im.domain.EmojiconExampleGroupData;
 import com.laiding.yl.youle.im.domain.RobotUser;
 import com.laiding.yl.youle.utils.Constant;
+import com.vondear.rxtools.view.RxToast;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -292,12 +297,37 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                 REQUEST_CODE_CONTEXT_MENU);
     }
 
+
+
+    /**
+     * 录像权限
+     */
+    private void initPermissions() {
+        PermissionsManager.getInstance().requestPermissionsIfNecessaryForResult(this, PermissionsAPI.videoPerms, new PermissionsResultAction() {
+            @Override
+            public void onGranted() {
+                Intent intent = new Intent(getActivity(), ImageGridActivity.class);
+                startActivityForResult(intent, REQUEST_CODE_SELECT_VIDEO);
+            }
+
+            @Override
+            public void onDenied(String permission) {
+                Toast.makeText(getActivity(),"录像权限被拒绝，无法拍摄视频",Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
+
     @Override
     public boolean onExtendMenuItemClick(int itemId, View view) {
         switch (itemId) {
         case ITEM_VIDEO:
-            Intent intent = new Intent(getActivity(), ImageGridActivity.class);
-            startActivityForResult(intent, REQUEST_CODE_SELECT_VIDEO);
+            if(!PermissionsManager.getInstance().hasAllPermissions(getContext(),PermissionsAPI.videoPerms)){
+                initPermissions();
+            }else{
+                Intent intent = new Intent(getActivity(), ImageGridActivity.class);
+                startActivityForResult(intent, REQUEST_CODE_SELECT_VIDEO);
+            }
             break;
         case ITEM_FILE: //file
             selectFileFromLocal();
@@ -310,26 +340,6 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
             break;
         //red packet code : 进入发红包页面
         case ITEM_RED_PACKET:
-//            //注意：不再支持原有的startActivityForResult进入红包相关页面
-//            int itemType;
-//            if (chatType == EaseConstant.CHATTYPE_SINGLE) {
-//                itemType = RPConstant.RP_ITEM_TYPE_SINGLE;
-//                //小额随机红包
-//                //itemType = RPConstant.RP_ITEM_TYPE_RANDOM;
-//            } else {
-//                itemType = RPConstant.RP_ITEM_TYPE_GROUP;
-//            }
-//            RedPacketUtil.startRedPacket(getActivity(), itemType, toChatUsername, new RPSendPacketCallback() {
-//                @Override
-//                public void onGenerateRedPacketId(String redPacketId) {
-//
-//                }
-//
-//                @Override
-//                public void onSendPacketSuccess(RedPacketInfo redPacketInfo) {
-//                    sendMessage(RedPacketUtil.createRPMessage(getActivity(), redPacketInfo, toChatUsername));
-//                }
-//            });
             break;
             //end of red packet code
         default:
@@ -409,18 +419,6 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                 else if(message.getBooleanAttribute(Constant.MESSAGE_TYPE_RECALL, false)){
                     return MESSAGE_TYPE_RECALL;
                 }
-//                //red packet code : 红包消息、红包回执消息以及转账消息的chatrow type
-//                else if (RedPacketUtil.isRandomRedPacket(message)) {
-//                    //小额随机红包
-//                    return message.direct() == EMMessage.Direct.RECEIVE ? MESSAGE_TYPE_RECV_RANDOM : MESSAGE_TYPE_SEND_RANDOM;
-//                } else if (message.getBooleanAttribute(RPConstant.MESSAGE_ATTR_IS_RED_PACKET_MESSAGE, false)) {
-//                    //发送红包消息
-//                    return message.direct() == EMMessage.Direct.RECEIVE ? MESSAGE_TYPE_RECV_RED_PACKET : MESSAGE_TYPE_SEND_RED_PACKET;
-//                } else if (message.getBooleanAttribute(RPConstant.MESSAGE_ATTR_IS_RED_PACKET_ACK_MESSAGE, false)) {
-//                    //领取红包消息
-//                    return message.direct() == EMMessage.Direct.RECEIVE ? MESSAGE_TYPE_RECV_RED_PACKET_ACK : MESSAGE_TYPE_SEND_RED_PACKET_ACK;
-//                }
-                //end of red packet code
             }
             return 0;
         }
@@ -428,29 +426,6 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
         @Override
         public EaseChatRowPresenter getCustomChatRow(EMMessage message, int position, BaseAdapter adapter) {
             if(message.getType() == EMMessage.Type.TXT){
-                // voice call or video call
-//                if (message.getBooleanAttribute(Constant.MESSAGE_ATTR_IS_VOICE_CALL, false) ||
-//                    message.getBooleanAttribute(Constant.MESSAGE_ATTR_IS_VIDEO_CALL, false)){
-//                    EaseChatRowPresenter presenter = new EaseChatVoiceCallPresenter();
-//                    return presenter;
-//                }
-//                //recall message
-//                else if(message.getBooleanAttribute(Constant.MESSAGE_TYPE_RECALL, false)){
-//                    EaseChatRowPresenter presenter = new EaseChatRecallPresenter();
-//                    return presenter;
-//                }
-//                //red packet code : 红包消息、红包回执消息以及转账消息的chat row
-//                else if (RedPacketUtil.isRandomRedPacket(message)) {//小额随机红包
-//                    EaseChatRowPresenter presenter = new ChatRowRandomPacketPresenter();
-//                    return presenter;
-//                } else if (message.getBooleanAttribute(RPConstant.MESSAGE_ATTR_IS_RED_PACKET_MESSAGE, false)) {//红包消息
-//                    EaseChatRowPresenter presenter = new ChatRowRedPacketPresenter();
-//                    return presenter;
-//                } else if (message.getBooleanAttribute(RPConstant.MESSAGE_ATTR_IS_RED_PACKET_ACK_MESSAGE, false)) {//红包回执消息
-//                    EaseChatRowPresenter presenter = new ChatRowRedPacketAckPresenter();
-//                    return presenter;
-//                }
-                //end of red packet code
             }
             return null;
         }

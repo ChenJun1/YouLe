@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.laiding.yl.mvprxretrofitlibrary.manager.ActivityStackManager;
 import com.laiding.yl.youle.R;
 import com.laiding.yl.youle.base.MyBaseActivity;
+import com.laiding.yl.youle.login.activity.ActivityGetPassWord;
 import com.laiding.yl.youle.login.activity.ActivityPhoneLogin;
 import com.vondear.rxtools.view.dialog.RxDialog;
 import com.vondear.rxtools.view.dialog.RxDialogSureCancel;
@@ -66,6 +67,7 @@ public class ActivitySet extends MyBaseActivity {
             case R.id.tv_account_binding:
                 break;
             case R.id.tv_change_password:
+                ActivityGetPassWord.start(mContext);
                 break;
             case R.id.tv_about_us:
                 break;

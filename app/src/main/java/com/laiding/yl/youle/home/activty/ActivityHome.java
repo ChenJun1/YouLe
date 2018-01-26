@@ -1,9 +1,7 @@
 package com.laiding.yl.youle.home.activty;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.widget.Toast;
 
@@ -12,8 +10,6 @@ import com.laiding.yl.youle.MyApplication;
 import com.laiding.yl.youle.R;
 import com.laiding.yl.youle.base.MyBaseFragmentActivity;
 import com.laiding.yl.youle.home.adapter.AdapterHomeViewPage;
-import com.laiding.yl.youle.runtimepermissions.PermissionsManager;
-import com.laiding.yl.youle.runtimepermissions.PermissionsResultAction;
 import com.yinglan.alphatabs.AlphaTabsIndicator;
 
 import butterknife.BindView;
@@ -43,7 +39,6 @@ public class ActivityHome extends MyBaseFragmentActivity {
 
     @Override
     protected void init() {
-        requestPermissions();
         initViewPage();
     }
 
@@ -86,26 +81,6 @@ public class ActivityHome extends MyBaseFragmentActivity {
 
     }
 
-    @TargetApi(23)
-    private void requestPermissions() {
-        PermissionsManager.getInstance().requestAllManifestPermissionsIfNecessary(this, new PermissionsResultAction() {
-            @Override
-            public void onGranted() {
-//				Toast.makeText(MainActivity.this, "All permissions have been granted", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onDenied(String permission) {
-                //Toast.makeText(MainActivity.this, "Permission " + permission + " has been denied", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-        PermissionsManager.getInstance().notifyPermissionsChange(permissions, grantResults);
-    }
 
     @Override
     public void onBackPressed() {

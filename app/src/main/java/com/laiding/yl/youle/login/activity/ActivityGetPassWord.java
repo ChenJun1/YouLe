@@ -1,14 +1,22 @@
 package com.laiding.yl.youle.login.activity;
 
+import android.content.Context;
+import android.content.Intent;
+
 import com.laiding.yl.youle.R;
 import com.laiding.yl.youle.base.MyBaseActivity;
 
 /**
  * Created by JunChen on 2018/1/4.
- * 获取密码
+ * 修改密码
  */
 
 public class ActivityGetPassWord extends MyBaseActivity {
+    public static void start(Context context) {
+        Intent starter = new Intent(context, ActivityGetPassWord.class);
+        context.startActivity(starter);
+    }
+
     @Override
     protected int getContentViewId() {
         return R.layout.activity_get_pass_word;
@@ -16,7 +24,8 @@ public class ActivityGetPassWord extends MyBaseActivity {
 
     @Override
     protected void init() {
-
+        setTitle("修改密码");
+        isBack(true);
     }
 
     @Override

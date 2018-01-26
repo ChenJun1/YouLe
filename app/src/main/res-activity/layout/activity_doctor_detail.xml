@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_FAFAFA"
+    android:orientation="vertical"
+    tools:context=".clinic.activity.ActivityDoctorDetail">
+
+    <include layout="@layout/layout_head" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_150"
+        android:background="@color/colorWhite"
+        android:orientation="vertical">
+
+        <com.sunfusheng.glideimageview.GlideImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_25"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_3"
+            android:gravity="center"
+            android:text="刘明"
+            android:textColor="@color/color_2c2c2c" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_3"
+            android:gravity="center"
+            android:text="刘明"
+            android:textColor="#838383" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_3"
+            android:gravity="center"
+            android:text="刘明"
+            android:textColor="#838383" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_40"
+        android:layout_marginTop="@dimen/margin_8"
+        android:background="@color/colorWhite"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/margin_16"
+        android:text="个人简介"
+        android:textColor="#1e1e1e" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_1"
+        android:background="@color/colorWhite"
+        android:padding="@dimen/margin_16"
+        android:text="sdadafsafdsfdsf"
+        android:textColor="#575757" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_40"
+        android:layout_marginTop="@dimen/margin_8"
+        android:background="@color/colorWhite"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/margin_16"
+        android:text="擅长领域"
+        android:textColor="#1e1e1e" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_1"
+        android:background="@color/colorWhite"
+        android:padding="@dimen/margin_16"
+        android:text="sdadafsafdsfdsf"
+        android:textColor="#575757" />
+
+
+</LinearLayout>

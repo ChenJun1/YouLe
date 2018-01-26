@@ -5,8 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.laiding.yl.youle.MyApplication;
 import com.laiding.yl.youle.R;
 import com.laiding.yl.youle.base.MyBaseActivity;
@@ -30,6 +34,8 @@ public class ActivityMedicalRecords extends MyBaseActivity {
     ImageView mIvAdd;
     @BindView(R.id.rcy_view)
     RecyclerView mRcyView;
+    @BindView(R.id.tv_add)
+    TextView mTvAdd;
 
     private AdapterMedicalRecordsActivity adapter;
     private List<ForumPostsBean> mList = new ArrayList<>();
@@ -70,6 +76,12 @@ public class ActivityMedicalRecords extends MyBaseActivity {
         setTitle("诊疗记录");
         isBack(true);
         mRcyView.setLayoutManager(new LinearLayoutManager(MyApplication.app));
+        mRcyView.addOnItemTouchListener(new OnItemClickListener() {
+            @Override
+            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                ActivityMedicalRecordsDetail.start(mContext);
+            }
+        });
     }
 
     @Override
@@ -77,8 +89,15 @@ public class ActivityMedicalRecords extends MyBaseActivity {
 
     }
 
-    @OnClick(R.id.iv_add)
-    public void onViewClicked() {
-        ActivityAddMedicalRecords.start(mContext);
+    @OnClick({R.id.iv_add, R.id.tv_add})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.iv_add:
+                ActivityAddMedicalRecords.start(mContext);
+                break;
+            case R.id.tv_add:
+                ActivityAddMedicalRecords.start(mContext);
+                break;
+        }
     }
 }

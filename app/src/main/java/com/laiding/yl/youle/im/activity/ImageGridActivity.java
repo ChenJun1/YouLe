@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 
 import com.laiding.yl.youle.im.fragment.ImageGridFragment;
 
+
 public class ImageGridActivity extends FragmentActivity {
 
 	private static final String TAG = "ImageGridActivity";
@@ -21,6 +22,8 @@ public class ImageGridActivity extends FragmentActivity {
             ft.commit();
         }
     }
+
+
 	
 	
 	@Override

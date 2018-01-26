@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".clinic.activity.ActivityClinicDetail"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_head" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_FAFAFA"
+            android:orientation="vertical">
+
+            <com.sunfusheng.glideimageview.GlideImageView
+                android:id="@+id/giv_pic"
+                android:layout_width="match_parent"
+                android:layout_height="150dp" />
+
+            <TextView
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_40"
+                android:background="@color/colorWhite"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/margin_16"
+                android:text="南京大学医院"
+                android:textColor="@color/color_2c2c2c" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_40"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="@dimen/margin_1"
+                android:background="@color/colorWhite"
+                android:paddingLeft="@dimen/margin_16"
+                android:paddingRight="@dimen/margin_16">
+
+                <ImageView
+                    android:layout_gravity="center"
+                    android:src="@mipmap/icon_dianhua11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/tv_photo"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/margin_8"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:text="234--23232323"
+                    android:textColor="@color/color_585858" />
+
+                <Button
+                    android:id="@+id/btn_call"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/margin_4"
+                    android:layout_marginTop="@dimen/margin_4"
+                    android:background="@color/color_f993a6"
+                    android:text="拨号"
+                    android:textColor="@color/colorWhite" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_40"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="@dimen/margin_1"
+                android:background="@color/colorWhite"
+                android:paddingLeft="@dimen/margin_16"
+                android:paddingRight="@dimen/margin_16">
+
+                <ImageView
+                    android:layout_gravity="center"
+                    android:src="@mipmap/icon_weizhi11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/tv_local"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/margin_8"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:text="江苏省南京市"
+                    android:textColor="@color/color_585858" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_marginTop="@dimen/margin_8"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_40"
+                android:background="@color/colorWhite"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/margin_16"
+                android:text="医院介绍"
+                android:textColor="@color/color_2c2c2c" />
+
+            <TextView
+                android:paddingRight="@dimen/margin_16"
+                android:paddingLeft="@dimen/margin_16"
+                android:id="@+id/tv_content"
+                android:text="这次大会是在粉碎林彪反革命集团以后，周恩来主持中央日常工作，全国各方面形势有了好转的情况下召开的。１９７３年５月２０日—３１日，中央召开工作会议，为大会作准备。会上宣布，根据毛泽东的提议，中央政治局决定王洪文到中央工作，并同华国锋、吴德一起列席政治局会议。会议决定成立由王洪文负责的党章修改小组提出党章修改草案。根据毛泽东、周恩来的意见，宣布解放谭震林、李井泉等１３名老干部。８月２０日，中央政治"
+                android:maxLines="4"
+                android:textColor="#575757"
+                android:background="@color/colorWhite"
+                android:layout_marginTop="@dimen/margin_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.sunfusheng.glideimageview.GlideImageView
+                android:id="@+id/giv_jiaotou"
+                android:background="@color/colorWhite"
+                android:padding="@dimen/margin_8"
+                android:src="@mipmap/icon_xiajiantou11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_marginTop="@dimen/margin_8"
+                android:orientation="horizontal"
+                android:layout_gravity="center_vertical"
+                android:background="@color/colorWhite"
+                android:paddingLeft="@dimen/margin_16"
+                android:paddingRight="@dimen/margin_16"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_40">
+
+                <TextView
+                    android:layout_weight="1"
+                    android:textStyle="bold"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorWhite"
+                    android:gravity="center_vertical"
+                    android:text="专家团队"
+                    android:textColor="@color/color_2c2c2c" />
+
+                <TextView
+                    android:id="@+id/tv_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorWhite"
+                    android:gravity="center_vertical"
+                    android:text="更多"
+                    android:textColor="@color/color_959595" />
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rcy_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

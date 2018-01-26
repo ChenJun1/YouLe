@@ -9,6 +9,9 @@ import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.hyphenate.easeui.runtimepermissions.PermissionsAPI;
+import com.hyphenate.easeui.runtimepermissions.PermissionsManager;
+import com.hyphenate.easeui.runtimepermissions.PermissionsResultAction;
 import com.laiding.yl.mvprxretrofitlibrary.utlis.LogUtils;
 import com.laiding.yl.youle.Information.activity.ActivityInformationDetail;
 import com.laiding.yl.youle.MyApplication;
@@ -129,7 +132,22 @@ public class FragmentHome extends MyBaseFragment implements IHomeFragment {
             @Override
             public void onClick(View v) {
                 LogUtils.d("btn_Process" + "=========");
-                presenter.startCalendar();
+               if( PermissionsManager.getInstance().hasAllPermissions(mContext, PermissionsAPI.duxiePermissions)){
+
+                   presenter.startCalendar();
+               }else{
+                   PermissionsManager.getInstance().requestPermissionsIfNecessaryForResult(FragmentHome.this, PermissionsAPI.duxiePermissions, new PermissionsResultAction() {
+                       @Override
+                       public void onGranted() {
+                           presenter.startCalendar();
+                       }
+
+                       @Override
+                       public void onDenied(String permission) {
+
+                       }
+                   });
+               }
             }
         });
         //诊疗记录

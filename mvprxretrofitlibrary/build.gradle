@@ -57,7 +57,6 @@ dependencies {
     /*tab标签*/
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.33'
     //RecyclerAdapter框架
-    compile 'com.sunfusheng:glideimageview:1.2.0'
-    //Glide 图片框架
+
 
 }
