@@ -49,7 +49,7 @@ dependencies {
     compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.8.0'
     /*网络请求框架*/
-    compile 'pub.devrel:easypermissions:0.4.2'
+    compile 'pub.devrel:easypermissions:1.0.1'
     /*动态权限*/
     compile 'com.orhanobut:logger:2.1.1'
     /*日志插件*/

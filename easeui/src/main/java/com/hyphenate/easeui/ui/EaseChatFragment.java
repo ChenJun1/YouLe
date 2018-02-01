@@ -879,7 +879,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
 
             @Override
             public void onDenied(String permission) {
-               Toast.makeText(getActivity(),"拍照权限被拒绝，无法拍摄视频",Toast.LENGTH_SHORT).show();
+               Toast.makeText(getActivity(),"拍照权限被拒绝，无法拍照",Toast.LENGTH_SHORT).show();
             }
         });
     }

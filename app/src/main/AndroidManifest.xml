@@ -27,6 +27,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
 
     <application
         android:name=".MyApplication"
@@ -144,6 +145,11 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/bga_photo_picker_file_paths" />
         </provider>
+        <!-- 图片裁剪页面 -->
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <!-- ======================================自定义图片选择============================================-->
 
 

@@ -9,6 +9,7 @@
     <include layout="@layout/layout_head"/>
     
     <LinearLayout
+        android:id="@+id/ll_update_avatar"
         android:background="@color/colorWhite"
         android:paddingRight="@dimen/margin_16"
         android:paddingLeft="@dimen/margin_16"
@@ -18,6 +19,8 @@
         android:layout_height="@dimen/margin_head_height">
 
         <com.sunfusheng.glideimageview.GlideImageView
+            android:id="@+id/giv_avatar"
+            android:layout_gravity="center_vertical"
             android:src="@mipmap/ic_launcher"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -40,6 +43,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/ll_nike_name"
         android:layout_marginTop="@dimen/margin_8"
         android:background="@color/colorWhite"
         android:orientation="horizontal"
@@ -57,6 +61,7 @@
             android:layout_height="match_parent" />
 
         <TextView
+            android:id="@+id/tv_nick_name"
             android:gravity="center_vertical"
             android:textColor="@color/color_505050"
             android:text="怒漯河"
@@ -73,6 +78,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/ll_gender"
         android:layout_marginTop="@dimen/margin_1"
         android:background="@color/colorWhite"
         android:orientation="horizontal"
@@ -90,6 +96,7 @@
             android:layout_height="match_parent" />
 
         <TextView
+            android:id="@+id/tv_gender"
             android:gravity="center_vertical"
             android:textColor="@color/color_505050"
             android:text="男"
@@ -106,6 +113,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/ll_birthday"
         android:layout_marginTop="@dimen/margin_1"
         android:background="@color/colorWhite"
         android:orientation="horizontal"
@@ -123,6 +131,7 @@
             android:layout_height="match_parent" />
 
         <TextView
+            android:id="@+id/tv_birthday"
             android:gravity="center_vertical"
             android:textColor="@color/color_505050"
             android:text="20"
@@ -139,6 +148,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/ll_name"
         android:layout_marginTop="@dimen/margin_1"
         android:background="@color/colorWhite"
         android:orientation="horizontal"
@@ -150,12 +160,13 @@
         <TextView
             android:gravity="center_vertical"
             android:textColor="@color/color_1d1d1d"
-            android:text="真是姓名"
+            android:text="真实姓名"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent" />
 
         <TextView
+            android:id="@+id/tv_name"
             android:gravity="center_vertical"
             android:textColor="@color/color_505050"
             android:text="德玛"
@@ -172,6 +183,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/ll_phone"
         android:layout_marginTop="@dimen/margin_1"
         android:background="@color/colorWhite"
         android:orientation="horizontal"
@@ -189,6 +201,7 @@
             android:layout_height="match_parent" />
 
         <TextView
+            android:id="@+id/tv_phone"
             android:gravity="center_vertical"
             android:textColor="@color/color_505050"
             android:text="1555454544"
@@ -196,6 +209,7 @@
             android:layout_height="match_parent" />
 
         <TextView
+            android:id="@+id/tv_update_phone"
             android:textColor="@color/color_505050"
             android:text="修改"
             android:layout_marginLeft="@dimen/margin_8"
@@ -206,6 +220,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/ll_location"
         android:layout_marginTop="@dimen/margin_1"
         android:background="@color/colorWhite"
         android:orientation="horizontal"
@@ -223,6 +238,7 @@
             android:layout_height="match_parent" />
 
         <TextView
+            android:id="@+id/tv_location"
             android:gravity="center_vertical"
             android:textColor="@color/color_505050"
             android:text="上海"
@@ -239,6 +255,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/ll_detail_location"
         android:layout_marginTop="@dimen/margin_1"
         android:background="@color/colorWhite"
         android:orientation="horizontal"
@@ -256,6 +273,7 @@
             android:layout_height="match_parent" />
 
         <TextView
+            android:id="@+id/tv_detail_location"
             android:layout_weight="2"
             android:maxLines="1"
             android:gravity="center_vertical|right"
@@ -274,6 +292,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/ll_postal"
         android:layout_marginTop="@dimen/margin_1"
         android:background="@color/colorWhite"
         android:orientation="horizontal"
@@ -291,6 +310,7 @@
             android:layout_height="match_parent" />
 
         <TextView
+            android:id="@+id/tv_postal"
             android:gravity="center_vertical"
             android:textColor="@color/color_505050"
             android:text="766767"
@@ -307,6 +327,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/ll_email"
         android:layout_marginTop="@dimen/margin_1"
         android:background="@color/colorWhite"
         android:orientation="horizontal"
@@ -324,6 +345,7 @@
             android:layout_height="match_parent" />
 
         <TextView
+            android:id="@+id/tv_email"
             android:gravity="center_vertical"
             android:textColor="@color/color_505050"
             android:text="24354354@qq.com"

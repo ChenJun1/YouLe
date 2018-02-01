@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/color_FAFAFA"
     android:orientation="vertical"
     tools:context=".clinic.activity.ActivityDoctorDetail">
@@ -16,6 +17,7 @@
         android:orientation="vertical">
 
         <com.sunfusheng.glideimageview.GlideImageView
+            app:siv_pressed_alpha="0.3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_25"
@@ -34,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_3"
             android:gravity="center"
-            android:text="刘明"
+            android:text="妇科  主治医生"
             android:textColor="#838383" />
 
         <TextView
@@ -42,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_3"
             android:gravity="center"
-            android:text="刘明"
+            android:text="上海市人民医院"
             android:textColor="#838383" />
     </LinearLayout>
 

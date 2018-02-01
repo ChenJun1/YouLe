@@ -1,6 +1,5 @@
 package com.laiding.yl.youle.im.fragment;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.Intent;
@@ -10,8 +9,6 @@ import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,13 +16,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Toast;
 
-
 import com.hyphenate.chat.EMClient;
-import com.hyphenate.chat.EMCmdMessageBody;
-import com.hyphenate.chat.EMGroup;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMTextMessageBody;
-
 import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.runtimepermissions.PermissionsAPI;
 import com.hyphenate.easeui.runtimepermissions.PermissionsManager;
@@ -48,11 +41,9 @@ import com.laiding.yl.youle.im.activity.VoiceCallActivity;
 import com.laiding.yl.youle.im.domain.EmojiconExampleGroupData;
 import com.laiding.yl.youle.im.domain.RobotUser;
 import com.laiding.yl.youle.utils.Constant;
-import com.vondear.rxtools.view.RxToast;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.util.List;
 import java.util.Map;
 
 public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHelper {
@@ -75,13 +66,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
     private static final int MESSAGE_TYPE_SENT_VIDEO_CALL = 3;
     private static final int MESSAGE_TYPE_RECV_VIDEO_CALL = 4;
     private static final int MESSAGE_TYPE_RECALL = 9;
-    //red packet code : 红包功能使用的常量
-    private static final int MESSAGE_TYPE_RECV_RED_PACKET = 5;
-    private static final int MESSAGE_TYPE_SEND_RED_PACKET = 6;
-    private static final int MESSAGE_TYPE_SEND_RED_PACKET_ACK = 7;
-    private static final int MESSAGE_TYPE_RECV_RED_PACKET_ACK = 8;
-    private static final int MESSAGE_TYPE_RECV_RANDOM = 11;
-    private static final int MESSAGE_TYPE_SEND_RANDOM = 12;
+
     private static final int ITEM_RED_PACKET = 16;
     //end of red packet code
 

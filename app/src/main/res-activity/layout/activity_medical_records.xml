@@ -36,7 +36,6 @@
 
     <TextView
         android:background="@color/colorWhite"
-        android:layout_marginBottom="@dimen/margin_16"
         android:paddingLeft="@dimen/margin_16"
         android:gravity="center_vertical"
         android:textColor="@color/color_585858"
@@ -50,5 +49,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
+    <include layout="@layout/view_medical_records_head"/>
 
 </LinearLayout>

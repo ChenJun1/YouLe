@@ -13,15 +13,18 @@ import com.laiding.yl.mvprxretrofitlibrary.listener.ProgressListener;
 import com.laiding.yl.mvprxretrofitlibrary.widget.RLoadingDialog;
 import com.trello.rxlifecycle2.components.support.RxFragment;
 
+import java.util.List;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import pub.devrel.easypermissions.EasyPermissions;
 
 /**
  * Created by JunChen on 2018/1/4.
  * Remarks
  */
 
-public abstract class BaseFragment extends RxFragment implements IBaseView,ProgressListener {
+public abstract class BaseFragment extends RxFragment implements IBaseView,EasyPermissions.PermissionCallbacks{
     private static final String TAG = "BaseFragment";
     protected Unbinder unBinder;
     protected Context mContext;
@@ -121,6 +124,19 @@ public abstract class BaseFragment extends RxFragment implements IBaseView,Progr
             mListener.onDetach();
         }
 //        LogUtils.d(TAG+"onDetach");
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, List<String> list) {
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, List<String> list) {
     }
 
     /**

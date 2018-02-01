@@ -54,6 +54,6 @@ public class ActivityInformationDetail extends MyBaseActivity {
 
     @OnClick(R.id.ll_im_bar_right)
     public void onViewClicked() {
-        ActivityChat.start(mContext,"8009");
+        ActivityChat.start(mContext,"8899");
     }
 }

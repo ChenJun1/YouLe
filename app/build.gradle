@@ -42,9 +42,9 @@ android {
             debuggable false
 
             //开启混淆
-            minifyEnabled false
+            minifyEnabled true
             //删除无用的资源
-            shrinkResources false
+            shrinkResources true
             //apk签名
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -96,11 +96,10 @@ dependencies {
     /*IM*/
     compile 'com.jorge.circleview:circlelibrary:1.1.1'
     /*轮播广告图*/
-
     implementation 'cn.bingoogolapple:bga-baseadapter:1.2.7@aar'
     /*图片选择*/
-
     compile 'com.sunfusheng:glideimageview:1.2.0'
     //Glide 图片框架
-
+    compile 'com.yalantis:ucrop:2.2.0'
+    compile 'jp.wasabeef:glide-transformations:2.0.1'
 }

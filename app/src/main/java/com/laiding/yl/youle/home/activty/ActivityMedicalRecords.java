@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -16,6 +18,7 @@ import com.laiding.yl.youle.R;
 import com.laiding.yl.youle.base.MyBaseActivity;
 import com.laiding.yl.youle.home.adapter.AdapterMedicalRecordsActivity;
 import com.laiding.yl.youle.home.entity.ForumPostsBean;
+import com.vondear.rxtools.RxIntentTool;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,6 +85,7 @@ public class ActivityMedicalRecords extends MyBaseActivity {
                 ActivityMedicalRecordsDetail.start(mContext);
             }
         });
+
     }
 
     @Override

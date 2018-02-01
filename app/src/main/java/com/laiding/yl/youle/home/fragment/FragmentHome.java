@@ -1,11 +1,13 @@
 package com.laiding.yl.youle.home.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
@@ -31,11 +33,14 @@ import com.laiding.yl.youle.home.fragment.view.IHomeFragment;
 import com.laiding.yl.youle.home.presenter.PresenterHome;
 import com.laiding.yl.youle.login.entity.UserBean;
 import com.laiding.yl.youle.widget.MyItemDecoration;
+import com.vondear.rxtools.RxNetTool;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.EasyPermissions;
 
 
 /**
@@ -45,6 +50,7 @@ import butterknife.BindView;
 
 public class FragmentHome extends MyBaseFragment implements IHomeFragment {
 
+    private static final int PRC_CARLENDAR = 1;
     @BindView(R.id.home_rl)
     RecyclerView homeRl;
     @BindView(R.id.swipeLayout)
@@ -72,7 +78,6 @@ public class FragmentHome extends MyBaseFragment implements IHomeFragment {
     @Override
     protected void init() {
         presenter.login("ruffian", "EA8A706C4C34A168");
-
         initAdapter();
         addHeadView();
         initRefresh();
@@ -132,22 +137,7 @@ public class FragmentHome extends MyBaseFragment implements IHomeFragment {
             @Override
             public void onClick(View v) {
                 LogUtils.d("btn_Process" + "=========");
-               if( PermissionsManager.getInstance().hasAllPermissions(mContext, PermissionsAPI.duxiePermissions)){
-
-                   presenter.startCalendar();
-               }else{
-                   PermissionsManager.getInstance().requestPermissionsIfNecessaryForResult(FragmentHome.this, PermissionsAPI.duxiePermissions, new PermissionsResultAction() {
-                       @Override
-                       public void onGranted() {
-                           presenter.startCalendar();
-                       }
-
-                       @Override
-                       public void onDenied(String permission) {
-
-                       }
-                   });
-               }
+                startCarlendar();
             }
         });
         //诊疗记录
@@ -198,6 +188,35 @@ public class FragmentHome extends MyBaseFragment implements IHomeFragment {
                 ActivityLegitimateSurrogacy.start(mContext);
             }
         });
+    }
+
+    @AfterPermissionGranted(PRC_CARLENDAR)
+    private void startCarlendar(){
+        if (EasyPermissions.hasPermissions(mContext, PermissionsAPI.carlendarPermissions)) {
+            presenter.startCalendar();
+        } else {
+            EasyPermissions.requestPermissions(this, "日程安排选择需要以下权限:\n\n1.访问设备上的日历", PRC_CARLENDAR,  PermissionsAPI.carlendarPermissions);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, List<String> perms) {
+        switch (requestCode){
+            case PRC_CARLENDAR:
+                presenter.startCalendar();
+        }
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, List<String> perms) {
+        if (requestCode == PRC_CARLENDAR) {
+            Toast.makeText(mContext, "您拒绝了「访问日历」所需要的相关权限!", Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**
@@ -288,4 +307,30 @@ public class FragmentHome extends MyBaseFragment implements IHomeFragment {
 //        }
     }
 
+//    ping                        : 判断是否有外网连接
+//    isWifiEnabled               : 判断WIFI是否打开
+//    is3rd                       : 判断是否为3G网络
+//    isWifi                      : 判断网络连接方式是否为WIFI
+//    isNetworkAvailable          : 判断网络连接是否可用
+//    isGpsEnabled                : GPS是否打开
+//    getNetWork                  : 获取当前网络状态
+//    openWirelessSettings        : 打开网络设置界面
+//    getActiveNetworkInfo        : 获取活动网络信息
+//    isAvailable                 : 判断网络是否可用
+//    isConnected                 : 判断网络是否连接
+//    is4G                        : 判断网络是否是4G
+//    isWifiConnected             : 判断wifi是否连接状态
+//    getNetworkOperatorName      : 获取移动网络运营商名称
+//    getPhoneType                : 获取移动终端类型
+//    getNetWorkType              : 获取当前的网络类型
+//    getNetWorkTypeName          : 获取当前的网络类型名称
+
+    private void test(){
+        LogUtils.d(RxNetTool.ping()+"===");
+        LogUtils.d(RxNetTool.isWifiEnabled(mContext)+"===");
+        LogUtils.d(RxNetTool.isWifi(mContext)+"===");
+        LogUtils.d(RxNetTool.isWifiConnected(mContext)+"===");
+        LogUtils.d(RxNetTool.getNetWorkTypeName(mContext)+"===");
+        LogUtils.d(RxNetTool.getNetWorkType(mContext)+"===");
+    }
 }

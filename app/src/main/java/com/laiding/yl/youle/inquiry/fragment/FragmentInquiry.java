@@ -128,7 +128,7 @@ public class FragmentInquiry extends MyBaseFragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_im_bar_right:
-                ActivityChat.start(mContext, "8009");
+                ActivityChat.start(mContext, "8899");
                 break;
             case R.id.tv_gwy:
                 break;

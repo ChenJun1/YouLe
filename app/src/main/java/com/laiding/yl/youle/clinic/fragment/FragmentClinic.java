@@ -141,10 +141,11 @@ public class FragmentClinic extends MyBaseFragment implements IFragmentClinic {
      * 初始化刷新控件
      */
     private void initRefresh() {
+        mSwipeLayout.setColorSchemeResources(R.color.color_FF4081, R.color.color_303F9F);
         mSwipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-
+                mSwipeLayout.setRefreshing(false);
             }
         });
     }
@@ -174,7 +175,7 @@ public class FragmentClinic extends MyBaseFragment implements IFragmentClinic {
         mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
-
+                mAdapter.loadMoreComplete();
             }
         }, mClinicRl);
         mClinicRl.setAdapter(mAdapter);

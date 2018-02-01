@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
+    android:layout_height="match_parent"
     android:background="@color/color_FAFAFA"
     android:gravity="center_vertical"
     android:orientation="horizontal"
@@ -9,6 +9,7 @@
     android:paddingRight="@dimen/margin_16">
 
     <TextView
+        android:visibility="invisible"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/tv_medical_records"
@@ -17,6 +18,7 @@
         android:textColor="#f993a6" />
 
     <View
+        android:visibility="invisible"
         android:layout_width="@dimen/margin_30"
         android:layout_height="@dimen/margin_1"
         android:background="#f993a6" />
@@ -28,38 +30,17 @@
 
         <View
             android:layout_width="1dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
-            android:layout_weight="1"
             android:background="#e6e6e6" />
 
         <ImageView
+            android:visibility="invisible"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/icon_anniu_fuxuan" />
 
-        <View
-            android:layout_width="1dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="1"
-            android:background="#e6e6e6" />
+
     </LinearLayout>
 
-    <View
-        android:layout_width="@dimen/margin_30"
-        android:layout_height="@dimen/margin_1"
-        android:background="#f993a6" />
-
-    <TextView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:background="@drawable/tv_medical_records"
-        android:ellipsize="end"
-        android:gravity="center"
-        android:maxLines="1"
-        android:padding="@dimen/margin_8"
-        android:text="输卵管整形术"
-        android:textColor="#f993a6" />
 </LinearLayout>

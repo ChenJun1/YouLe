@@ -155,7 +155,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="好运指导"
+                android:text="好孕指导"
                 android:textColor="@color/color_585858" />
         </LinearLayout>
     </LinearLayout>
