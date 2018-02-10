@@ -12,6 +12,7 @@ import com.laiding.yl.mvprxretrofitlibrary.listener.FrgLifeCycleListener;
 import com.laiding.yl.mvprxretrofitlibrary.listener.ProgressListener;
 import com.laiding.yl.mvprxretrofitlibrary.widget.RLoadingDialog;
 import com.trello.rxlifecycle2.components.support.RxFragment;
+import com.vondear.rxtools.view.RxToast;
 
 import java.util.List;
 
@@ -173,5 +174,14 @@ public abstract class BaseFragment extends RxFragment implements IBaseView,EasyP
     public void closeLoading() {
         if (mLoadingDialog != null)
             mLoadingDialog.dismiss();
+    }
+
+    /**
+     *  提示错误信息
+     * @param errorMsg
+     */
+    @Override
+    public void showError(String errorMsg) {
+        RxToast.error(errorMsg);
     }
 }

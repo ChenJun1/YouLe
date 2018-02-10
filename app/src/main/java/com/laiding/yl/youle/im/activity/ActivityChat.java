@@ -9,14 +9,15 @@ import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.runtimepermissions.PermissionsManager;
 import com.hyphenate.easeui.ui.EaseChatFragment;
 import com.laiding.yl.youle.R;
+import com.laiding.yl.youle.base.MyBaseFragmentActivity;
 import com.laiding.yl.youle.im.fragment.ChatFragment;
 
 /**
  * Created by JunChen on 2018/1/12.
- * Remarks
+ * Remarks  聊天
  */
 
-public class ActivityChat extends BaseActivity {
+public class ActivityChat extends MyBaseFragmentActivity {
 
     public static void start(Context context, String uid) {
         Intent starter = new Intent(context, ActivityChat.class);
@@ -33,13 +34,20 @@ public class ActivityChat extends BaseActivity {
     }
 
     @Override
-    protected void onCreate(Bundle arg0) {
-        super.onCreate(arg0);
-        setContentView(R.layout.activity_chat);
+    protected int getContentViewId() {
+        return R.layout.activity_chat;
+    }
+
+    @Override
+    protected void init() {
         mFragment = new ChatFragment();
         mFragment.setArguments(getIntent().getExtras());
         getSupportFragmentManager().beginTransaction().add(R.id.chat_fragment, mFragment).commit();
     }
 
+    @Override
+    protected void initBundleData() {
+
+    }
 
 }

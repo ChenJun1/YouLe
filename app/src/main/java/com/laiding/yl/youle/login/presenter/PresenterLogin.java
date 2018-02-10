@@ -1,6 +1,5 @@
 package com.laiding.yl.youle.login.presenter;
 
-import com.google.gson.Gson;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 import com.laiding.yl.mvprxretrofitlibrary.http.exception.ApiException;
@@ -16,9 +15,11 @@ import com.laiding.yl.youle.login.activity.view.ILoginView;
 import com.laiding.yl.youle.login.entity.UserBean;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import io.reactivex.disposables.Disposable;
+import okhttp3.FormBody;
 
 /**
  * Created by JunChen on 2018/1/3.
@@ -67,7 +68,43 @@ public class PresenterLogin extends MyBasePresenter<ILoginView,ActivityPhoneLogi
          * ActivityEvent.PAUSE(FragmentEvent.PAUSE)
          * 手动管理移除RxJava监听,如果不设置此参数默认自动管理移除RxJava监听（onCrete创建,onDestroy移除）
          */
-        new HttpRxObservable<UserBean>().getObservable(ApiUtlis.getLoginApi().login(request), getActivity(), ActivityEvent.STOP).subscribe(httpRxObserver);
+        new HttpRxObservable<UserBean>().getObservable(ApiUtlis.getUserApi().login(request), getActivity(), ActivityEvent.STOP).subscribe(httpRxObserver);
+
+    }
+
+
+    /**
+     * 获取验证码
+     *
+     */
+    public void getVerificationCode(){
+        final Map<String, Object> request = new HashMap<>();
+//        request.put("r","user"+"/"+"tel");
+        request.put("u_phone", getView().getPhone());
+        request.put("v_type", 0);
+//     final FormBody.Builder builder = new FormBody.Builder();
+//        builder.add("r","user/tel");
+//        builder.add("u_phone", getView().getPhone());
+//        builder.add("v_type", "0");
+        HttpRxObserver httpRxObserver=new HttpRxObserver<HttpResponse>(TAG+"getVerificationCode",getView()) {
+            @Override
+            protected void onStart(Disposable d) {
+
+            }
+
+            @Override
+            protected void onError(ApiException e) {
+
+            }
+
+            @Override
+            protected void onSuccess(HttpResponse response) {
+                LogUtils.d(response.toString()+"========");
+
+            }
+        };
+
+        new HttpRxObservable().getObservable(ApiUtlis.getUserApi().getVerificationCode(request), getActivity(), ActivityEvent.STOP).subscribe(httpRxObserver);
 
     }
 

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Information.activity.ActivityInformationDetail">
@@ -43,10 +43,27 @@
                 android:text="为保证胎宝宝的正常发育，你需要每天额外补充以下营养：
 孕中期需要额外摄取350 卡路里，在孕晚期每天要额外摄取450 卡路里 。而这里并不是表示准妈妈们可以大吃特吃哦，而是要多吃真正的食物，比如考虑增加两份蛋白质和两份水果蔬菜。这种方法更准确，更容易做到，也更健康。
 除了每天需要补充300-500卡路里的营养，还需补充25克蛋白质，800毫克钙，0.4毫克叶酸，40毫克铁。
+每天额外补充的热量、钙及蛋白质，只要通过多喝一杯酸为保证胎宝宝的正常发育，你需要每天额外补充以下营养：
+孕中期需要额外摄取350 卡路里，在孕晚期每天要额外摄取450 卡路里 。而这里并不是表示准妈妈们可以大吃特吃哦，而是要多吃真正的食物，比如考虑增加两份蛋白质和两份水果蔬菜。这种方法更准确，更容易做到，也更健康。
+除了每天需要补充300-500卡路里的营养，还需补充25克蛋白质，800毫克钙，0.4毫克叶酸，40毫克铁。
 每天额外补充的热量、钙及蛋白质，只要通过多喝一杯酸奶及多吃170克鱼肉就可以达到要求。你可以通过每天服用一片叶酸含量0.4-0.8毫克的补充剂，一片钙含量500毫克的补充剂来补钙，以及一片300毫克的磷酸铁来补充铁。"
                 android:textColor="@color/color_575757" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+                <com.laiding.yl.youle.widget.CommentListTextView
+                    android:id="@+id/commentlist"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
 
         </LinearLayout>
+
     </ScrollView>
 
 </LinearLayout>

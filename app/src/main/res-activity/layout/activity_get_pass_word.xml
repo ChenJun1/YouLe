@@ -5,11 +5,12 @@
     android:layout_height="match_parent"
     android:background="@color/color_FAFAFA"
     android:orientation="vertical"
-    tools:context=".login.activity.ActivityGetPassWord">
+    tools:context=".login.activity.ActivityUpdatePassWord">
 
     <include layout="@layout/layout_head"/>
 
     <LinearLayout
+        android:layout_marginTop="@dimen/margin_8"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@drawable/bg_btn_login_selected"
@@ -126,10 +127,12 @@
     </LinearLayout>
 
     <Button
+        android:layout_marginLeft="@dimen/margin_16"
+        android:layout_marginRight="@dimen/margin_16"
         android:id="@+id/login_bt"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="90dp"
         android:background="@drawable/bg_btn_login_selected"
         android:text="确定"
         android:textColor="#1d1d1d"

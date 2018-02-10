@@ -16,6 +16,7 @@ import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.laiding.yl.youle.MyApplication;
 import com.laiding.yl.youle.R;
 import com.laiding.yl.youle.base.MyBaseActivity;
+import com.laiding.yl.youle.home.activty.view.IMedicalRecordsActy;
 import com.laiding.yl.youle.home.adapter.AdapterMedicalRecordsActivity;
 import com.laiding.yl.youle.home.entity.ForumPostsBean;
 import com.vondear.rxtools.RxIntentTool;
@@ -32,7 +33,7 @@ import butterknife.OnClick;
  * Remarks 诊疗记录
  */
 
-public class ActivityMedicalRecords extends MyBaseActivity {
+public class ActivityMedicalRecords extends MyBaseActivity implements IMedicalRecordsActy {
     @BindView(R.id.iv_add)
     ImageView mIvAdd;
     @BindView(R.id.rcy_view)

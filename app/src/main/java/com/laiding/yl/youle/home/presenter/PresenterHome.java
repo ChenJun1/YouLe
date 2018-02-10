@@ -24,7 +24,7 @@ import io.reactivex.disposables.Disposable;
 
 /**
  * Created by JunChen on 2018/1/4.
- * Remarks
+ * Remarks 首页
  */
 
 public class PresenterHome extends MyBaseFrgPresenter<IHomeFragment,FragmentHome> {
@@ -43,7 +43,7 @@ public class PresenterHome extends MyBaseFrgPresenter<IHomeFragment,FragmentHome
         request.put("username", name);
         request.put("password", pass);
 
-        HttpRxObserver httpRxObserver=new HttpRxObserver<HttpResponse<UserBean>>(TAG+"login",getView()) {
+        HttpRxObserver httpRxObserver=new HttpRxObserver<HttpResponse<UserBean>>(TAG+"login") {
             @Override
             protected void onStart(Disposable d) {
 
@@ -67,7 +67,7 @@ public class PresenterHome extends MyBaseFrgPresenter<IHomeFragment,FragmentHome
          * ActivityEvent.PAUSE(FragmentEvent.PAUSE)
          * 手动管理移除RxJava监听,如果不设置此参数默认自动管理移除RxJava监听（onCrete创建,onDestroy移除）
          */
-       new HttpRxObservable<UserBean>().getObservable(ApiUtlis.getLoginApi().login(request), getFrgment(), FragmentEvent.STOP).subscribe(httpRxObserver);
+       new HttpRxObservable<UserBean>().getObservable(ApiUtlis.getUserApi().login(request), getFrgment(), FragmentEvent.STOP).subscribe(httpRxObserver);
 
     }
 

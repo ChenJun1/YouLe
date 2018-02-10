@@ -21,13 +21,13 @@ public class HttpResponse<T> {
     /**
      * 状态码
      */
-    @SerializedName("retCode")
+    @SerializedName("code")
     private int code;
 
     /**
      * 数据对象[成功返回对象,失败返回错误说明]
      */
-    @SerializedName("result")
+    @SerializedName("data")
     private T result;
 
     /**
@@ -36,7 +36,7 @@ public class HttpResponse<T> {
      * @return
      */
     public boolean isSuccess() {
-        return code == 200 ? true : false;
+        return code == 0 ? true : false;
     }
 
     public String toString() {

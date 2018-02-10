@@ -15,7 +15,7 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/ll_top_head"
+            android:id="@+id/ll_top_avatar"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_marginTop="@dimen/margin_8"

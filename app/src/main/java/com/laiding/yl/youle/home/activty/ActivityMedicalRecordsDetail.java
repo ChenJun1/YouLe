@@ -9,16 +9,18 @@ import android.widget.TextView;
 
 import com.laiding.yl.youle.R;
 import com.laiding.yl.youle.base.MyBaseActivity;
+import com.laiding.yl.youle.home.activty.view.IMedicalRecordsActy;
+import com.laiding.yl.youle.home.activty.view.IMedicalRecordsDetailActy;
 import com.laiding.yl.youle.widget.photopicker.widget.BGASortableNinePhotoLayout;
 
 import butterknife.BindView;
 
 /**
  * Created by JunChen on 2018/1/26.
- * Remarks
+ * Remarks 诊疗详情
  */
 
-public class ActivityMedicalRecordsDetail extends MyBaseActivity {
+public class ActivityMedicalRecordsDetail extends MyBaseActivity implements IMedicalRecordsDetailActy {
 
     public static void start(Context context) {
         Intent starter = new Intent(context, ActivityMedicalRecordsDetail.class);

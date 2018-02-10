@@ -23,6 +23,8 @@ import android.widget.Toast;
 
 import com.laiding.yl.youle.R;
 import com.laiding.yl.youle.base.MyBaseActivity;
+import com.laiding.yl.youle.login.activity.view.IPassLogin;
+import com.laiding.yl.youle.login.presenter.PresenterPassLogin;
 import com.vondear.rxtools.RxAnimationTool;
 import com.vondear.rxtools.RxKeyboardTool;
 import com.vondear.rxtools.RxRegTool;
@@ -36,8 +38,11 @@ import butterknife.OnClick;
  * 密码登陆
  */
 
-public class ActivityPassLogin extends MyBaseActivity {
-
+public class ActivityPassLogin extends MyBaseActivity implements IPassLogin {
+    public static void start(Context context) {
+        Intent starter = new Intent(context, ActivityPassLogin.class);
+        context.startActivity(starter);
+    }
 
     @BindView(R.id.logo)
     ImageView mLogo;
@@ -67,13 +72,10 @@ public class ActivityPassLogin extends MyBaseActivity {
     private int screenHeight = 0;//屏幕高度
     private int keyHeight = 0; //软件盘弹起后所占高度
     private float scale = 0.6f; //logo缩放比例
-    private int height = 0;
 
 
-    public static void start(Context context) {
-        Intent starter = new Intent(context, ActivityPassLogin.class);
-        context.startActivity(starter);
-    }
+    private PresenterPassLogin persenter = new PresenterPassLogin(this, this);
+
 
     @Override
     protected int getContentViewId() {
@@ -152,7 +154,7 @@ public class ActivityPassLogin extends MyBaseActivity {
                 if (oldBottom != 0 && bottom != 0 && (oldBottom - bottom > keyHeight)) {
                     Log.e("wenzhihao", "up------>" + (oldBottom - bottom));
                     int dist = mContent.getBottom() - bottom;
-                    dist=dist/3; //向上弹起的高度3分1刚刚好
+                    dist = dist / 3; //向上弹起的高度3分1刚刚好
                     if (dist > 0) {
                         ObjectAnimator mAnimatorTranslateY = ObjectAnimator.ofFloat(mContent, "translationY", 0.0f, -dist);
                         mAnimatorTranslateY.setDuration(300);
@@ -191,7 +193,7 @@ public class ActivityPassLogin extends MyBaseActivity {
     }
 
     private boolean checkPhone() {
-        if(!RxRegTool.isMobile(String.valueOf(mEtMobile.getText()))){
+        if (!RxRegTool.isMobile(String.valueOf(mEtMobile.getText()))) {
             RxToast.error("请输入正确手机号");
             return false;
         }
@@ -204,7 +206,7 @@ public class ActivityPassLogin extends MyBaseActivity {
     }
 
 
-    @OnClick({R.id.iv_clean_phone, R.id.clean_password, R.id.iv_show_pwd})
+    @OnClick({R.id.iv_clean_phone, R.id.clean_password, R.id.iv_show_pwd,R.id.btn_login})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_clean_phone:
@@ -225,6 +227,18 @@ public class ActivityPassLogin extends MyBaseActivity {
                 if (!TextUtils.isEmpty(pwd))
                     mEtPassword.setSelection(pwd.length());
                 break;
+            case R.id.btn_login:
+                break;
         }
+    }
+
+    @Override
+    public String getPhone() {
+        return mEtMobile.getText() + "";
+    }
+
+    @Override
+    public String getPassWord() {
+        return mEtPassword.getText() + "";
     }
 }

@@ -2,21 +2,21 @@ package com.laiding.yl.youle.mine.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.hyphenate.EMCallBack;
+import com.hyphenate.chat.EMClient;
 import com.laiding.yl.mvprxretrofitlibrary.manager.ActivityStackManager;
+import com.laiding.yl.mvprxretrofitlibrary.utlis.LogUtils;
 import com.laiding.yl.youle.R;
 import com.laiding.yl.youle.base.MyBaseActivity;
-import com.laiding.yl.youle.login.activity.ActivityGetPassWord;
+import com.laiding.yl.youle.login.activity.ActivityUpdatePassWord;
 import com.laiding.yl.youle.login.activity.ActivityPhoneLogin;
-import com.vondear.rxtools.view.dialog.RxDialog;
 import com.vondear.rxtools.view.dialog.RxDialogSureCancel;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -65,11 +65,13 @@ public class ActivitySet extends MyBaseActivity {
                 ActivityPersonalInformation.start(mContext);
                 break;
             case R.id.tv_account_binding:
+                ActivityAccountBinding.start(mContext);
                 break;
             case R.id.tv_change_password:
-                ActivityGetPassWord.start(mContext);
+                ActivityUpdatePassWord.start(mContext);
                 break;
             case R.id.tv_about_us:
+                ActivityAboutUs.start(mContext);
                 break;
             case R.id.btn_out_login:
                 final RxDialogSureCancel rxDialogSureCancel = new RxDialogSureCancel(mContext);//提示弹窗
@@ -80,6 +82,26 @@ public class ActivitySet extends MyBaseActivity {
                     public void onClick(View v) {
                         ActivityStackManager.getManager().finishAllActivity();
                         ActivityPhoneLogin.start(mContext);
+                        EMClient.getInstance().logout(true, new EMCallBack() {
+
+                            @Override
+                            public void onSuccess() {
+                                // TODO Auto-generated method stub
+                                LogUtils.e("推出成功");
+                            }
+
+                            @Override
+                            public void onProgress(int progress, String status) {
+                                // TODO Auto-generated method stub
+
+                            }
+
+                            @Override
+                            public void onError(int code, String message) {
+                                // TODO Auto-generated method stub
+                                LogUtils.e("推出失败");
+                            }
+                        });
                     }
                 });
                 rxDialogSureCancel.getCancelView().setOnClickListener(new View.OnClickListener() {

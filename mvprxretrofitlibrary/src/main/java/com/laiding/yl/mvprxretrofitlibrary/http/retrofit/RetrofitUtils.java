@@ -1,6 +1,7 @@
 package com.laiding.yl.mvprxretrofitlibrary.http.retrofit;
 
 
+import com.laiding.yl.mvprxretrofitlibrary.http.interceptor.LoggingInterceptor;
 import com.laiding.yl.mvprxretrofitlibrary.utlis.LogUtils;
 
 import java.util.concurrent.TimeUnit;
@@ -20,10 +21,10 @@ public class RetrofitUtils {
     /**
      * 接口地址
      */
-    public static final String BASE_API = "http://apicloud.mob.com/";
-    public static final int CONNECT_TIME_OUT = 30;//连接超时时长x秒
-    public static final int READ_TIME_OUT = 30;//读数据超时时长x秒
-    public static final int WRITE_TIME_OUT = 30;//写数据接超时时长x秒
+    public static final String BASE_API = "http://47.97.185.141/youle/frontend/web/";
+    public static final int CONNECT_TIME_OUT = 15;//连接超时时长x秒
+    public static final int READ_TIME_OUT = 15;//读数据超时时长x秒
+    public static final int WRITE_TIME_OUT = 15;//写数据接超时时长x秒
     private static RetrofitUtils mInstance = null;
 
     private RetrofitUtils() {
@@ -58,7 +59,7 @@ public class RetrofitUtils {
                 .connectTimeout(CONNECT_TIME_OUT, TimeUnit.SECONDS)
                 .writeTimeout(WRITE_TIME_OUT, TimeUnit.SECONDS)
                 .readTimeout(READ_TIME_OUT, TimeUnit.SECONDS)
-                .addInterceptor(logging)
+                .addInterceptor(new LoggingInterceptor())
                 .build();
         return client;
     }

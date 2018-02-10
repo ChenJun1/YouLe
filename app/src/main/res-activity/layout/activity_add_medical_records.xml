@@ -34,19 +34,22 @@
                     android:layout_gravity="center_vertical"
                     android:src="@mipmap/icon_xiangmu" />
 
-        <EditText
-            android:background="@null"
-            android:textColor="#b3b3b3"
-            android:textSize="@dimen/sp_14"
-            android:layout_marginLeft="@dimen/margin_16"
-            android:gravity="center_vertical"
-            android:hint="标题"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
+                <EditText
+                    android:id="@+id/et_mr_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/margin_16"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="标题"
+                    android:maxLines="1"
+                    android:textColor="#b3b3b3"
+                    android:textSize="@dimen/sp_14" />
+            </LinearLayout>
 
 
             <LinearLayout
+                android:id="@+id/ll_mr_time"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/margin_40"
                 android:layout_marginTop="@dimen/margin_1"
@@ -72,6 +75,7 @@
                     android:textColor="@color/color_585858" />
 
                 <TextView
+                    android:id="@+id/tv_mr_time"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="@dimen/margin_16"
@@ -90,6 +94,7 @@
 
 
             <LinearLayout
+                android:id="@+id/ll_mr_hospital"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/margin_40"
                 android:layout_marginTop="@dimen/margin_1"
@@ -105,6 +110,7 @@
                     android:src="@mipmap/icon_yiyuan" />
 
                 <TextView
+                    android:id="@+id/tv_mr_hospital"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="@dimen/margin_16"
@@ -146,6 +152,7 @@
                     android:gravity="start"
                     android:hint="请输入备注..."
                     android:lines="4"
+                    android:paddingLeft="@dimen/margin_16"
                     android:textColor="#474747"
                     android:textColorHint="#C6C6C6" />
 

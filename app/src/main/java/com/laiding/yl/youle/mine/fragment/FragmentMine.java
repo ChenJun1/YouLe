@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.laiding.yl.youle.R;
 import com.laiding.yl.youle.base.MyBaseFragment;
+import com.laiding.yl.youle.mine.activity.ActivityPersonalInformation;
 import com.laiding.yl.youle.mine.activity.ActivitySet;
 import com.sunfusheng.glideimageview.GlideImageView;
 
@@ -46,7 +47,7 @@ public class FragmentMine extends MyBaseFragment {
     TextView mTvUserName;
     @BindView(R.id.tv_user_content)
     TextView mTvUserContent;
-    @BindView(R.id.ll_top_head)
+    @BindView(R.id.ll_top_avatar)
     LinearLayout mLlTopHead;
     @BindView(R.id.ll_theme)
     LinearLayout mLlTheme;
@@ -75,7 +76,7 @@ public class FragmentMine extends MyBaseFragment {
         mTvTitle.setVisibility(View.VISIBLE);
         mTvTitle.setText("我的");
         mIvBarRight.setVisibility(View.VISIBLE);
-        mIvBarRight.loadLocalImage(R.mipmap.icon_shezhi, R.mipmap.icon_shezhi);
+        mIvBarRight.loadLocalImage(R.mipmap.icon_shezhi12, R.mipmap.icon_shezhi12);
     }
 
     @Override
@@ -83,16 +84,17 @@ public class FragmentMine extends MyBaseFragment {
 
     }
 
-    @OnClick({R.id.ll_im_bar_right, R.id.ll_top_head, R.id.ll_theme, R.id.ll_reply, R.id.ll_collection, R.id.ll_history, R.id.ll_utils, R.id.ll_set})
+    @OnClick({R.id.ll_im_bar_right, R.id.ll_top_avatar, R.id.ll_theme, R.id.ll_reply, R.id.ll_collection, R.id.ll_history, R.id.ll_utils, R.id.ll_set})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.ll_top_head:
+            case R.id.ll_top_avatar:
+                ActivityPersonalInformation.start(mContext);
                 break;
             case R.id.ll_theme:
                 break;
             case R.id.ll_reply:
                 break;
-            case R.id.ll_collection:
+            case R.id.ll_collection    :
                 break;
             case R.id.ll_history:
                 break;

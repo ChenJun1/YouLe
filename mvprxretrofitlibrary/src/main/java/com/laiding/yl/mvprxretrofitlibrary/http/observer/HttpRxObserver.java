@@ -4,6 +4,7 @@ package com.laiding.yl.mvprxretrofitlibrary.http.observer;
 import android.text.TextUtils;
 
 
+import com.laiding.yl.mvprxretrofitlibrary.base.IBaseView;
 import com.laiding.yl.mvprxretrofitlibrary.http.exception.ApiException;
 import com.laiding.yl.mvprxretrofitlibrary.http.exception.ExceptionEngine;
 import com.laiding.yl.mvprxretrofitlibrary.http.retrofit.HttpRequestListener;
@@ -29,13 +30,22 @@ public abstract class HttpRxObserver<T> implements Observer<T>, HttpRequestListe
 
     private String mTag;//请求标识
     private ProgressListener mProgressListener; //请求等待
+    private IBaseView mView;
+
     public HttpRxObserver() {
     }
 
-    public HttpRxObserver(String tag,ProgressListener progressListener) {
+    public HttpRxObserver(String tag, IBaseView view) {
         this.mTag = tag;
-        this.mProgressListener=progressListener;
+        this.mView = view;
     }
+
+    public HttpRxObserver(String tag, ProgressListener progressListener) {
+        this.mTag = tag;
+        this.mProgressListener = progressListener;
+
+    }
+
     public HttpRxObserver(String tag) {
         this.mTag = tag;
     }
@@ -43,14 +53,20 @@ public abstract class HttpRxObserver<T> implements Observer<T>, HttpRequestListe
     @Override
     public void onError(Throwable e) {
         RxActionManagerImpl.getInstance().remove(mTag);
-        if(mProgressListener!=null){
-            mProgressListener.closeLoading();
+        if (mView != null) {
+            mView.closeLoading();
         }
         if (e instanceof ApiException) {
             onError((ApiException) e);
+            if (mView != null)
+                mView.showError(((ApiException) e).getMsg());
         } else {
-            onError(new ApiException(e, ExceptionEngine.UN_KNOWN_ERROR));
+            ApiException apiException = new ApiException(e, ExceptionEngine.UN_KNOWN_ERROR);
+            onError(apiException);
+            if (mView != null)
+                mView.showError(apiException.getMsg());
         }
+
     }
 
     @Override
@@ -62,8 +78,8 @@ public abstract class HttpRxObserver<T> implements Observer<T>, HttpRequestListe
         if (!TextUtils.isEmpty(mTag)) {
             RxActionManagerImpl.getInstance().remove(mTag);
         }
-        if(mProgressListener!=null){
-            mProgressListener.closeLoading();
+        if (mView != null) {
+            mView.closeLoading();
         }
         onSuccess(t);
     }
@@ -73,8 +89,8 @@ public abstract class HttpRxObserver<T> implements Observer<T>, HttpRequestListe
         if (!TextUtils.isEmpty(mTag)) {
             RxActionManagerImpl.getInstance().add(mTag, d);
         }
-        if(mProgressListener!=null){
-            mProgressListener.showLoading();
+        if (mView != null) {
+            mView.showLoading();
         }
         onStart(d);
     }
@@ -84,7 +100,7 @@ public abstract class HttpRxObserver<T> implements Observer<T>, HttpRequestListe
         if (!TextUtils.isEmpty(mTag)) {
             RxActionManagerImpl.getInstance().cancel(mTag);
         }
-        if(mProgressListener!=null){
+        if (mProgressListener != null) {
             mProgressListener.closeLoading();
         }
     }

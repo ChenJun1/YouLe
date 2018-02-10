@@ -7,8 +7,13 @@ import com.laiding.yl.youle.login.entity.UserBean;
  * Created by JunChen on 2018/1/3.
  */
 
-public interface ILoginView extends IBaseView{
+public interface ILoginView extends IBaseView {
 
     void showResult(UserBean userBean);
+
     void toChat();
+
+    String getPhone();
+
+    String getVerificationCode();
 }

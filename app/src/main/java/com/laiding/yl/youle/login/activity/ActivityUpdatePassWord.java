@@ -11,9 +11,9 @@ import com.laiding.yl.youle.base.MyBaseActivity;
  * 修改密码
  */
 
-public class ActivityGetPassWord extends MyBaseActivity {
+public class ActivityUpdatePassWord extends MyBaseActivity {
     public static void start(Context context) {
-        Intent starter = new Intent(context, ActivityGetPassWord.class);
+        Intent starter = new Intent(context, ActivityUpdatePassWord.class);
         context.startActivity(starter);
     }
 

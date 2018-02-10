@@ -27,6 +27,8 @@
             android:layout_marginRight="@dimen/margin_1"
             android:layout_weight="1"
             android:dropDownSelector="@mipmap/icon_xiajiantou"
+            android:dropDownVerticalOffset="40dp"
+            android:spinnerMode="dropdown"
             android:theme="@style/SpnStyle" />
 
         <Spinner
@@ -36,6 +38,7 @@
             android:layout_marginRight="@dimen/margin_1"
             android:layout_weight="1"
             android:dropDownSelector="@mipmap/icon_xiajiantou"
+            android:dropDownVerticalOffset="40dp"
             android:spinnerMode="dropdown"
             android:theme="@style/SpnStyle" />
 
@@ -45,6 +48,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:dropDownSelector="@mipmap/icon_xiajiantou"
+            android:dropDownVerticalOffset="40dp"
+            android:spinnerMode="dropdown"
             android:theme="@style/SpnStyle" />
     </LinearLayout>
 

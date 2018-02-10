@@ -42,6 +42,8 @@ import butterknife.BindView;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
+import static android.nfc.tech.MifareUltralight.PAGE_SIZE;
+
 
 /**
  * Created by JunChen on 2018/1/4.
@@ -227,13 +229,13 @@ public class FragmentHome extends MyBaseFragment implements IHomeFragment {
         homeRl.addItemDecoration(new MyItemDecoration());
 
         list.add(new ForumPostsBean());
-        list.add(new ForumPostsBean());
-        list.add(new ForumPostsBean());
-        list.add(new ForumPostsBean());
-        list.add(new ForumPostsBean());
-        list.add(new ForumPostsBean());
-        list.add(new ForumPostsBean());
-        list.add(new ForumPostsBean());
+//        list.add(new ForumPostsBean());
+//        list.add(new ForumPostsBean());
+//        list.add(new ForumPostsBean());
+//        list.add(new ForumPostsBean());
+//        list.add(new ForumPostsBean());
+//        list.add(new ForumPostsBean());
+//        list.add(new ForumPostsBean());
         adapter = new AdapterHomeFragement(R.layout.item_fragment_home, list);
         adapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_LEFT);
         adapter.setEnableLoadMore(true);
@@ -274,63 +276,37 @@ public class FragmentHome extends MyBaseFragment implements IHomeFragment {
         if (isRefresh) {
             list.clear();
             list.add(new ForumPostsBean());
-            list.add(new ForumPostsBean());
-            list.add(new ForumPostsBean());
-            list.add(new ForumPostsBean());
-            list.add(new ForumPostsBean());
-            list.add(new ForumPostsBean());
-            list.add(new ForumPostsBean());
-            list.add(new ForumPostsBean());
+//            list.add(new ForumPostsBean());
+//            list.add(new ForumPostsBean());
+//            list.add(new ForumPostsBean());
+//            list.add(new ForumPostsBean());
+//            list.add(new ForumPostsBean());
+//            list.add(new ForumPostsBean());
+//            list.add(new ForumPostsBean());
             adapter.setNewData(list);
             swipeLayout.setRefreshing(false);
         } else {
             adapter.loadMoreFail();
             adapter.loadMoreComplete();
             list.add(new ForumPostsBean());
-            list.add(new ForumPostsBean());
-            list.add(new ForumPostsBean());
-            list.add(new ForumPostsBean());
-            list.add(new ForumPostsBean());
-            list.add(new ForumPostsBean());
-            list.add(new ForumPostsBean());
+//            list.add(new ForumPostsBean());
+//            list.add(new ForumPostsBean());
+//            list.add(new ForumPostsBean());
+//            list.add(new ForumPostsBean());
+//            list.add(new ForumPostsBean());
+//            list.add(new ForumPostsBean());
             if (list != null && list.size() > 0) {
                 adapter.addData(list);
             }
         }
 
-//        if (size < PAGE_SIZE) {
-//            //第一页如果不够一页就不显示没有更多数据布局
-//            mAdapter.loadMoreEnd(isRefresh);
-//            Toast.makeText(this, "no more data", Toast.LENGTH_SHORT).show();
-//        } else {
-//            mAdapter.loadMoreComplete();
-//        }
+        if (list.size() < PAGE_SIZE) {
+            //第一页如果不够一页就不显示没有更多数据布局
+            adapter.loadMoreEnd(isRefresh);
+            Toast.makeText(getActivity(), "no more data", Toast.LENGTH_SHORT).show();
+        } else {
+            adapter.loadMoreComplete();
+        }
     }
 
-//    ping                        : 判断是否有外网连接
-//    isWifiEnabled               : 判断WIFI是否打开
-//    is3rd                       : 判断是否为3G网络
-//    isWifi                      : 判断网络连接方式是否为WIFI
-//    isNetworkAvailable          : 判断网络连接是否可用
-//    isGpsEnabled                : GPS是否打开
-//    getNetWork                  : 获取当前网络状态
-//    openWirelessSettings        : 打开网络设置界面
-//    getActiveNetworkInfo        : 获取活动网络信息
-//    isAvailable                 : 判断网络是否可用
-//    isConnected                 : 判断网络是否连接
-//    is4G                        : 判断网络是否是4G
-//    isWifiConnected             : 判断wifi是否连接状态
-//    getNetworkOperatorName      : 获取移动网络运营商名称
-//    getPhoneType                : 获取移动终端类型
-//    getNetWorkType              : 获取当前的网络类型
-//    getNetWorkTypeName          : 获取当前的网络类型名称
-
-    private void test(){
-        LogUtils.d(RxNetTool.ping()+"===");
-        LogUtils.d(RxNetTool.isWifiEnabled(mContext)+"===");
-        LogUtils.d(RxNetTool.isWifi(mContext)+"===");
-        LogUtils.d(RxNetTool.isWifiConnected(mContext)+"===");
-        LogUtils.d(RxNetTool.getNetWorkTypeName(mContext)+"===");
-        LogUtils.d(RxNetTool.getNetWorkType(mContext)+"===");
-    }
 }

@@ -4,8 +4,9 @@ import com.laiding.yl.mvprxretrofitlibrary.base.IBaseView;
 
 /**
  * Created by JunChen on 2018/1/24.
- * Remarks
+ * Remarks 诊疗记录
  */
 
-public interface IMedicalRecordsActy  extends IBaseView{
+public interface IMedicalRecordsActy extends IBaseView {
+
 }

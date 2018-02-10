@@ -27,7 +27,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:name=".MyApplication"
@@ -149,7 +149,7 @@
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <!-- ======================================自定义图片选择============================================-->
 
 
@@ -165,11 +165,7 @@
             android:screenOrientation="portrait" />
         <!-- 找回密码 -->
         <activity
-            android:name=".login.activity.ActivityGetPassWord"
-            android:screenOrientation="portrait" />
-        <!--重置密码-->
-        <activity
-            android:name=".login.activity.ActivityReSetPassWord"
+            android:name=".login.activity.ActivityUpdatePassWord"
             android:screenOrientation="portrait" />
         <!-- 试管婴儿流程 -->
         <activity
@@ -234,6 +230,21 @@
         <!-- 专家详情-->
         <activity
             android:name=".clinic.activity.ActivityDoctorDetail"
+            android:screenOrientation="portrait" />
+        <!-- 账号绑定-->
+        <activity
+            android:name=".mine.activity.ActivityAccountBinding"
+            android:screenOrientation="portrait" />
+        <!-- 关于我们-->
+        <activity
+            android:name=".mine.activity.ActivityAboutUs"
+            android:screenOrientation="portrait" />
+        <!-- 修改手机号-->
+        <activity
+            android:name=".mine.activity.ActivityUpdatePhone"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mine.activity.ActivityUpdatePhone2"
             android:screenOrientation="portrait" />
 
     </application>

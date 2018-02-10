@@ -6,7 +6,7 @@ import com.laiding.yl.youle.clinic.fragment.view.IFragmentClinic;
 
 /**
  * Created by JunChen on 2018/1/29.
- * Remarks
+ * Remarks 诊所
  */
 
 public class PresenterClinic extends MyBaseFrgPresenter<IFragmentClinic,FragmentClinic> {

@@ -30,9 +30,13 @@ public interface IPersnonalInformation extends IBaseView {
 
     CharSequence getPhone();
 
-    void setLocation(CharSequence location);
+    void setProvinceLocation(CharSequence location);
 
-    CharSequence getLocation();
+    CharSequence getProvinceLocation();
+
+    void setAreaLocation(CharSequence location);
+
+    CharSequence getAreaLocation();
 
 
     void setDetailLocation(CharSequence detailLocation);

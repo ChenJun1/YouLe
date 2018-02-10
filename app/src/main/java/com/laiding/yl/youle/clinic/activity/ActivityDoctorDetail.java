@@ -5,13 +5,14 @@ import android.content.Intent;
 
 import com.laiding.yl.youle.R;
 import com.laiding.yl.youle.base.MyBaseActivity;
+import com.laiding.yl.youle.clinic.activity.view.IDoctorDetail;
 
 /**
  * Created by JunChen on 2018/1/26.
  * Remarks医生详情
  */
 
-public class ActivityDoctorDetail extends MyBaseActivity {
+public class ActivityDoctorDetail extends MyBaseActivity implements IDoctorDetail{
     public static void start(Context context) {
         Intent starter = new Intent(context, ActivityDoctorDetail.class);
         context.startActivity(starter);

@@ -9,5 +9,5 @@ import com.laiding.yl.mvprxretrofitlibrary.listener.ProgressListener;
  */
 
 public interface IBaseView extends ProgressListener{
-
+    void showError(String errorMsg);
 }

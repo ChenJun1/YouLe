@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -29,6 +30,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+
+import static android.nfc.tech.MifareUltralight.PAGE_SIZE;
 
 /**
  * Created by JunChen on 2018/1/23.
@@ -125,13 +128,13 @@ public class FragmentInformation extends MyBaseFragment implements IInformationF
         mInformationRl.addItemDecoration(new MyItemDecoration());
 
         list.add(new ForumPostsBean());
-        list.add(new ForumPostsBean());
-        list.add(new ForumPostsBean());
-        list.add(new ForumPostsBean());
-        list.add(new ForumPostsBean());
-        list.add(new ForumPostsBean());
-        list.add(new ForumPostsBean());
-        list.add(new ForumPostsBean());
+//        list.add(new ForumPostsBean());
+//        list.add(new ForumPostsBean());
+//        list.add(new ForumPostsBean());
+//        list.add(new ForumPostsBean());
+//        list.add(new ForumPostsBean());
+//        list.add(new ForumPostsBean());
+//        list.add(new ForumPostsBean());
         adapter = new AdapterInformationFragment(list);
         adapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_LEFT);
         adapter.setEnableLoadMore(true);
@@ -207,16 +210,25 @@ public class FragmentInformation extends MyBaseFragment implements IInformationF
         } else {
             adapter.loadMoreFail();
             adapter.loadMoreComplete();
-            list.add(new ForumPostsBean());
-            list.add(new ForumPostsBean());
-            list.add(new ForumPostsBean());
-            list.add(new ForumPostsBean());
-            list.add(new ForumPostsBean());
-            list.add(new ForumPostsBean());
-            list.add(new ForumPostsBean());
+//            list.add(new ForumPostsBean());
+//            list.add(new ForumPostsBean());
+//            list.add(new ForumPostsBean());
+//            list.add(new ForumPostsBean());
+//            list.add(new ForumPostsBean());
+//            list.add(new ForumPostsBean());
+//            list.add(new ForumPostsBean());
             if (list != null && list.size() > 0) {
                 adapter.addData(list);
             }
+        }
+
+
+        if (list.size() < PAGE_SIZE) {
+            //第一页如果不够一页就不显示没有更多数据布局
+            adapter.loadMoreEnd(isRefresh);
+            Toast.makeText(getActivity(), "no more data", Toast.LENGTH_SHORT).show();
+        } else {
+            adapter.loadMoreComplete();
         }
     }
 }

@@ -12,6 +12,7 @@ import com.laiding.yl.mvprxretrofitlibrary.utlis.LogUtils;
 import com.laiding.yl.mvprxretrofitlibrary.widget.RLoadingDialog;
 import com.trello.rxlifecycle2.components.support.RxFragmentActivity;
 import com.vondear.rxtools.RxBarTool;
+import com.vondear.rxtools.view.RxToast;
 
 import java.util.List;
 
@@ -27,7 +28,7 @@ import pub.devrel.easypermissions.EasyPermissions;
  *
  * @author JunChen
  */
-public abstract class BaseFragmentActivity extends RxFragmentActivity implements EasyPermissions.PermissionCallbacks,ProgressListener {
+public abstract class BaseFragmentActivity extends RxFragmentActivity implements EasyPermissions.PermissionCallbacks,IBaseView {
     private static final String TAG = "BaseFragmentActivity";
     protected Context mContext;
     protected Unbinder unBinder;
@@ -156,5 +157,14 @@ public abstract class BaseFragmentActivity extends RxFragmentActivity implements
     public void closeLoading() {
         if (mLoadingDialog != null)
             mLoadingDialog.dismiss();
+    }
+
+    /**
+     *  提示错误信息
+     * @param errorMsg
+     */
+    @Override
+    public void showError(String errorMsg) {
+        RxToast.error(errorMsg);
     }
 }

@@ -1,5 +1,6 @@
 package com.laiding.yl.youle.clinic.fragment;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,6 +26,7 @@ import com.laiding.yl.youle.clinic.adapter.AdapterClinicFragment;
 import com.laiding.yl.youle.clinic.fragment.view.IFragmentClinic;
 import com.laiding.yl.youle.home.entity.ForumPostsBean;
 import com.laiding.yl.youle.widget.MyItemDecoration;
+import com.vondear.rxtools.RxDeviceTool;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,6 +73,8 @@ public class FragmentClinic extends MyBaseFragment implements IFragmentClinic {
     private List<String> gradeList = new ArrayList<>();
     private List<String> serviceList = new ArrayList<>();
 
+    private int deviceWidth;//屏幕得宽
+
     @Override
     protected int getContentViewId() {
         return R.layout.fragment_clinic;
@@ -112,9 +116,10 @@ public class FragmentClinic extends MyBaseFragment implements IFragmentClinic {
     /**
      * 配置spinner
      */
+    @SuppressLint("NewApi")
     private void initSpinner() {
-
-        final ArrayAdapter<String> areaAdapter = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_item, areaList);
+        deviceWidth= RxDeviceTool.getScreenWidth(mContext);
+        final ArrayAdapter<String> areaAdapter = new ArrayAdapter<String>(mContext,android.R.layout.simple_spinner_item, areaList);
         final ArrayAdapter<String> gradeAdapter = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_item, gradeList);
         final ArrayAdapter<String> serviceAdapter = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_item, serviceList);
         areaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -123,6 +128,10 @@ public class FragmentClinic extends MyBaseFragment implements IFragmentClinic {
         mSpinArea.setAdapter(areaAdapter);
         mSpinGrade.setAdapter(gradeAdapter);
         mSpinService.setAdapter(serviceAdapter);
+        //设置下拉框宽度
+        mSpinArea.setDropDownWidth(deviceWidth);
+        mSpinGrade.setDropDownWidth(deviceWidth);
+        mSpinService.setDropDownWidth(deviceWidth);
         mSpinArea.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -164,11 +173,11 @@ public class FragmentClinic extends MyBaseFragment implements IFragmentClinic {
         });
         list.add(new ForumPostsBean());
         list.add(new ForumPostsBean());
-        list.add(new ForumPostsBean());
-        list.add(new ForumPostsBean());
-        list.add(new ForumPostsBean());
-        list.add(new ForumPostsBean());
-        list.add(new ForumPostsBean());
+//        list.add(new ForumPostsBean());
+//        list.add(new ForumPostsBean());
+//        list.add(new ForumPostsBean());
+//        list.add(new ForumPostsBean());
+//        list.add(new ForumPostsBean());
         mAdapter = new AdapterClinicFragment(list);
         mAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_LEFT);
         mAdapter.setEnableLoadMore(true);

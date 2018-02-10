@@ -67,8 +67,6 @@ public class ActivityPersonalInformation extends MyBaseActivity implements IPers
     TextView mTvUpdatePhone;
     @BindView(R.id.ll_phone)
     LinearLayout mLlPhone;
-    @BindView(R.id.tv_location)
-    TextView mTvLocation;
     @BindView(R.id.ll_location)
     LinearLayout mLlLocation;
     @BindView(R.id.tv_detail_location)
@@ -85,12 +83,17 @@ public class ActivityPersonalInformation extends MyBaseActivity implements IPers
     LinearLayout mLlEmail;
     @BindView(R.id.giv_avatar)
     GlideImageView mGivAvatar;
+    @BindView(R.id.tv_location_province)
+    TextView mTvLocationProvince;
+    @BindView(R.id.tv_location_area)
+    TextView mTvLocationArea;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, ActivityPersonalInformation.class);
         context.startActivity(starter);
     }
-    PresenterPersonalInformation presenter=new PresenterPersonalInformation(this,this);
+
+    PresenterPersonalInformation presenter = new PresenterPersonalInformation(this, this);
     private static final int PRC_PHOTO_PICKER = 1;
 
     @Override
@@ -119,15 +122,19 @@ public class ActivityPersonalInformation extends MyBaseActivity implements IPers
                 presenter.showDialogNikeName();
                 break;
             case R.id.ll_gender:
+                presenter.showDialogGender();
                 break;
             case R.id.ll_birthday:
+                presenter.showDialigBirthday();
                 break;
             case R.id.ll_name:
                 presenter.showDialogName();
                 break;
             case R.id.tv_update_phone:
+                ActivityUpdatePhone.start(mContext);
                 break;
             case R.id.ll_location:
+                presenter.showDialogLocation();
                 break;
             case R.id.ll_detail_location:
                 presenter.showDialogDetailLocation();
@@ -327,13 +334,23 @@ public class ActivityPersonalInformation extends MyBaseActivity implements IPers
     }
 
     @Override
-    public void setLocation(CharSequence location) {
-        mTvLocation.setText(location);
+    public void setProvinceLocation(CharSequence location) {
+        mTvLocationProvince.setText(location);
     }
 
     @Override
-    public CharSequence getLocation() {
-        return mTvLocation.getText();
+    public CharSequence getProvinceLocation() {
+        return mTvLocationProvince.getText();
+    }
+
+    @Override
+    public void setAreaLocation(CharSequence location) {
+            mTvLocationArea.setText(location);
+    }
+
+    @Override
+    public CharSequence getAreaLocation() {
+        return mTvLocationArea.getText();
     }
 
     @Override
@@ -365,4 +382,6 @@ public class ActivityPersonalInformation extends MyBaseActivity implements IPers
     public CharSequence getEmail() {
         return mTvEmail.getText();
     }
+
+
 }

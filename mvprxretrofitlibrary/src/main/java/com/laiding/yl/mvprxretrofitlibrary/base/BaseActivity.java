@@ -15,6 +15,7 @@ import com.laiding.yl.mvprxretrofitlibrary.widget.RLoadingDialog;
 import com.trello.rxlifecycle2.components.RxActivity;
 import com.vondear.rxtools.RxBarTool;
 import com.vondear.rxtools.RxKeyboardTool;
+import com.vondear.rxtools.view.RxToast;
 
 import java.util.List;
 
@@ -31,7 +32,7 @@ import pub.devrel.easypermissions.EasyPermissions;
  *
  * @author JunChen
  */
-public abstract class BaseActivity extends RxActivity implements EasyPermissions.PermissionCallbacks,ProgressListener {
+public abstract class BaseActivity extends RxActivity implements EasyPermissions.PermissionCallbacks,IBaseView {
     private static final String TAG = "BaseActivity";
     protected Context mContext;
     protected Unbinder unBinder;
@@ -110,7 +111,7 @@ public abstract class BaseActivity extends RxActivity implements EasyPermissions
             unBinder.unbind();
         }
         ActivityStackManager.getManager().remove(this);
-        LogUtils.d(TAG+"onDestroy");
+        LogUtils.d(TAG+"onDestroy"+this.getClass().getSimpleName());
     }
 
 
@@ -162,6 +163,15 @@ public abstract class BaseActivity extends RxActivity implements EasyPermissions
     public void closeLoading() {
         if (mLoadingDialog != null)
             mLoadingDialog.dismiss();
+    }
+
+    /**
+     *  提示错误信息
+     * @param errorMsg
+     */
+    @Override
+    public void showError(String errorMsg) {
+        RxToast.error(errorMsg);
     }
 
     @Override

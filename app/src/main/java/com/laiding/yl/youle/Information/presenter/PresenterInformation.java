@@ -63,7 +63,7 @@ public class PresenterInformation extends MyBaseFrgPresenter<IInformationFragmen
          * ActivityEvent.PAUSE(FragmentEvent.PAUSE)
          * 手动管理移除RxJava监听,如果不设置此参数默认自动管理移除RxJava监听（onCrete创建,onDestroy移除）
          */
-        new HttpRxObservable<UserBean>().getObservable(ApiUtlis.getLoginApi().login(request), getFrgment(), FragmentEvent.STOP).subscribe(httpRxObserver);
+        new HttpRxObservable<UserBean>().getObservable(ApiUtlis.getUserApi().login(request), getFrgment(), FragmentEvent.STOP).subscribe(httpRxObserver);
 
     }
 }

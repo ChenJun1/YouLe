@@ -85,12 +85,6 @@
                     android:text="2018-10-29"
                     android:textColor="@color/color_585858" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/margin_16"
-                    android:src="@mipmap/icon_mrjiantou" />
             </LinearLayout>
 
 
@@ -129,12 +123,7 @@
                     android:text="上海交大医院"
                     android:textColor="@color/color_585858" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/margin_16"
-                    android:src="@mipmap/icon_mrjiantou" />
+
             </LinearLayout>
 
 
@@ -167,7 +156,6 @@
                     app:bga_snpl_maxItemCount="9"
                     app:bga_snpl_otherWhiteSpacing="100dp"
                     app:bga_snpl_placeholderDrawable="@mipmap/bga_pp_ic_holder_light"
-                    app:bga_snpl_plusDrawable="@mipmap/bga_pp_ic_plus"
                     app:bga_snpl_plusEnable="true"
                     app:bga_snpl_sortable="true" />
             </LinearLayout>

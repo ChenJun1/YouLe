@@ -6,7 +6,7 @@ import com.laiding.yl.youle.clinic.activity.view.IClinicDetail;
 
 /**
  * Created by JunChen on 2018/1/29.
- * Remarks
+ * Remarks 诊所详情
  */
 
 public class PresenterClinicDetail extends MyBasePresenter<IClinicDetail,ActivityClinicDetail> {

@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.laiding.yl.youle.R;
 import com.laiding.yl.youle.base.MyBaseActivity;
+import com.laiding.yl.youle.clinic.activity.view.IDoctorList;
 import com.laiding.yl.youle.clinic.adapter.AdapterDocotrList;
 import com.laiding.yl.youle.home.entity.ForumPostsBean;
 import com.laiding.yl.youle.widget.MyItemDecoration;
@@ -28,7 +29,7 @@ import butterknife.OnClick;
  * Remarks 专家团队
  */
 
-public class ActivityDoctorList extends MyBaseActivity {
+public class ActivityDoctorList extends MyBaseActivity implements IDoctorList{
     @BindView(R.id.rlview)
     RecyclerView mRlview;
     @BindView(R.id.ll_call_doctor)

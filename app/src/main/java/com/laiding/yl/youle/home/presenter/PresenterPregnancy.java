@@ -15,6 +15,7 @@ import com.trello.rxlifecycle2.android.FragmentEvent;
 import java.util.Map;
 
 import io.reactivex.disposables.Disposable;
+import okhttp3.FormBody;
 
 /**
  * Created by JunChen on 2018/1/24.
@@ -34,6 +35,7 @@ public class PresenterPregnancy extends MyBaseFrgPresenter<IPregnancyFragment,Fr
      */
     public void login(String name,String pass){
         final Map<String, Object> request = HttpRequest.getRequest();
+
         request.put("username", name);
         request.put("password", pass);
 
@@ -61,7 +63,7 @@ public class PresenterPregnancy extends MyBaseFrgPresenter<IPregnancyFragment,Fr
          * ActivityEvent.PAUSE(FragmentEvent.PAUSE)
          * 手动管理移除RxJava监听,如果不设置此参数默认自动管理移除RxJava监听（onCrete创建,onDestroy移除）
          */
-        new HttpRxObservable<UserBean>().getObservable(ApiUtlis.getLoginApi().login(request), getFrgment(), FragmentEvent.STOP).subscribe(httpRxObserver);
+        new HttpRxObservable<UserBean>().getObservable(ApiUtlis.getUserApi().login(request), getFrgment(), FragmentEvent.STOP).subscribe(httpRxObserver);
 
     }
 }

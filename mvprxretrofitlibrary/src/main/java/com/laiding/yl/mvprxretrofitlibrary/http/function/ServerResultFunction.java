@@ -1,10 +1,8 @@
 package com.laiding.yl.mvprxretrofitlibrary.http.function;
 
-import com.google.gson.Gson;
 import com.laiding.yl.mvprxretrofitlibrary.http.exception.ServerException;
 import com.laiding.yl.mvprxretrofitlibrary.http.retrofit.HttpResponse;
 import com.laiding.yl.mvprxretrofitlibrary.utlis.LogUtils;
-
 
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Function;

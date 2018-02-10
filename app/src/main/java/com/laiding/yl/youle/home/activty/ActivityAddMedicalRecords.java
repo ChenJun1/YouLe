@@ -3,14 +3,19 @@ package com.laiding.yl.youle.home.activty;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.laiding.yl.youle.R;
 import com.laiding.yl.youle.base.MyBaseActivity;
+import com.laiding.yl.youle.home.activty.view.IAddMedicalRecordsActy;
+import com.laiding.yl.youle.home.presenter.PresenterAddMedicalRecords;
 import com.laiding.yl.youle.widget.photopicker.activity.BGAPhotoPickerActivity;
 import com.laiding.yl.youle.widget.photopicker.activity.BGAPhotoPickerPreviewActivity;
 import com.laiding.yl.youle.widget.photopicker.widget.BGASortableNinePhotoLayout;
@@ -20,7 +25,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
@@ -29,7 +35,7 @@ import pub.devrel.easypermissions.EasyPermissions;
  * Remarks  自定义添加诊疗记录
  */
 
-public class ActivityAddMedicalRecords extends MyBaseActivity implements BGASortableNinePhotoLayout.Delegate {
+public class ActivityAddMedicalRecords extends MyBaseActivity implements BGASortableNinePhotoLayout.Delegate, IAddMedicalRecordsActy {
     private static final int PRC_PHOTO_PICKER = 1;
 
     private static final int RC_CHOOSE_PHOTO = 1;
@@ -41,11 +47,23 @@ public class ActivityAddMedicalRecords extends MyBaseActivity implements BGASort
     BGASortableNinePhotoLayout mSnplMomentAddPhotos;
     @BindView(R.id.et_moment_add_content)
     EditText mEtMomentAddContent;
+    @BindView(R.id.et_mr_title)
+    EditText mEtMrTitle;
+    @BindView(R.id.tv_mr_time)
+    TextView mTvMrTime;
+    @BindView(R.id.ll_mr_time)
+    LinearLayout mLlMrTime;
+    @BindView(R.id.tv_mr_hospital)
+    TextView mTvMrHospital;
+    @BindView(R.id.ll_mr_hospital)
+    LinearLayout mLlMrHospital;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, ActivityAddMedicalRecords.class);
         context.startActivity(starter);
     }
+
+    private PresenterAddMedicalRecords presenter=new PresenterAddMedicalRecords(this,this);
 
     @Override
     protected int getContentViewId() {
@@ -110,7 +128,7 @@ public class ActivityAddMedicalRecords extends MyBaseActivity implements BGASort
             File takePhotoDir = new File(Environment.getExternalStorageDirectory(), "YoulePhoto");
 
             Intent photoPickerIntent = new BGAPhotoPickerActivity.IntentBuilder(this)
-                    .cameraFileDir( takePhotoDir) // 拍照后照片的存放目录，改成你自己拍照后要存放照片的目录。如果不传递该参数的话则不开启图库里的拍照功能
+                    .cameraFileDir(takePhotoDir) // 拍照后照片的存放目录，改成你自己拍照后要存放照片的目录。如果不传递该参数的话则不开启图库里的拍照功能
                     .maxChooseCount(mSnplMomentAddPhotos.getMaxItemCount() - mSnplMomentAddPhotos.getItemCount()) // 图片选择张数的最大值
                     .selectedPhotos(null) // 当前已选中的图片路径集合
                     .pauseOnScroll(false) // 滚动列表时是否暂停加载图片
@@ -149,4 +167,36 @@ public class ActivityAddMedicalRecords extends MyBaseActivity implements BGASort
         }
     }
 
+
+
+    @OnClick({R.id.ll_mr_time, R.id.ll_mr_hospital})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.ll_mr_time:
+                presenter.showDialogTime();
+                break;
+            case R.id.ll_mr_hospital:
+                break;
+        }
+    }
+
+    @Override
+    public void setHospital(String hospital) {
+        mTvMrHospital.setText(hospital);
+    }
+
+    @Override
+    public String getHospital() {
+        return mTvMrHospital.getText()+"";
+    }
+
+    @Override
+    public void setTime(String time) {
+        mTvMrTime.setText(time);
+    }
+
+    @Override
+    public String getTime() {
+        return mTvMrTime.getText()+"";
+    }
 }

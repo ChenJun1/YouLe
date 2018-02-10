@@ -3,6 +3,7 @@ package com.laiding.yl.youle.login.activity;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -19,8 +20,6 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.hyphenate.EMCallBack;
-import com.hyphenate.chat.EMClient;
 import com.laiding.yl.mvprxretrofitlibrary.utlis.LogUtils;
 import com.laiding.yl.youle.R;
 import com.laiding.yl.youle.base.MyBaseActivity;
@@ -36,6 +35,7 @@ import com.vondear.rxtools.RxTool;
 import com.vondear.rxtools.view.RxToast;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -48,6 +48,17 @@ public class ActivityPhoneLogin extends MyBaseActivity implements ILoginView {
         Intent starter = new Intent(context, ActivityPhoneLogin.class);
         context.startActivity(starter);
     }
+
+    @BindView(R.id.giv_agree)
+    GlideImageView mGivAgree;
+    @BindView(R.id.et_verification_code)
+    EditText mEtVerificationCode;
+    @BindView(R.id.iv_weixin)
+    ImageView mIvWeixin;
+    @BindView(R.id.iv_qq)
+    ImageView mIvQq;
+    @BindView(R.id.iv_weibo)
+    ImageView mIvWeibo;
     @BindView(R.id.login_bt)
     Button loginBt;
     @BindView(R.id.countDown)
@@ -72,6 +83,7 @@ public class ActivityPhoneLogin extends MyBaseActivity implements ILoginView {
     private float scale = 0.6f; //logo缩放比例
     private int height = 0;
 
+    private boolean isAgree=false;  //阅读同意check
     private PresenterLogin presenter = new PresenterLogin(this, this);
     private RLoadingDialog mLoadingDialog;
 
@@ -169,7 +181,7 @@ public class ActivityPhoneLogin extends MyBaseActivity implements ILoginView {
     @Override
     public void showResult(UserBean userBean) {
         if (userBean != null) {
-            LogUtils.d(userBean.getToken()+userBean.getUid());
+            LogUtils.d(userBean.getToken() + userBean.getUid());
             toChat();
         }
     }
@@ -180,10 +192,21 @@ public class ActivityPhoneLogin extends MyBaseActivity implements ILoginView {
         this.finish();
     }
 
+    @Override
+    public String getPhone() {
+        return phoneEt.getText() + "";
+    }
+
+    @Override
+    public String getVerificationCode() {
+        return mEtVerificationCode.getText() + "";
+    }
+
 
     private void checkPhone() {
         if (RxRegTool.isMobile(String.valueOf(phoneEt.getText()))) {
-            RxTool.countDown(countDown, 60000, 3000, "重新获取验证码");
+            RxTool.countDown(countDown, 5000, 1000, "重新获取验证码");
+            presenter.getVerificationCode();
         } else {
             RxToast.error("请输入正确手机号");
         }
@@ -191,33 +214,14 @@ public class ActivityPhoneLogin extends MyBaseActivity implements ILoginView {
     }
 
 
-    @OnClick({R.id.iv_clean_phone, R.id.countDown, R.id.login_bt, R.id.pass_login_tv, R.id.iv_weixin, R.id.iv_qq, R.id.iv_weibo})
+    @OnClick({R.id.giv_agree,R.id.iv_clean_phone, R.id.countDown, R.id.login_bt, R.id.pass_login_tv, R.id.iv_weixin, R.id.iv_qq, R.id.iv_weibo})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_clean_phone:
                 phoneEt.setText("");
                 break;
             case R.id.countDown:
-                EMClient.getInstance().logout(true, new EMCallBack() {
 
-                    @Override
-                    public void onSuccess() {
-                        // TODO Auto-generated method stub
-                        LogUtils.e("推出成功");
-                    }
-
-                    @Override
-                    public void onProgress(int progress, String status) {
-                        // TODO Auto-generated method stub
-
-                    }
-
-                    @Override
-                    public void onError(int code, String message) {
-                        // TODO Auto-generated method stub
-                        LogUtils.e("推出失败");
-                    }
-                });
 //                try {
 //                    EMClient.getInstance().createAccount("8002","123456");
 //                    LogUtils.e("注册成功");
@@ -225,12 +229,13 @@ public class ActivityPhoneLogin extends MyBaseActivity implements ILoginView {
 //                    e.printStackTrace();
 //                    LogUtils.e("注册失败");
 //                }
-//                checkPhone();
+                //获取验证码
+                checkPhone();
                 break;
             case R.id.login_bt:
 //                                presenter.login("ruffian", "EA8A706C4C34A168");
+
                 presenter.login();
-//                ActivityHome.start(this);
                 break;
             case R.id.pass_login_tv:
                 ActivityPassLogin.start(this);
@@ -241,6 +246,16 @@ public class ActivityPhoneLogin extends MyBaseActivity implements ILoginView {
                 break;
             case R.id.iv_weibo:
                 break;
+            case R.id.giv_agree:
+                if (isAgree){
+                    mGivAgree.loadLocalImage(R.mipmap.denglu_icon_fuxuankuang, R.mipmap.denglu_icon_fuxuankuang);
+                    isAgree=false;
+                }else{
+                    mGivAgree.loadLocalImage(R.mipmap.icon_tkxx,R.mipmap.icon_tkxx);
+                    isAgree=true;
+                }
+                break;
         }
     }
+
 }

@@ -7,11 +7,11 @@ import com.laiding.yl.mvprxretrofitlibrary.http.retrofit.RetrofitUtils;
  */
 
 public class ApiUtlis {
-    public static LoginApi loginApi;
+    public static UserApi loginApi;
 
-    public static LoginApi getLoginApi(){
+    public static UserApi getUserApi(){
         if(loginApi==null){
-            loginApi = RetrofitUtils.get().retrofit().create(LoginApi.class);
+            loginApi = RetrofitUtils.get().retrofit().create(UserApi.class);
         }
         return loginApi;
     }
