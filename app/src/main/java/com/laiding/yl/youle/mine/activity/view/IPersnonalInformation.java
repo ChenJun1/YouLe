@@ -1,6 +1,7 @@
 package com.laiding.yl.youle.mine.activity.view;
 
 import com.laiding.yl.mvprxretrofitlibrary.base.IBaseView;
+import com.laiding.yl.youle.mine.entity.UserInfo;
 
 /**
  * Created by JunChen on 2018/1/31.
@@ -50,4 +51,6 @@ public interface IPersnonalInformation extends IBaseView {
     void setEmail(CharSequence email);
 
     CharSequence getEmail();
+
+    void getUserInfoResult(UserInfo userInfo);
 }

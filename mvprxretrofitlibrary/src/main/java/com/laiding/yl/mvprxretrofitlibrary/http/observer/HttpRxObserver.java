@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import com.laiding.yl.mvprxretrofitlibrary.base.IBaseView;
 import com.laiding.yl.mvprxretrofitlibrary.http.exception.ApiException;
 import com.laiding.yl.mvprxretrofitlibrary.http.exception.ExceptionEngine;
+import com.laiding.yl.mvprxretrofitlibrary.http.exception.ServerException;
 import com.laiding.yl.mvprxretrofitlibrary.http.retrofit.HttpRequestListener;
 import com.laiding.yl.mvprxretrofitlibrary.http.retrofit.RxActionManagerImpl;
 import com.laiding.yl.mvprxretrofitlibrary.listener.ProgressListener;
@@ -56,16 +57,11 @@ public abstract class HttpRxObserver<T> implements Observer<T>, HttpRequestListe
         if (mView != null) {
             mView.closeLoading();
         }
-        if (e instanceof ApiException) {
-            onError((ApiException) e);
-            if (mView != null)
-                mView.showError(((ApiException) e).getMsg());
-        } else {
-            ApiException apiException = new ApiException(e, ExceptionEngine.UN_KNOWN_ERROR);
-            onError(apiException);
-            if (mView != null)
-                mView.showError(apiException.getMsg());
-        }
+
+        ApiException apiException = (ApiException) e;
+        onError(apiException);
+        if (mView != null)
+            mView.showError(apiException.getMsg());
 
     }
 

@@ -1,5 +1,7 @@
 package com.laiding.yl.mvprxretrofitlibrary.http.function;
 
+import android.text.Html;
+
 import com.laiding.yl.mvprxretrofitlibrary.http.exception.ServerException;
 import com.laiding.yl.mvprxretrofitlibrary.http.retrofit.HttpResponse;
 import com.laiding.yl.mvprxretrofitlibrary.utlis.LogUtils;
@@ -17,6 +19,7 @@ public class ServerResultFunction<T> implements Function<HttpResponse<T>, HttpRe
     public HttpResponse<T> apply(@NonNull HttpResponse<T> response) throws Exception {
         //打印服务器回传结果
         LogUtils.i(response.toString());
+
         if (!response.isSuccess()) {
             throw new ServerException(response.getCode(), response.getMsg());
         }

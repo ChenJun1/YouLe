@@ -12,7 +12,7 @@ import java.util.Map;
 public class HttpRequest {
 
     public static final String appKey = "1889b37351288";
-    private static final String k_key = "key";
+
 
     /**
      * 获取基础request
@@ -21,7 +21,7 @@ public class HttpRequest {
      */
     public static final Map<String, Object> getRequest() {
         Map<String, Object> map = new HashMap<>();
-        map.put(k_key, appKey);
+//        map.put("token", appKey);
         return map;
     }
 

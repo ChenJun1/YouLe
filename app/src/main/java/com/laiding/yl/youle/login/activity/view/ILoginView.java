@@ -1,6 +1,7 @@
 package com.laiding.yl.youle.login.activity.view;
 
 import com.laiding.yl.mvprxretrofitlibrary.base.IBaseView;
+import com.laiding.yl.youle.login.entity.User;
 import com.laiding.yl.youle.login.entity.UserBean;
 
 /**
@@ -9,7 +10,7 @@ import com.laiding.yl.youle.login.entity.UserBean;
 
 public interface ILoginView extends IBaseView {
 
-    void showResult(UserBean userBean);
+    void showResult();
 
     void toChat();
 

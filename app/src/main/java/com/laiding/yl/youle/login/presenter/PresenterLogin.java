@@ -10,16 +10,18 @@ import com.laiding.yl.mvprxretrofitlibrary.http.retrofit.HttpResponse;
 import com.laiding.yl.mvprxretrofitlibrary.utlis.LogUtils;
 import com.laiding.yl.youle.api.ApiUtlis;
 import com.laiding.yl.youle.base.MyBasePresenter;
+import com.laiding.yl.youle.dao.UserDaoUtil;
 import com.laiding.yl.youle.login.activity.ActivityPhoneLogin;
 import com.laiding.yl.youle.login.activity.view.ILoginView;
+import com.laiding.yl.youle.login.entity.User;
 import com.laiding.yl.youle.login.entity.UserBean;
 import com.trello.rxlifecycle2.android.ActivityEvent;
+import com.vondear.rxtools.view.RxToast;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import io.reactivex.disposables.Disposable;
-import okhttp3.FormBody;
 
 /**
  * Created by JunChen on 2018/1/3.
@@ -35,15 +37,13 @@ public class PresenterLogin extends MyBasePresenter<ILoginView,ActivityPhoneLogi
 
     /**
      * 登陆
-     * @param name
-     * @param pass
      */
-    public void login(String name,String pass){
+    public void login(){
         final Map<String, Object> request = HttpRequest.getRequest();
-        request.put("username", name);
-        request.put("password", pass);
+        request.put("u_phone", getView().getPhone());
+        request.put("v_code", getView().getVerificationCode());
 
-        HttpRxObserver httpRxObserver=new HttpRxObserver<HttpResponse<UserBean>>(TAG+"login") {
+        HttpRxObserver<HttpResponse<User>> httpRxObserver=new HttpRxObserver<HttpResponse<User>>(TAG+"login") {
             @Override
             protected void onStart(Disposable d) {
 
@@ -51,15 +51,20 @@ public class PresenterLogin extends MyBasePresenter<ILoginView,ActivityPhoneLogi
 
             @Override
             protected void onError(ApiException e) {
-
+                getActivity().showError("登录失败");
             }
 
             @Override
-            protected void onSuccess(HttpResponse<UserBean> response) {
+            protected void onSuccess(HttpResponse<User> response) {
                 LogUtils.d(request.toString()+"========");
-                response.getResult();
                 if (getView() != null) {
-                    getView().showResult(response.getResult());
+                    //持久化用户信息
+                    User user = response.getResult();
+                    UserDaoUtil daoUtil=new UserDaoUtil(getActivity());
+                    daoUtil.deleteAll();
+                    daoUtil.insertUser(user);
+
+                    getView().showResult();
                 }
             }
         };
@@ -68,7 +73,7 @@ public class PresenterLogin extends MyBasePresenter<ILoginView,ActivityPhoneLogi
          * ActivityEvent.PAUSE(FragmentEvent.PAUSE)
          * 手动管理移除RxJava监听,如果不设置此参数默认自动管理移除RxJava监听（onCrete创建,onDestroy移除）
          */
-        new HttpRxObservable<UserBean>().getObservable(ApiUtlis.getUserApi().login(request), getActivity(), ActivityEvent.STOP).subscribe(httpRxObserver);
+        new HttpRxObservable<User>().getObservable(ApiUtlis.getUserApi().codeLogin(request), getActivity(), ActivityEvent.STOP).subscribe(httpRxObserver);
 
     }
 
@@ -78,15 +83,11 @@ public class PresenterLogin extends MyBasePresenter<ILoginView,ActivityPhoneLogi
      *
      */
     public void getVerificationCode(){
-        final Map<String, Object> request = new HashMap<>();
-//        request.put("r","user"+"/"+"tel");
+        final Map<String, Object> request = HttpRequest.getRequest();
         request.put("u_phone", getView().getPhone());
-        request.put("v_type", 0);
-//     final FormBody.Builder builder = new FormBody.Builder();
-//        builder.add("r","user/tel");
-//        builder.add("u_phone", getView().getPhone());
-//        builder.add("v_type", "0");
-        HttpRxObserver httpRxObserver=new HttpRxObserver<HttpResponse>(TAG+"getVerificationCode",getView()) {
+        request.put("v_type", 0); //0（注册和登陆）
+
+        HttpRxObserver<HttpResponse> httpRxObserver=new HttpRxObserver<HttpResponse>(TAG+"getVerificationCode",getView()) {
             @Override
             protected void onStart(Disposable d) {
 
@@ -94,13 +95,15 @@ public class PresenterLogin extends MyBasePresenter<ILoginView,ActivityPhoneLogi
 
             @Override
             protected void onError(ApiException e) {
-
+                RxToast.error("验证码发送失败");
             }
 
             @Override
             protected void onSuccess(HttpResponse response) {
+                if(response.isSuccess()){
+                    RxToast.success("验证码发送成功");
+                }
                 LogUtils.d(response.toString()+"========");
-
             }
         };
 
@@ -108,30 +111,33 @@ public class PresenterLogin extends MyBasePresenter<ILoginView,ActivityPhoneLogi
 
     }
 
-   public void login(){
-        getView().showLoading();
-       EMClient.getInstance().login("8811", "123456", new EMCallBack() {
-           @Override
-           public void onSuccess() {
-               EMClient.getInstance().groupManager().loadAllGroups();
-               EMClient.getInstance().chatManager().loadAllConversations();
-               getView().closeLoading();
-               LogUtils.e("登录成功"+EMClient.getInstance().isConnected());
-               if(EMClient.getInstance().isConnected()){
-                  getView().toChat();
-              }
-           }
-           @Override
-           public void onError(int i, String s) {
-               getView().closeLoading();
-               LogUtils.e("登录失败"+s);
-           }
-
-           @Override
-           public void onProgress(int i, String s) {
-
-           }
-       });
-   }
+    /**
+     * 环信登录
+     */
+//   public void login(){
+//        getView().showLoading();
+//       EMClient.getInstance().login("8811", "123456", new EMCallBack() {
+//           @Override
+//           public void onSuccess() {
+//               EMClient.getInstance().groupManager().loadAllGroups();
+//               EMClient.getInstance().chatManager().loadAllConversations();
+//               getView().closeLoading();
+//               LogUtils.e("登录成功"+EMClient.getInstance().isConnected());
+//               if(EMClient.getInstance().isConnected()){
+//                  getView().toChat();
+//              }
+//           }
+//           @Override
+//           public void onError(int i, String s) {
+//               getView().closeLoading();
+//               LogUtils.e("登录失败"+s);
+//           }
+//
+//           @Override
+//           public void onProgress(int i, String s) {
+//
+//           }
+//       });
+//   }
     
 }

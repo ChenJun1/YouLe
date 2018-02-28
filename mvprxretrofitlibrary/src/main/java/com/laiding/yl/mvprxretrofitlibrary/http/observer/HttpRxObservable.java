@@ -25,7 +25,6 @@ import io.reactivex.schedulers.Schedulers;
 public class HttpRxObservable<T> {
 
 
-
     /**
      * 获取被监听者
      * 备注:网络请求Observable构建
@@ -35,7 +34,7 @@ public class HttpRxObservable<T> {
      *
      * @author ZhongDaFeng
      */
-    public  Observable getObservable(Observable<HttpResponse<T>> apiObservable) {
+    public Observable getObservable(Observable<HttpResponse<T>> apiObservable) {
         // showLog(request);
         Observable observable = apiObservable
                 .map(new ServerResultFunction<T>())
@@ -56,11 +55,11 @@ public class HttpRxObservable<T> {
      *
      * @author ZhongDaFeng
      */
-    public  Observable getObservable(Observable<HttpResponse<T>> apiObservable, LifecycleProvider lifecycle) {
+    public Observable getObservable(Observable<HttpResponse<T>> apiObservable, LifecycleProvider lifecycle) {
         Observable observable;
         if (lifecycle != null) {
             //随生命周期自动管理.eg:onCreate(start)->onStop(end)
-            observable =apiObservable
+            observable = apiObservable
                     .map(new ServerResultFunction<T>())
                     .compose(lifecycle.bindToLifecycle())//需要在这个位置添加
                     .onErrorResumeNext(new HttpResultFunction<>())
@@ -82,7 +81,7 @@ public class HttpRxObservable<T> {
      *
      * @author ZhongDaFeng
      */
-    public  Observable getObservable(Observable<HttpResponse<T>> apiObservable, LifecycleProvider<ActivityEvent> lifecycle, ActivityEvent event) {
+    public Observable getObservable(Observable<HttpResponse<T>> apiObservable, LifecycleProvider<ActivityEvent> lifecycle, ActivityEvent event) {
         Observable observable;
         if (lifecycle != null) {
             //手动管理移除监听生命周期.eg:ActivityEvent.STOP
@@ -109,7 +108,7 @@ public class HttpRxObservable<T> {
      *
      * @author ZhongDaFeng
      */
-    public  Observable getObservable(Observable<HttpResponse<T>> apiObservable, LifecycleProvider<FragmentEvent> lifecycle, FragmentEvent event) {
+    public Observable getObservable(Observable<HttpResponse<T>> apiObservable, LifecycleProvider<FragmentEvent> lifecycle, FragmentEvent event) {
         Observable observable;
         if (lifecycle != null) {
             //手动管理移除监听生命周期.eg:FragmentEvent.STOP

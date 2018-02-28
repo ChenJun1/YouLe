@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.laiding.yl.youle.R;
 import com.laiding.yl.youle.base.MyBaseActivity;
+import com.laiding.yl.youle.home.activty.ActivityHome;
 import com.laiding.yl.youle.login.activity.view.IPassLogin;
 import com.laiding.yl.youle.login.presenter.PresenterPassLogin;
 import com.vondear.rxtools.RxAnimationTool;
@@ -56,7 +57,7 @@ public class ActivityPassLogin extends MyBaseActivity implements IPassLogin {
     ImageView mCleanPassword;
     @BindView(R.id.iv_show_pwd)
     ImageView mIvShowPwd;
-    @BindView(R.id.btn_login)
+    @BindView(R.id.btn_login2)
     Button mBtnLogin;
     @BindView(R.id.verification_code_login_tv)
     TextView mVerificationCodeLoginTv;
@@ -140,51 +141,38 @@ public class ActivityPassLogin extends MyBaseActivity implements IPassLogin {
         /**
          * 禁止键盘弹起的时候可以滚动
          */
-        mScrollView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return true;
-            }
-        });
-        mScrollView.addOnLayoutChangeListener(new ViewGroup.OnLayoutChangeListener() {
-            @Override
-            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-              /* old是改变前的左上右下坐标点值，没有old的是改变后的左上右下坐标点值
-              现在认为只要控件将Activity向上推的高度超过了1/3屏幕高，就认为软键盘弹起*/
-                if (oldBottom != 0 && bottom != 0 && (oldBottom - bottom > keyHeight)) {
-                    Log.e("wenzhihao", "up------>" + (oldBottom - bottom));
-                    int dist = mContent.getBottom() - bottom;
-                    dist = dist / 3; //向上弹起的高度3分1刚刚好
-                    if (dist > 0) {
-                        ObjectAnimator mAnimatorTranslateY = ObjectAnimator.ofFloat(mContent, "translationY", 0.0f, -dist);
-                        mAnimatorTranslateY.setDuration(300);
-                        mAnimatorTranslateY.setInterpolator(new LinearInterpolator());
-                        mAnimatorTranslateY.start();
-                        RxAnimationTool.zoomIn(mLogo, scale, dist);
-                    }
+        mScrollView.setOnTouchListener((v, event) -> true);
+        mScrollView.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
+          /* old是改变前的左上右下坐标点值，没有old的是改变后的左上右下坐标点值
+          现在认为只要控件将Activity向上推的高度超过了1/3屏幕高，就认为软键盘弹起*/
+            if (oldBottom != 0 && bottom != 0 && (oldBottom - bottom > keyHeight)) {
+                Log.e("wenzhihao", "up------>" + (oldBottom - bottom));
+                int dist = mContent.getBottom() - bottom;
+                dist = dist / 3; //向上弹起的高度3分1刚刚好
+                if (dist > 0) {
+                    ObjectAnimator mAnimatorTranslateY = ObjectAnimator.ofFloat(mContent, "translationY", 0.0f, -dist);
+                    mAnimatorTranslateY.setDuration(300);
+                    mAnimatorTranslateY.setInterpolator(new LinearInterpolator());
+                    mAnimatorTranslateY.start();
+                    RxAnimationTool.zoomIn(mLogo, scale, dist);
+                }
 //                    mService.setVisibility(View.INVISIBLE);
 
-                } else if (oldBottom != 0 && bottom != 0 && (bottom - oldBottom > keyHeight)) {
-                    Log.e("wenzhihao", "down------>" + (bottom - oldBottom));
-                    if ((mContent.getBottom() - oldBottom) > 0) {
-                        ObjectAnimator mAnimatorTranslateY = ObjectAnimator.ofFloat(mContent, "translationY", mContent.getTranslationY(), 0);
-                        mAnimatorTranslateY.setDuration(300);
-                        mAnimatorTranslateY.setInterpolator(new LinearInterpolator());
-                        mAnimatorTranslateY.start();
-                        //键盘收回后，logo恢复原来大小，位置同样回到初始位置
-                        RxAnimationTool.zoomOut(mLogo, scale);
-                    }
-//                    mService.setVisibility(View.VISIBLE);
+            } else if (oldBottom != 0 && bottom != 0 && (bottom - oldBottom > keyHeight)) {
+                Log.e("wenzhihao", "down------>" + (bottom - oldBottom));
+                if ((mContent.getBottom() - oldBottom) > 0) {
+                    ObjectAnimator mAnimatorTranslateY = ObjectAnimator.ofFloat(mContent, "translationY", mContent.getTranslationY(), 0);
+                    mAnimatorTranslateY.setDuration(300);
+                    mAnimatorTranslateY.setInterpolator(new LinearInterpolator());
+                    mAnimatorTranslateY.start();
+                    //键盘收回后，logo恢复原来大小，位置同样回到初始位置
+                    RxAnimationTool.zoomOut(mLogo, scale);
                 }
+//                    mService.setVisibility(View.VISIBLE);
             }
         });
 
-        mBtnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                RxKeyboardTool.hideSoftInput(ActivityPassLogin.this);
-            }
-        });
+//        mBtnLogin.setOnClickListener(v -> RxKeyboardTool.hideSoftInput(ActivityPassLogin.this));
     }
 
     private void initView() {
@@ -206,7 +194,7 @@ public class ActivityPassLogin extends MyBaseActivity implements IPassLogin {
     }
 
 
-    @OnClick({R.id.iv_clean_phone, R.id.clean_password, R.id.iv_show_pwd,R.id.btn_login})
+    @OnClick({R.id.iv_clean_phone, R.id.clean_password, R.id.iv_show_pwd, R.id.btn_login2})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_clean_phone:
@@ -227,7 +215,10 @@ public class ActivityPassLogin extends MyBaseActivity implements IPassLogin {
                 if (!TextUtils.isEmpty(pwd))
                     mEtPassword.setSelection(pwd.length());
                 break;
-            case R.id.btn_login:
+            case R.id.btn_login2:
+                RxKeyboardTool.hideSoftInput(ActivityPassLogin.this);
+//                if (checkPhone())
+                    persenter.login();
                 break;
         }
     }
@@ -240,5 +231,10 @@ public class ActivityPassLogin extends MyBaseActivity implements IPassLogin {
     @Override
     public String getPassWord() {
         return mEtPassword.getText() + "";
+    }
+
+    @Override
+    public void showResult() {
+        ActivityHome.start(mContext);
     }
 }

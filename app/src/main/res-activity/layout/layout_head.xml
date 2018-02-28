@@ -47,15 +47,16 @@
 
             <TextView
                 android:id="@+id/tv_bar_right"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="聊天"
+                android:text="完成"
                 android:textColor="@color/colorWhite"
-                android:textSize="@dimen/text_appbar"
+                android:textSize="16sp"
                 android:visibility="gone" />
 
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/ll_im_bar_right"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -66,8 +67,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:src="@mipmap/icon_back"
-                    android:visibility="gone" />
+                    android:src="@mipmap/icon_back" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

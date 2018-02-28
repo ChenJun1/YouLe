@@ -12,6 +12,7 @@ import com.laiding.yl.youle.Information.activity.ActivityInformationDetail;
 import com.laiding.yl.youle.MyApplication;
 import com.laiding.yl.youle.R;
 import com.laiding.yl.youle.base.MyBaseFragment;
+import com.laiding.yl.youle.home.activty.ActivityPregnancyDetail;
 import com.laiding.yl.youle.home.adapter.AdapterPregnancyFragment;
 import com.laiding.yl.youle.home.entity.ForumPostsBean;
 import com.laiding.yl.youle.home.fragment.view.IPregnancyFragment;
@@ -109,18 +110,13 @@ public class FragmentPrepareForPregnancy extends MyBaseFragment implements IPreg
         adapter = new AdapterPregnancyFragment(list);
         adapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_LEFT);
         adapter.setEnableLoadMore(true);
-        adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
-            @Override
-            public void onLoadMoreRequested() {
-                loadMore();
-            }
-        }, mRcyView);
+        adapter.setOnLoadMoreListener(() -> loadMore(), mRcyView);
         mRcyView.setAdapter(adapter);
 
         mRcyView.addOnItemTouchListener(new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ActivityInformationDetail.start(mContext);
+                ActivityPregnancyDetail.start(mContext);
             }
         });
     }

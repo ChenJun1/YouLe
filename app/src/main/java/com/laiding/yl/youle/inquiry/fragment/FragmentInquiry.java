@@ -116,7 +116,7 @@ public class FragmentInquiry extends MyBaseFragment {
     private void initView() {
         mTvTitle.setText("问诊");
         mIvBarRight.loadLocalImage(R.mipmap.icon_zaixiankefu, R.mipmap.icon_zaixiankefu);
-        mIvBarRight.setVisibility(View.VISIBLE);
+        mLlImBarRight.setVisibility(View.VISIBLE);
     }
 
     @Override

@@ -1,27 +1,36 @@
 package com.laiding.yl.youle.mine.presenter;
 
-import android.view.Gravity;
-import android.view.View;
-
+import com.laiding.yl.mvprxretrofitlibrary.http.exception.ApiException;
+import com.laiding.yl.mvprxretrofitlibrary.http.observer.HttpRxObservable;
+import com.laiding.yl.mvprxretrofitlibrary.http.observer.HttpRxObserver;
+import com.laiding.yl.mvprxretrofitlibrary.http.retrofit.HttpRequest;
+import com.laiding.yl.mvprxretrofitlibrary.http.retrofit.HttpResponse;
 import com.laiding.yl.youle.R;
+import com.laiding.yl.youle.api.ApiUtlis;
 import com.laiding.yl.youle.base.MyBasePresenter;
+import com.laiding.yl.youle.dao.UserDaoUtil;
+import com.laiding.yl.youle.dao.UserInfoManager;
+import com.laiding.yl.youle.im.db.UserDao;
+import com.laiding.yl.youle.login.entity.User;
 import com.laiding.yl.youle.mine.activity.ActivityPersonalInformation;
 import com.laiding.yl.youle.mine.activity.view.IPersnonalInformation;
+import com.laiding.yl.youle.mine.entity.UserInfo;
 import com.laiding.yl.youle.widget.wheelview.AddressPickTask;
+import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.vondear.rxtools.RxDataTool;
-import com.vondear.rxtools.RxTimeTool;
 import com.vondear.rxtools.view.dialog.RxDialogEditSureCancel;
-import com.vondear.rxtools.view.dialog.RxDialogWheelYearMonthDay;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
 import cn.qqtheme.framework.entity.City;
 import cn.qqtheme.framework.entity.County;
 import cn.qqtheme.framework.entity.Province;
 import cn.qqtheme.framework.picker.DatePicker;
 import cn.qqtheme.framework.picker.SinglePicker;
+import io.reactivex.disposables.Disposable;
 
 import static com.vondear.rxtools.view.RxToast.showToast;
 
@@ -36,6 +45,38 @@ public class PresenterPersonalInformation extends MyBasePresenter<IPersnonalInfo
         super(view, activity);
     }
 
+
+    /**
+     * 获取个人信息
+     */
+    public void requestUserInfo() {
+
+        final User user = UserInfoManager.getUserInfo();
+        final Map<String, Object> request = HttpRequest.getRequest();
+        request.put("u_id", user.getU_id());
+        request.put("token", user.getToken());
+
+        HttpRxObserver httpRxObserver=new HttpRxObserver<HttpResponse<UserInfo>>() {
+            @Override
+            protected void onStart(Disposable d) {
+
+            }
+
+            @Override
+            protected void onError(ApiException e) {
+
+            }
+
+            @Override
+            protected void onSuccess(HttpResponse<UserInfo> response) {
+                    getView().getUserInfoResult(response.getResult());
+            }
+        };
+
+        new HttpRxObservable<UserInfo>().getObservable(ApiUtlis.getUserApi().getUserInfo(request),getActivity(), ActivityEvent.STOP).subscribe(httpRxObserver);
+    }
+
+
     /**
      * 昵称
      */
@@ -45,20 +86,12 @@ public class PresenterPersonalInformation extends MyBasePresenter<IPersnonalInfo
         nikeNameDialog.getEditText().setText(getView().getNikeName());
         nikeNameDialog.getEditText().setSelection(getView().getNikeName().length());
         nikeNameDialog.getTitleView().setBackgroundResource(R.mipmap.ic_launcher);
-        nikeNameDialog.getSureView().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CharSequence nikeName = nikeNameDialog.getEditText().getText();
-                getView().setNikeName(nikeName);
-                nikeNameDialog.cancel();
-            }
+        nikeNameDialog.getSureView().setOnClickListener(v -> {
+            CharSequence nikeName = nikeNameDialog.getEditText().getText();
+            getView().setNikeName(nikeName);
+            nikeNameDialog.cancel();
         });
-        nikeNameDialog.getCancelView().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                nikeNameDialog.cancel();
-            }
-        });
+        nikeNameDialog.getCancelView().setOnClickListener(v -> nikeNameDialog.cancel());
         nikeNameDialog.show();
     }
 
@@ -81,12 +114,7 @@ public class PresenterPersonalInformation extends MyBasePresenter<IPersnonalInfo
         picker.setCancelTextSize(17);
         picker.setTextSize(17);
         picker.setSelectedItem(getView().getGender().toString());
-        picker.setOnItemPickListener(new SinglePicker.OnItemPickListener<String>() {
-            @Override
-            public void onItemPicked(int index, String item) {
-                getView().setGender(item);
-            }
-        });
+        picker.setOnItemPickListener((index, item) -> getView().setGender(item));
         picker.show();
     }
 
@@ -110,12 +138,9 @@ public class PresenterPersonalInformation extends MyBasePresenter<IPersnonalInfo
         picker.setRangeStart(1940, 1, 1);
         picker.setRangeEnd(mYear, mMonth, 1);
         picker.setSelectedItem(mYear, mMonth);
-        picker.setOnDatePickListener(new DatePicker.OnYearMonthPickListener() {
-            @Override
-            public void onDatePicked(String year, String month) {
-                int age = getAge(mYear, mMonth, RxDataTool.stringToInt(year), RxDataTool.stringToInt(month));
-                getView().setBirthday(age + "");
-            }
+        picker.setOnDatePickListener((DatePicker.OnYearMonthPickListener) (year, month) -> {
+            int age = getAge(mYear, mMonth, RxDataTool.stringToInt(year), RxDataTool.stringToInt(month));
+            getView().setBirthday(age + "");
         });
         picker.show();
     }
@@ -130,20 +155,12 @@ public class PresenterPersonalInformation extends MyBasePresenter<IPersnonalInfo
         NameDialog.getEditText().setText(getView().getName());
         NameDialog.getEditText().setSelection(getView().getName().length());
         NameDialog.getTitleView().setBackgroundResource(R.mipmap.ic_launcher);
-        NameDialog.getSureView().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CharSequence Name = NameDialog.getEditText().getText();
-                getView().setName(Name);
-                NameDialog.cancel();
-            }
+        NameDialog.getSureView().setOnClickListener(v -> {
+            CharSequence Name = NameDialog.getEditText().getText();
+            getView().setName(Name);
+            NameDialog.cancel();
         });
-        NameDialog.getCancelView().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                NameDialog.cancel();
-            }
-        });
+        NameDialog.getCancelView().setOnClickListener(v -> NameDialog.cancel());
         NameDialog.show();
     }
 
@@ -177,20 +194,12 @@ public class PresenterPersonalInformation extends MyBasePresenter<IPersnonalInfo
         detailLocationDialog.getEditText().setText(getView().getDetailLocation());
         detailLocationDialog.getEditText().setSelection(getView().getDetailLocation().length());
         detailLocationDialog.getTitleView().setBackgroundResource(R.mipmap.ic_launcher);
-        detailLocationDialog.getSureView().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CharSequence Name = detailLocationDialog.getEditText().getText();
-                getView().setDetailLocation(Name);
-                detailLocationDialog.cancel();
-            }
+        detailLocationDialog.getSureView().setOnClickListener(v -> {
+            CharSequence Name = detailLocationDialog.getEditText().getText();
+            getView().setDetailLocation(Name);
+            detailLocationDialog.cancel();
         });
-        detailLocationDialog.getCancelView().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                detailLocationDialog.cancel();
-            }
-        });
+        detailLocationDialog.getCancelView().setOnClickListener(v -> detailLocationDialog.cancel());
         detailLocationDialog.show();
     }
 
@@ -203,20 +212,12 @@ public class PresenterPersonalInformation extends MyBasePresenter<IPersnonalInfo
         postalDialog.getEditText().setText(getView().getPostal());
         postalDialog.getEditText().setSelection(getView().getPostal().length());
         postalDialog.getTitleView().setBackgroundResource(R.mipmap.ic_launcher);
-        postalDialog.getSureView().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CharSequence postal = postalDialog.getEditText().getText();
-                getView().setPostal(postal);
-                postalDialog.cancel();
-            }
+        postalDialog.getSureView().setOnClickListener(v -> {
+            CharSequence postal = postalDialog.getEditText().getText();
+            getView().setPostal(postal);
+            postalDialog.cancel();
         });
-        postalDialog.getCancelView().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                postalDialog.cancel();
-            }
-        });
+        postalDialog.getCancelView().setOnClickListener(v -> postalDialog.cancel());
         postalDialog.show();
     }
 
@@ -229,20 +230,12 @@ public class PresenterPersonalInformation extends MyBasePresenter<IPersnonalInfo
         emailDialog.getEditText().setText(getView().getEmail());
         emailDialog.getEditText().setSelection(getView().getEmail().length());
         emailDialog.getTitleView().setBackgroundResource(R.mipmap.ic_launcher);
-        emailDialog.getSureView().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CharSequence email = emailDialog.getEditText().getText();
-                getView().setEmail(email);
-                emailDialog.cancel();
-            }
+        emailDialog.getSureView().setOnClickListener(v -> {
+            CharSequence email = emailDialog.getEditText().getText();
+            getView().setEmail(email);
+            emailDialog.cancel();
         });
-        emailDialog.getCancelView().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                emailDialog.cancel();
-            }
-        });
+        emailDialog.getCancelView().setOnClickListener(v -> emailDialog.cancel());
         emailDialog.show();
     }
 

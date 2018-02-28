@@ -57,13 +57,15 @@ public class ActivityAddMedicalRecords extends MyBaseActivity implements BGASort
     TextView mTvMrHospital;
     @BindView(R.id.ll_mr_hospital)
     LinearLayout mLlMrHospital;
+    @BindView(R.id.tv_bar_right)
+    TextView mTvBarRight;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, ActivityAddMedicalRecords.class);
         context.startActivity(starter);
     }
 
-    private PresenterAddMedicalRecords presenter=new PresenterAddMedicalRecords(this,this);
+    private PresenterAddMedicalRecords presenter = new PresenterAddMedicalRecords(this, this);
 
     @Override
     protected int getContentViewId() {
@@ -72,7 +74,7 @@ public class ActivityAddMedicalRecords extends MyBaseActivity implements BGASort
 
     @Override
     protected void init() {
-        initView();
+        initHead();
         initBGASortabl();
     }
 
@@ -83,9 +85,13 @@ public class ActivityAddMedicalRecords extends MyBaseActivity implements BGASort
         mSnplMomentAddPhotos.setDelegate(this);
     }
 
-    private void initView() {
+    private void initHead() {
         setTitle("添加");
         isBack(true);
+
+        mTvBarRight.setText("完成");
+        mTvBarRight.setBackgroundResource(R.drawable.btn_bg_medical_records);
+        mTvBarRight.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -168,7 +174,6 @@ public class ActivityAddMedicalRecords extends MyBaseActivity implements BGASort
     }
 
 
-
     @OnClick({R.id.ll_mr_time, R.id.ll_mr_hospital})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -187,7 +192,7 @@ public class ActivityAddMedicalRecords extends MyBaseActivity implements BGASort
 
     @Override
     public String getHospital() {
-        return mTvMrHospital.getText()+"";
+        return mTvMrHospital.getText() + "";
     }
 
     @Override
@@ -197,6 +202,13 @@ public class ActivityAddMedicalRecords extends MyBaseActivity implements BGASort
 
     @Override
     public String getTime() {
-        return mTvMrTime.getText()+"";
+        return mTvMrTime.getText() + "";
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

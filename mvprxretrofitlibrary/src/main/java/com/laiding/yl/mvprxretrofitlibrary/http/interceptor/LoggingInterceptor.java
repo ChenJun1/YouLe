@@ -25,10 +25,8 @@ public class LoggingInterceptor implements Interceptor {
         Response response = chain.proceed(request);
         
         long t2 = System.nanoTime();
-        ResponseBody body = response.body();
-        LogUtils.d(body.string());
-        LogUtils.d(String.format("接收响应: [%s] %.1fms%n%s",
-                response.request().url(), (t2 - t1) / 1e6d, response.headers()));
+        LogUtils.d(String.format("接收响应: [%s] %.1fms%n%s%s",
+                response.request().url(), (t2 - t1) / 1e6d, response.headers(),response.body()));
 
         return response;
     }

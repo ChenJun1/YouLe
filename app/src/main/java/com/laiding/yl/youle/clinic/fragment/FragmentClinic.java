@@ -23,6 +23,7 @@ import com.laiding.yl.youle.R;
 import com.laiding.yl.youle.base.MyBaseFragment;
 import com.laiding.yl.youle.clinic.activity.ActivityClinicDetail;
 import com.laiding.yl.youle.clinic.adapter.AdapterClinicFragment;
+import com.laiding.yl.youle.clinic.entity.ClinicBean;
 import com.laiding.yl.youle.clinic.fragment.view.IFragmentClinic;
 import com.laiding.yl.youle.home.entity.ForumPostsBean;
 import com.laiding.yl.youle.widget.MyItemDecoration;
@@ -151,12 +152,7 @@ public class FragmentClinic extends MyBaseFragment implements IFragmentClinic {
      */
     private void initRefresh() {
         mSwipeLayout.setColorSchemeResources(R.color.color_FF4081, R.color.color_303F9F);
-        mSwipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                mSwipeLayout.setRefreshing(false);
-            }
-        });
+        mSwipeLayout.setOnRefreshListener(() -> mSwipeLayout.setRefreshing(false));
     }
 
     /**
@@ -181,12 +177,7 @@ public class FragmentClinic extends MyBaseFragment implements IFragmentClinic {
         mAdapter = new AdapterClinicFragment(list);
         mAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_LEFT);
         mAdapter.setEnableLoadMore(true);
-        mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
-            @Override
-            public void onLoadMoreRequested() {
-                mAdapter.loadMoreComplete();
-            }
-        }, mClinicRl);
+        mAdapter.setOnLoadMoreListener(() -> mAdapter.loadMoreComplete(), mClinicRl);
         mClinicRl.setAdapter(mAdapter);
     }
 
@@ -230,5 +221,10 @@ public class FragmentClinic extends MyBaseFragment implements IFragmentClinic {
 
                 break;
         }
+    }
+
+    @Override
+    public void showResult(List<ClinicBean> clinicBeanList) {
+
     }
 }

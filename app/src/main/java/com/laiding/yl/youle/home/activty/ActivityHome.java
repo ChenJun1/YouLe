@@ -39,7 +39,19 @@ public class ActivityHome extends MyBaseFragmentActivity {
 
     @Override
     protected void init() {
+
         initViewPage();
+        //登录成功后储存
+        /*User user=new User("1","2222","天气","1382838238");
+        User user1=new User("1","33333","天气1","13828138238");
+        UserDaoUtil daoUtil=new UserDaoUtil(mContext);
+        daoUtil.insertUser(user);
+        daoUtil.insertUser(user1);
+        daoUtil.deleteAll();
+        List<User> users = daoUtil.queryAllUser();
+        users.size();*/
+
+
     }
 
     private void initViewPage() {

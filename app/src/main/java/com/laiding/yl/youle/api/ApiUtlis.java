@@ -7,12 +7,37 @@ import com.laiding.yl.mvprxretrofitlibrary.http.retrofit.RetrofitUtils;
  */
 
 public class ApiUtlis {
-    public static UserApi loginApi;
+    public static UserApi sUserApi;
+    public static HomeApi sHomeApi;
+    public static ClinicApi sClinicApi;
+    public static CommunityApi sCommunityApi;
 
     public static UserApi getUserApi(){
-        if(loginApi==null){
-            loginApi = RetrofitUtils.get().retrofit().create(UserApi.class);
+        if(sUserApi==null){
+            sUserApi = RetrofitUtils.get().retrofit().create(UserApi.class);
         }
-        return loginApi;
+        return sUserApi;
     }
+
+    public static HomeApi getHomeApi(){
+        if(sHomeApi==null){
+            sHomeApi = RetrofitUtils.get().retrofit().create(HomeApi.class);
+        }
+        return sHomeApi;
+    }
+
+    public static ClinicApi getClinicApi(){
+        if(sClinicApi==null){
+            sClinicApi = RetrofitUtils.get().retrofit().create(ClinicApi.class);
+        }
+        return sClinicApi;
+    }
+
+    public static CommunityApi getCommunityApi(){
+        if(sCommunityApi==null){
+            sCommunityApi = RetrofitUtils.get().retrofit().create(CommunityApi.class);
+        }
+        return sCommunityApi;
+    }
+
 }

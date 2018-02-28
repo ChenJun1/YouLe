@@ -45,8 +45,6 @@ public class FragmentMine extends MyBaseFragment {
     ImageView mIvUserAvatar;
     @BindView(R.id.tv_user_name)
     TextView mTvUserName;
-    @BindView(R.id.tv_user_content)
-    TextView mTvUserContent;
     @BindView(R.id.ll_top_avatar)
     LinearLayout mLlTopHead;
     @BindView(R.id.ll_theme)
@@ -73,9 +71,8 @@ public class FragmentMine extends MyBaseFragment {
     }
 
     private void initView() {
-        mTvTitle.setVisibility(View.VISIBLE);
         mTvTitle.setText("我的");
-        mIvBarRight.setVisibility(View.VISIBLE);
+        mLlImBarRight.setVisibility(View.VISIBLE);
         mIvBarRight.loadLocalImage(R.mipmap.icon_shezhi12, R.mipmap.icon_shezhi12);
     }
 

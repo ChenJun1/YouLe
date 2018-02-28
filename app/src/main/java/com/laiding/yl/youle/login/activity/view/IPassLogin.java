@@ -11,4 +11,6 @@ public interface IPassLogin extends IBaseView {
     String getPhone();
 
     String getPassWord();
+
+    void showResult();
 }

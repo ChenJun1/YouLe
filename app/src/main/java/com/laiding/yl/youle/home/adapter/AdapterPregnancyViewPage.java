@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  * Created by JunChen on 2018/1/24.
- * Remarks
+ * Remarks 备孕检查
  */
 
 public class AdapterPregnancyViewPage extends FragmentPagerAdapter {
@@ -25,7 +25,7 @@ public class AdapterPregnancyViewPage extends FragmentPagerAdapter {
         mFragments.add(FragmentPrepareForPregnancy.newInstance());
         mFragments.add(FragmentPrepareForPregnancy.newInstance());
         mFragments.add(FragmentPrepareForPregnancy.newInstance());
-        mFragments.add(FragmentMine.newInstance());
+        mFragments.add(FragmentPrepareForPregnancy.newInstance());
     }
 
     @Override

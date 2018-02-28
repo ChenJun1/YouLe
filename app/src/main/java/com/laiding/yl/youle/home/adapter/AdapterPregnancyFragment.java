@@ -12,19 +12,19 @@ import java.util.List;
 
 /**
  * Created by JunChen on 2018/1/24.
- * Remarks
+ * Remarks  备孕
  */
 
 public class AdapterPregnancyFragment extends BaseQuickAdapter<ForumPostsBean, BaseViewHolder> {
 
     public AdapterPregnancyFragment( @Nullable List<ForumPostsBean> data) {
-        super(R.layout.item_fragment_home, data);
+        super(R.layout.item_prepare_for_pregnancy, data);
 
     }
 
     @Override
     protected void convert(BaseViewHolder helper, ForumPostsBean item) {
-        helper.setText(R.id.title_tv, "假如风不停");
+//        helper.setText(R.id.title_tv, "假如风不停");
         GlideImageView imageView = helper.getView(R.id.pic_iv);
         imageView.loadImage("https://www.zhuangbi.info/uploads/i/2017-12-27-33edf85858c00f22a9ec69c1037eb88b.jpg",R.mipmap.ic_launcher);
 

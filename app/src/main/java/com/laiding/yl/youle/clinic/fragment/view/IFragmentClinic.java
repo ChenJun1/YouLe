@@ -1,6 +1,9 @@
 package com.laiding.yl.youle.clinic.fragment.view;
 
 import com.laiding.yl.mvprxretrofitlibrary.base.IBaseView;
+import com.laiding.yl.youle.clinic.entity.ClinicBean;
+
+import java.util.List;
 
 /**
  * Created by JunChen on 2018/1/17.
@@ -8,5 +11,8 @@ import com.laiding.yl.mvprxretrofitlibrary.base.IBaseView;
  */
 
 public interface IFragmentClinic extends IBaseView {
+    void showResult(List<ClinicBean> clinicBeanList);
+
+
 
 }

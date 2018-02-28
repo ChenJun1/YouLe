@@ -75,7 +75,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
-                    android:text="怒漯河"
+                    android:text=""
                     android:textColor="@color/color_505050" />
 
                 <ImageView
@@ -110,7 +110,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
-                    android:text="男"
+                    android:text=""
                     android:textColor="@color/color_505050" />
 
                 <ImageView
@@ -145,7 +145,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
-                    android:text="20"
+                    android:text=""
                     android:textColor="@color/color_505050" />
 
                 <ImageView
@@ -180,7 +180,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
-                    android:text="德玛"
+                    android:text=""
                     android:textColor="@color/color_505050" />
 
                 <ImageView
@@ -215,7 +215,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
-                    android:text="1555454544"
+                    android:text=""
                     android:textColor="@color/color_505050" />
 
                 <TextView
@@ -252,7 +252,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
-                    android:text="上海"
+                    android:text=""
                     android:textColor="@color/color_505050" />
 
                 <TextView
@@ -261,7 +261,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="@dimen/margin_8"
                     android:gravity="center_vertical"
-                    android:text="上海"
+                    android:text=""
                     android:textColor="@color/color_505050" />
 
                 <ImageView
@@ -298,7 +298,7 @@
                     android:layout_weight="2"
                     android:gravity="center_vertical|right"
                     android:maxLines="1"
-                    android:text="怒漯河怒漯河怒漯河怒漯河"
+                    android:text=""
                     android:textColor="@color/color_505050" />
 
                 <ImageView
@@ -333,7 +333,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
-                    android:text="766767"
+                    android:text=""
                     android:textColor="@color/color_505050" />
 
                 <ImageView
@@ -368,7 +368,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
-                    android:text="24354354@qq.com"
+                    android:text=""
                     android:textColor="@color/color_505050" />
 
                 <ImageView

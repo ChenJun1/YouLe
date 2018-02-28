@@ -21,6 +21,7 @@ public class RetrofitUtils {
     /**
      * 接口地址
      */
+//    public static final String BASE_API = "http://tianxi.51laiding.com";
     public static final String BASE_API = "http://47.97.185.141/youle/frontend/web/";
     public static final int CONNECT_TIME_OUT = 15;//连接超时时长x秒
     public static final int READ_TIME_OUT = 15;//读数据超时时长x秒
@@ -51,7 +52,7 @@ public class RetrofitUtils {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
             @Override
             public void log(String message) {
-                LogUtils.d("okHttp:" + message);
+                LogUtils.i("okHttp:" + message);
             }
         });
         logging.setLevel(HttpLoggingInterceptor.Level.BASIC);
@@ -59,7 +60,7 @@ public class RetrofitUtils {
                 .connectTimeout(CONNECT_TIME_OUT, TimeUnit.SECONDS)
                 .writeTimeout(WRITE_TIME_OUT, TimeUnit.SECONDS)
                 .readTimeout(READ_TIME_OUT, TimeUnit.SECONDS)
-                .addInterceptor(new LoggingInterceptor())
+                .addInterceptor(logging)
                 .build();
         return client;
     }

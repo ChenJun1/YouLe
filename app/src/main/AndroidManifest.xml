@@ -246,6 +246,9 @@
         <activity
             android:name=".mine.activity.ActivityUpdatePhone2"
             android:screenOrientation="portrait" />
+        <!-- 备孕检查详情-->
+        <activity android:name=".home.activty.ActivityPregnancyDetail"
+            android:screenOrientation="portrait"/>
 
     </application>
 

@@ -3,6 +3,7 @@ package com.laiding.yl.youle.home.activty;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.widget.LinearLayout;
 
 import com.laiding.yl.youle.R;
@@ -42,6 +43,7 @@ public class ActivityPregnancyTest extends MyBaseFragmentActivity {
     protected void init() {
         setTitle("备孕检查");
         isBack(true);
+        mLlImBarRight.setVisibility(View.VISIBLE);
         setRightImag(mIvBarRight, R.mipmap.icon_zaixiankefu);
         initViewPage();
     }

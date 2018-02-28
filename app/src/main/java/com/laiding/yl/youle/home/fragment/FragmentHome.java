@@ -28,6 +28,7 @@ import com.laiding.yl.youle.home.activty.ActivityPregnancyTest;
 import com.laiding.yl.youle.home.activty.ActivityTestTubeBabyProcess;
 import com.laiding.yl.youle.home.activty.ActivityTestTubeGuidance;
 import com.laiding.yl.youle.home.adapter.AdapterHomeFragement;
+import com.laiding.yl.youle.home.entity.CommunityBean;
 import com.laiding.yl.youle.home.entity.ForumPostsBean;
 import com.laiding.yl.youle.home.fragment.view.IHomeFragment;
 import com.laiding.yl.youle.home.presenter.PresenterHome;
@@ -57,6 +58,7 @@ public class FragmentHome extends MyBaseFragment implements IHomeFragment {
     RecyclerView homeRl;
     @BindView(R.id.swipeLayout)
     SwipeRefreshLayout swipeLayout;
+    private View notDataView;
 
     public static FragmentHome newInstance() {
 
@@ -69,7 +71,7 @@ public class FragmentHome extends MyBaseFragment implements IHomeFragment {
 
     private PresenterHome presenter = new PresenterHome(this, this);
     private AdapterHomeFragement adapter;
-    private List<ForumPostsBean> list = new ArrayList<>();
+    private List<CommunityBean> list = new ArrayList<>();
     private boolean isRefresh = true;
 
     @Override
@@ -79,7 +81,7 @@ public class FragmentHome extends MyBaseFragment implements IHomeFragment {
 
     @Override
     protected void init() {
-        presenter.login("ruffian", "EA8A706C4C34A168");
+        presenter.requestHttp();
         initAdapter();
         addHeadView();
         initRefresh();
@@ -92,13 +94,7 @@ public class FragmentHome extends MyBaseFragment implements IHomeFragment {
      */
     private void initRefresh() {
         swipeLayout.setColorSchemeResources(R.color.color_FF4081, R.color.color_303F9F);
-        swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-
-                refreshData();
-            }
-        });
+        swipeLayout.setOnRefreshListener(() -> refreshData());
     }
 
     /**
@@ -108,7 +104,7 @@ public class FragmentHome extends MyBaseFragment implements IHomeFragment {
         swipeLayout.setRefreshing(true);
         adapter.setEnableLoadMore(false);
         isRefresh = true;
-        presenter.login("ruffian", "EA8A706C4C34A168");
+        presenter.requestHttp();
     }
 
 
@@ -225,26 +221,15 @@ public class FragmentHome extends MyBaseFragment implements IHomeFragment {
      * 初始化适配器
      */
     private void initAdapter() {
+        notDataView = getLayoutInflater().inflate(R.layout.empty_text_view, (ViewGroup) homeRl.getParent(), false);
+
         homeRl.setLayoutManager(new LinearLayoutManager(MyApplication.app));
         homeRl.addItemDecoration(new MyItemDecoration());
 
-        list.add(new ForumPostsBean());
-//        list.add(new ForumPostsBean());
-//        list.add(new ForumPostsBean());
-//        list.add(new ForumPostsBean());
-//        list.add(new ForumPostsBean());
-//        list.add(new ForumPostsBean());
-//        list.add(new ForumPostsBean());
-//        list.add(new ForumPostsBean());
         adapter = new AdapterHomeFragement(R.layout.item_fragment_home, list);
         adapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_LEFT);
-        adapter.setEnableLoadMore(true);
-        adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
-            @Override
-            public void onLoadMoreRequested() {
-                loadMore();
-            }
-        }, homeRl);
+        adapter.setEnableLoadMore(false); //不使用加载更多
+//        adapter.setOnLoadMoreListener(() -> loadMore(), homeRl);
         homeRl.setAdapter(adapter);
 
         homeRl.addOnItemTouchListener(new OnItemClickListener() {
@@ -261,8 +246,6 @@ public class FragmentHome extends MyBaseFragment implements IHomeFragment {
     private void loadMore() {
         isRefresh = false;
         swipeLayout.setRefreshing(false);
-        presenter.login("ruffian", "EA8A706C4C34A168");
-
     }
 
     @Override
@@ -272,41 +255,15 @@ public class FragmentHome extends MyBaseFragment implements IHomeFragment {
 
 
     @Override
-    public void showResult(UserBean userBean) {
-        if (isRefresh) {
-            list.clear();
-            list.add(new ForumPostsBean());
-//            list.add(new ForumPostsBean());
-//            list.add(new ForumPostsBean());
-//            list.add(new ForumPostsBean());
-//            list.add(new ForumPostsBean());
-//            list.add(new ForumPostsBean());
-//            list.add(new ForumPostsBean());
-//            list.add(new ForumPostsBean());
-            adapter.setNewData(list);
-            swipeLayout.setRefreshing(false);
-        } else {
-            adapter.loadMoreFail();
-            adapter.loadMoreComplete();
-            list.add(new ForumPostsBean());
-//            list.add(new ForumPostsBean());
-//            list.add(new ForumPostsBean());
-//            list.add(new ForumPostsBean());
-//            list.add(new ForumPostsBean());
-//            list.add(new ForumPostsBean());
-//            list.add(new ForumPostsBean());
-            if (list != null && list.size() > 0) {
-                adapter.addData(list);
-            }
+    public void showResult(List<CommunityBean> userBean) {
+        adapter.removeAllFooterView();
+        if(userBean==null) {
+            adapter.addFooterView(notDataView);
+        }else{
+            adapter.setNewData(userBean);
         }
+        swipeLayout.setRefreshing(false);
 
-        if (list.size() < PAGE_SIZE) {
-            //第一页如果不够一页就不显示没有更多数据布局
-            adapter.loadMoreEnd(isRefresh);
-            Toast.makeText(getActivity(), "no more data", Toast.LENGTH_SHORT).show();
-        } else {
-            adapter.loadMoreComplete();
-        }
     }
 
 }

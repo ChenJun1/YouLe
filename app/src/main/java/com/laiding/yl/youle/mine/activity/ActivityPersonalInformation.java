@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 import com.laiding.yl.youle.R;
 import com.laiding.yl.youle.base.MyBaseActivity;
 import com.laiding.yl.youle.mine.activity.view.IPersnonalInformation;
+import com.laiding.yl.youle.mine.entity.UserInfo;
 import com.laiding.yl.youle.mine.presenter.PresenterPersonalInformation;
 import com.sunfusheng.glideimageview.GlideImageView;
 import com.vondear.rxtools.RxPhotoTool;
@@ -29,6 +31,7 @@ import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -87,6 +90,8 @@ public class ActivityPersonalInformation extends MyBaseActivity implements IPers
     TextView mTvLocationProvince;
     @BindView(R.id.tv_location_area)
     TextView mTvLocationArea;
+    @BindView(R.id.tv_bar_right)
+    TextView mTvBarRight;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, ActivityPersonalInformation.class);
@@ -103,8 +108,17 @@ public class ActivityPersonalInformation extends MyBaseActivity implements IPers
 
     @Override
     protected void init() {
+        initHead();
+        presenter.requestUserInfo();
+    }
+
+    private void initHead() {
         setTitle("个人资料");
         isBack(true);
+
+        mTvBarRight.setText("完成");
+        mTvBarRight.setBackgroundResource(R.drawable.btn_bg_medical_records);
+        mTvBarRight.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -345,7 +359,7 @@ public class ActivityPersonalInformation extends MyBaseActivity implements IPers
 
     @Override
     public void setAreaLocation(CharSequence location) {
-            mTvLocationArea.setText(location);
+        mTvLocationArea.setText(location);
     }
 
     @Override
@@ -381,6 +395,23 @@ public class ActivityPersonalInformation extends MyBaseActivity implements IPers
     @Override
     public CharSequence getEmail() {
         return mTvEmail.getText();
+    }
+
+    @Override
+    public void getUserInfoResult(UserInfo userInfo) {
+        if(userInfo==null)
+            return;
+
+        setNikeName(userInfo.getU_nname()==null?"无":userInfo.getU_nname());
+        setGender(userInfo.getU_sex()==null?"男":userInfo.getU_sex());
+        setBirthday(userInfo.getU_birthday()==null?"0":userInfo.getU_birthday());
+        setName(userInfo.getU_name()==null?"无":userInfo.getU_name());
+        setPhone(userInfo.getU_phone()==null?"无":userInfo.getU_phone());
+        setProvinceLocation(userInfo.getU_region()==null?"上海市":userInfo.getU_region());
+        setAreaLocation(userInfo.getU_region()==null?"上海市":userInfo.getU_region());
+        setDetailLocation(userInfo.getU_address()==null?"无":userInfo.getU_address());
+        setPostal(userInfo.getU_code()==null?"无":userInfo.getU_code());
+        setEmail(userInfo.getU_email()==null?"无":userInfo.getU_email());
     }
 
 
