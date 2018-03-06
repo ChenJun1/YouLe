@@ -19,6 +19,8 @@ import com.laiding.yl.youle.base.MyBaseActivity;
 import com.laiding.yl.youle.home.activty.view.IMedicalRecordsActy;
 import com.laiding.yl.youle.home.adapter.AdapterMedicalRecordsActivity;
 import com.laiding.yl.youle.home.entity.ForumPostsBean;
+import com.laiding.yl.youle.home.entity.MedicalRecordsBean;
+import com.laiding.yl.youle.home.presenter.PresenterMedicalRecords;
 import com.vondear.rxtools.RxIntentTool;
 
 import java.util.ArrayList;
@@ -42,7 +44,8 @@ public class ActivityMedicalRecords extends MyBaseActivity implements IMedicalRe
     TextView mTvAdd;
 
     private AdapterMedicalRecordsActivity adapter;
-    private List<ForumPostsBean> mList = new ArrayList<>();
+    private List<MedicalRecordsBean> mList = new ArrayList<>();
+    private PresenterMedicalRecords presenter=new PresenterMedicalRecords(this,this);
 
     public static void start(Context context) {
         Intent starter = new Intent(context, ActivityMedicalRecords.class);
@@ -58,17 +61,7 @@ public class ActivityMedicalRecords extends MyBaseActivity implements IMedicalRe
     protected void init() {
         initView();
         initAdapter();
-        initData();
-    }
-
-    private void initData() {
-        mList.clear();
-        mList.add(new ForumPostsBean());
-        mList.add(new ForumPostsBean());
-        mList.add(new ForumPostsBean());
-        mList.add(new ForumPostsBean());
-        mList.add(new ForumPostsBean());
-        adapter.setNewData(mList);
+        presenter.requestHttp();
     }
 
     private void initAdapter() {
@@ -83,15 +76,14 @@ public class ActivityMedicalRecords extends MyBaseActivity implements IMedicalRe
         mRcyView.addOnItemTouchListener(new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ActivityMedicalRecordsDetail.start(mContext);
+                MedicalRecordsBean item = (MedicalRecordsBean) adapter.getItem(position);
+                ActivityMedicalRecordsDetail.start(mContext, item != null ? Integer.valueOf(item.getR_id()) : 0);
             }
         });
-
     }
 
     @Override
     protected void initBundleData() {
-
     }
 
     @OnClick({R.id.iv_add, R.id.tv_add})
@@ -104,5 +96,12 @@ public class ActivityMedicalRecords extends MyBaseActivity implements IMedicalRe
                 ActivityAddMedicalRecords.start(mContext);
                 break;
         }
+    }
+
+    @Override
+    public void showResult(List<MedicalRecordsBean> list) {
+        if(list==null)
+            return;
+        adapter.setNewData(list);
     }
 }

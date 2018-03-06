@@ -24,25 +24,25 @@ import io.reactivex.disposables.Disposable;
  * Remarks
  */
 
-public class PresenterInformation extends MyBaseFrgPresenter<IInformationFragment,FragmentInformation> {
+public class PresenterInformation extends MyBaseFrgPresenter<IInformationFragment, FragmentInformation> {
     private static final String TAG = "PresenterInformationFra";
 
     public PresenterInformation(IInformationFragment view, FragmentInformation fragmet) {
         super(view, fragmet);
     }
 
-
     /**
      * 获取资讯列表
+     *
      * @param
      * @param
      */
-    public void requestHttp(){
+    public void requestHttp() {
         final Map<String, Object> request = HttpRequest.getRequest();
         request.put("p", getView().getPage());
-        request.put("limit", 10);
+        request.put("limit", FragmentInformation.PAGE_SIZE);
 
-        HttpRxObserver httpRxObserver=new HttpRxObserver<HttpResponse<List<CommunityBean>>>(TAG+"login",getView()) {
+        HttpRxObserver httpRxObserver = new HttpRxObserver<HttpResponse<List<CommunityBean>>>(TAG + "requestHttp", getView()) {
             @Override
             protected void onStart(Disposable d) {
 
@@ -58,7 +58,7 @@ public class PresenterInformation extends MyBaseFrgPresenter<IInformationFragmen
             @Override
             protected void onSuccess(HttpResponse<List<CommunityBean>> response) {
 
-                if (getView() != null) {
+                if (response.isSuccess()) {
                     getView().showResult(response.getResult());
                 }
             }
@@ -74,13 +74,14 @@ public class PresenterInformation extends MyBaseFrgPresenter<IInformationFragmen
 
     /**
      * 获取资讯广告图
+     *
      * @param
      * @param
      */
-    public void requestHttpAdsPictures(){
+    public void requestHttpAdsPictures() {
         final Map<String, Object> request = HttpRequest.getRequest();
 
-        HttpRxObserver httpRxObserver=new HttpRxObserver<HttpResponse<List<AdsPictures>>>(TAG,getView()) {
+        HttpRxObserver httpRxObserver = new HttpRxObserver<HttpResponse<List<AdsPictures>>>(TAG, getView()) {
             @Override
             protected void onStart(Disposable d) {
 

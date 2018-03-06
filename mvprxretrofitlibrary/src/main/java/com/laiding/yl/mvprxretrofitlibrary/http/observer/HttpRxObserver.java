@@ -61,8 +61,11 @@ public abstract class HttpRxObserver<T> implements Observer<T>, HttpRequestListe
         ApiException apiException = (ApiException) e;
         onError(apiException);
         if (mView != null)
-            mView.showError(apiException.getMsg());
-
+            if(apiException.getCode()==ExceptionEngine.X1008){
+                mView.isTokenExpired(apiException.getMsg());
+            }else{
+                mView.showError(apiException.getMsg());
+            }
     }
 
     @Override
@@ -88,7 +91,8 @@ public abstract class HttpRxObserver<T> implements Observer<T>, HttpRequestListe
         if (mView != null) {
             mView.showLoading();
         }
-        onStart(d);
+            onStart(d);
+
     }
 
     @Override
@@ -96,8 +100,8 @@ public abstract class HttpRxObserver<T> implements Observer<T>, HttpRequestListe
         if (!TextUtils.isEmpty(mTag)) {
             RxActionManagerImpl.getInstance().cancel(mTag);
         }
-        if (mProgressListener != null) {
-            mProgressListener.closeLoading();
+        if (mView != null) {
+            mView.showLoading();
         }
     }
 

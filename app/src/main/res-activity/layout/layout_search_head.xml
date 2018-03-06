@@ -27,7 +27,7 @@
             android:textColorHint="@color/c" />
 
         <ImageView
-            android:id="@+id/iv_clean_phone"
+            android:id="@+id/iv_clean_text"
             android:layout_width="40dp"
             android:layout_height="fill_parent"
             android:scaleType="centerInside"

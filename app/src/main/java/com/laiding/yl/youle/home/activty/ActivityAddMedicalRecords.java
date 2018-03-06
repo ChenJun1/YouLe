@@ -3,6 +3,7 @@ package com.laiding.yl.youle.home.activty;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
@@ -12,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.laiding.yl.mvprxretrofitlibrary.utlis.LogUtils;
 import com.laiding.yl.youle.R;
 import com.laiding.yl.youle.base.MyBaseActivity;
 import com.laiding.yl.youle.home.activty.view.IAddMedicalRecordsActy;
@@ -19,6 +21,9 @@ import com.laiding.yl.youle.home.presenter.PresenterAddMedicalRecords;
 import com.laiding.yl.youle.widget.photopicker.activity.BGAPhotoPickerActivity;
 import com.laiding.yl.youle.widget.photopicker.activity.BGAPhotoPickerPreviewActivity;
 import com.laiding.yl.youle.widget.photopicker.widget.BGASortableNinePhotoLayout;
+import com.sunfusheng.glideimageview.GlideImageView;
+import com.vondear.rxtools.RxFileTool;
+import com.vondear.rxtools.RxPhotoTool;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -88,7 +93,6 @@ public class ActivityAddMedicalRecords extends MyBaseActivity implements BGASort
     private void initHead() {
         setTitle("添加");
         isBack(true);
-
         mTvBarRight.setText("完成");
         mTvBarRight.setBackgroundResource(R.drawable.btn_bg_medical_records);
         mTvBarRight.setVisibility(View.VISIBLE);
@@ -166,7 +170,6 @@ public class ActivityAddMedicalRecords extends MyBaseActivity implements BGASort
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == RC_CHOOSE_PHOTO) {
-
             mSnplMomentAddPhotos.addMoreData(BGAPhotoPickerActivity.getSelectedPhotos(data));
         } else if (requestCode == RC_PHOTO_PREVIEW) {
             mSnplMomentAddPhotos.setData(BGAPhotoPickerPreviewActivity.getSelectedPhotos(data));
@@ -174,13 +177,18 @@ public class ActivityAddMedicalRecords extends MyBaseActivity implements BGASort
     }
 
 
-    @OnClick({R.id.ll_mr_time, R.id.ll_mr_hospital})
+    @OnClick({R.id.ll_mr_time, R.id.ll_mr_hospital, R.id.tv_bar_right})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_mr_time:
                 presenter.showDialogTime();
                 break;
             case R.id.ll_mr_hospital:
+                presenter.showDialogHospital();
+                break;
+            case R.id.tv_bar_right:
+                presenter.requestHttp();
+//                presenter.requestHttp2();
                 break;
         }
     }
@@ -206,9 +214,25 @@ public class ActivityAddMedicalRecords extends MyBaseActivity implements BGASort
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
+    public String getMedicalTitle() {
+        return mEtMrTitle.getText().toString();
     }
+
+    @Override
+    public String getRemarkes() {
+        return mEtMomentAddContent.getText().toString();
+    }
+
+    @Override
+    public List<File> getFileList() {
+        ArrayList<String> data = mSnplMomentAddPhotos.getData();
+        List<File> files = new ArrayList<>();
+        for (String url : data) {
+            files.add(new File(url));
+            String fileSize = RxFileTool.getFileSize(new File(url));
+            LogUtils.i(fileSize);
+        }
+        return files;
+    }
+
 }

@@ -3,6 +3,7 @@ package com.laiding.yl.youle.clinic.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +15,7 @@ import com.laiding.yl.youle.R;
 import com.laiding.yl.youle.base.MyBaseActivity;
 import com.laiding.yl.youle.clinic.activity.view.IDoctorList;
 import com.laiding.yl.youle.clinic.adapter.AdapterDocotrList;
+import com.laiding.yl.youle.clinic.entity.ClinicDetailBean;
 import com.laiding.yl.youle.home.entity.ForumPostsBean;
 import com.laiding.yl.youle.widget.MyItemDecoration;
 
@@ -29,7 +31,7 @@ import butterknife.OnClick;
  * Remarks 专家团队
  */
 
-public class ActivityDoctorList extends MyBaseActivity implements IDoctorList{
+public class ActivityDoctorList extends MyBaseActivity implements IDoctorList {
     @BindView(R.id.rlview)
     RecyclerView mRlview;
     @BindView(R.id.ll_call_doctor)
@@ -37,13 +39,14 @@ public class ActivityDoctorList extends MyBaseActivity implements IDoctorList{
     @BindView(R.id.swipeLayout)
     SwipeRefreshLayout mSwipeLayout;
 
-    public static void start(Context context) {
+    public static void start(Context context, ArrayList<ClinicDetailBean.DoctorListBean> listBeans) {
         Intent starter = new Intent(context, ActivityDoctorList.class);
+        starter.putParcelableArrayListExtra("DLIST", listBeans);
         context.startActivity(starter);
     }
 
     private AdapterDocotrList adapter;
-    private List<ForumPostsBean> list = new ArrayList<>();
+    private List<ClinicDetailBean.DoctorListBean> list = new ArrayList<>();
 
     @Override
     protected int getContentViewId() {
@@ -55,7 +58,6 @@ public class ActivityDoctorList extends MyBaseActivity implements IDoctorList{
         setTitle("专家团队");
         isBack(true);
         initView();
-        initData();
         initAdapter();
         initRefresh();
     }
@@ -65,38 +67,20 @@ public class ActivityDoctorList extends MyBaseActivity implements IDoctorList{
      */
     private void initRefresh() {
         mSwipeLayout.setColorSchemeResources(R.color.color_FF4081, R.color.color_303F9F);
-        mSwipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                mSwipeLayout.setRefreshing(false);
-            }
+        mSwipeLayout.setOnRefreshListener(() -> {
+            adapter.setNewData(list);
+            mSwipeLayout.setRefreshing(false);
         });
     }
 
     private void initAdapter() {
         adapter = new AdapterDocotrList(list);
         adapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_LEFT);
-        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ActivityDoctorDetail.start(mContext);
-            }
+        adapter.setOnItemClickListener((adapter, view, position) -> {
+            ClinicDetailBean.DoctorListBean item = (ClinicDetailBean.DoctorListBean) adapter.getItem(position);
+            ActivityDoctorDetail.start(mContext, item.getD_id());
         });
         mRlview.setAdapter(adapter);
-    }
-
-    private void initData() {
-        list.clear();
-        list.add(new ForumPostsBean());
-        list.add(new ForumPostsBean());
-        list.add(new ForumPostsBean());
-        list.add(new ForumPostsBean());
-        list.add(new ForumPostsBean());
-        list.add(new ForumPostsBean());
-        list.add(new ForumPostsBean());
-        list.add(new ForumPostsBean());
-        list.add(new ForumPostsBean());
-        list.add(new ForumPostsBean());
     }
 
     private void initView() {
@@ -106,18 +90,15 @@ public class ActivityDoctorList extends MyBaseActivity implements IDoctorList{
 
     @Override
     protected void initBundleData() {
-
+        ArrayList<ClinicDetailBean.DoctorListBean> dlist = getIntent().getParcelableArrayListExtra("DLIST");
+        list.clear();
+        list.addAll(dlist);
     }
 
 
     @OnClick(R.id.ll_call_doctor)
     public void onViewClicked() {
+
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 }

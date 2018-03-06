@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.laiding.yl.youle.R;
 import com.laiding.yl.youle.base.MyBaseActivity;
+import com.laiding.yl.youle.mine.activity.view.IUpdatePhone;
 import com.vondear.rxtools.RxRegTool;
 import com.vondear.rxtools.RxTool;
 import com.vondear.rxtools.view.RxToast;
@@ -23,7 +24,7 @@ import butterknife.OnClick;
  * Remarks 修改手机号
  */
 
-public class ActivityUpdatePhone extends MyBaseActivity {
+public class ActivityUpdatePhone extends MyBaseActivity implements IUpdatePhone{
     @BindView(R.id.et_mobile)
     EditText mEtMobile;
     @BindView(R.id.et_verification)
@@ -76,6 +77,21 @@ public class ActivityUpdatePhone extends MyBaseActivity {
         } else {
             RxToast.error("请输入正确手机号");
         }
+
+    }
+
+    @Override
+    public CharSequence getPhone() {
+        return null;
+    }
+
+    @Override
+    public CharSequence getCode() {
+        return null;
+    }
+
+    @Override
+    public void isuccessS() {
 
     }
 }

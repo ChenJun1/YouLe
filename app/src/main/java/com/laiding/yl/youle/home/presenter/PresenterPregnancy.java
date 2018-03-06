@@ -7,11 +7,13 @@ import com.laiding.yl.mvprxretrofitlibrary.http.retrofit.HttpRequest;
 import com.laiding.yl.mvprxretrofitlibrary.http.retrofit.HttpResponse;
 import com.laiding.yl.youle.api.ApiUtlis;
 import com.laiding.yl.youle.base.MyBaseFrgPresenter;
+import com.laiding.yl.youle.home.entity.PregnancyBean;
 import com.laiding.yl.youle.home.fragment.FragmentPrepareForPregnancy;
 import com.laiding.yl.youle.home.fragment.view.IPregnancyFragment;
 import com.laiding.yl.youle.login.entity.UserBean;
 import com.trello.rxlifecycle2.android.FragmentEvent;
 
+import java.util.List;
 import java.util.Map;
 
 import io.reactivex.disposables.Disposable;
@@ -29,17 +31,16 @@ public class PresenterPregnancy extends MyBaseFrgPresenter<IPregnancyFragment,Fr
     }
 
     /**
-     * 登陆
-     * @param name
-     * @param pass
+     *  请求备孕列表
      */
-    public void login(String name,String pass){
+    public void requestHttpPregnant(){
         final Map<String, Object> request = HttpRequest.getRequest();
 
-        request.put("username", name);
-        request.put("password", pass);
+        request.put("t_id", getView().getPid());
+        request.put("p", getView().getPage());
+        request.put("limit", FragmentPrepareForPregnancy.PAGE_SIZE);
 
-        HttpRxObserver httpRxObserver=new HttpRxObserver<HttpResponse<UserBean>>(TAG+"login",getView()) {
+        HttpRxObserver httpRxObserver=new HttpRxObserver<HttpResponse<List<PregnancyBean>>>(TAG,getView()) {
             @Override
             protected void onStart(Disposable d) {
 
@@ -51,7 +52,7 @@ public class PresenterPregnancy extends MyBaseFrgPresenter<IPregnancyFragment,Fr
             }
 
             @Override
-            protected void onSuccess(HttpResponse<UserBean> response) {
+            protected void onSuccess(HttpResponse<List<PregnancyBean>> response) {
 
                 if (getView() != null) {
                     getView().showResult(response.getResult());
@@ -63,7 +64,6 @@ public class PresenterPregnancy extends MyBaseFrgPresenter<IPregnancyFragment,Fr
          * ActivityEvent.PAUSE(FragmentEvent.PAUSE)
          * 手动管理移除RxJava监听,如果不设置此参数默认自动管理移除RxJava监听（onCrete创建,onDestroy移除）
          */
-        new HttpRxObservable<UserBean>().getObservable(ApiUtlis.getUserApi().login(request), getFrgment(), FragmentEvent.STOP).subscribe(httpRxObserver);
-
+        new HttpRxObservable<List<PregnancyBean>>().getObservable(ApiUtlis.getHomeApi().getPregnantList(request), getFrgment(), FragmentEvent.STOP).subscribe(httpRxObserver);
     }
 }

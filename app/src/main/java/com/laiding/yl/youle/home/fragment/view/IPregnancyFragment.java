@@ -1,7 +1,10 @@
 package com.laiding.yl.youle.home.fragment.view;
 
 import com.laiding.yl.mvprxretrofitlibrary.base.IBaseView;
+import com.laiding.yl.youle.home.entity.PregnancyBean;
 import com.laiding.yl.youle.login.entity.UserBean;
+
+import java.util.List;
 
 /**
  * Created by JunChen on 2018/1/24.
@@ -9,5 +12,9 @@ import com.laiding.yl.youle.login.entity.UserBean;
  */
 
 public interface IPregnancyFragment extends IBaseView{
-    void showResult(UserBean userBean);
+    void showResult(List<PregnancyBean> list);
+
+    String getPid();
+
+    int getPage();
 }

@@ -6,6 +6,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.laiding.yl.youle.R;
 import com.laiding.yl.youle.home.entity.ForumPostsBean;
+import com.laiding.yl.youle.home.entity.PregnancyBean;
+import com.laiding.yl.youle.utils.MConstant;
 import com.sunfusheng.glideimageview.GlideImageView;
 
 import java.util.List;
@@ -15,18 +17,17 @@ import java.util.List;
  * Remarks  备孕
  */
 
-public class AdapterPregnancyFragment extends BaseQuickAdapter<ForumPostsBean, BaseViewHolder> {
+public class AdapterPregnancyFragment extends BaseQuickAdapter<PregnancyBean, BaseViewHolder> {
 
-    public AdapterPregnancyFragment( @Nullable List<ForumPostsBean> data) {
+    public AdapterPregnancyFragment( @Nullable List<PregnancyBean> data) {
         super(R.layout.item_prepare_for_pregnancy, data);
-
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, ForumPostsBean item) {
-//        helper.setText(R.id.title_tv, "假如风不停");
+    protected void convert(BaseViewHolder helper, PregnancyBean item) {
+        helper.setText(R.id.title_tv, item.getP_title());
+        helper.setText(R.id.tv_p_price, item.getP_price());
         GlideImageView imageView = helper.getView(R.id.pic_iv);
-        imageView.loadImage("https://www.zhuangbi.info/uploads/i/2017-12-27-33edf85858c00f22a9ec69c1037eb88b.jpg",R.mipmap.ic_launcher);
-
+        imageView.loadImage(MConstant.IMGURL+item.getFile(),R.mipmap.ic_launcher);
     }
 }

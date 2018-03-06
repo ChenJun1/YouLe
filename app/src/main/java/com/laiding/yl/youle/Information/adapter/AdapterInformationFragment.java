@@ -8,8 +8,13 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.laiding.yl.youle.R;
 import com.laiding.yl.youle.home.entity.CommunityBean;
 import com.laiding.yl.youle.home.entity.ForumPostsBean;
+import com.laiding.yl.youle.utils.MConstant;
 import com.sunfusheng.glideimageview.GlideImageView;
+import com.vondear.rxtools.RxDataTool;
+import com.vondear.rxtools.RxTimeTool;
 
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,9 +29,11 @@ public class AdapterInformationFragment extends BaseQuickAdapter<CommunityBean, 
 
     @Override
     protected void convert(BaseViewHolder helper, CommunityBean item) {
-        helper.setText(R.id.tv_content, Html.fromHtml(item.getN_content()));
+        helper.setText(R.id.tv_content, Html.fromHtml(item.getN_content()==null?"":item.getN_content()));
         GlideImageView imageView = helper.getView(R.id.gridView);
-        imageView.loadImage("https://www.zhuangbi.info/uploads/i/2017-12-27-33edf85858c00f22a9ec69c1037eb88b.jpg",R.mipmap.ic_launcher);
-        helper.setText(R.id.tv_time, item.getTime());
+        imageView.loadImage(MConstant.IMGURL+item.getFile(),R.mipmap.ic_launcher);
+
+        Date date1 = RxTimeTool.string2Date(item.getTime()==null?"": item.getTime());
+        helper.setText(R.id.tv_time,RxTimeTool.simpleDateFormat("MM-dd", date1));
     }
 }

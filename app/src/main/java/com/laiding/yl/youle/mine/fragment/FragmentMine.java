@@ -12,6 +12,9 @@ import com.laiding.yl.youle.R;
 import com.laiding.yl.youle.base.MyBaseFragment;
 import com.laiding.yl.youle.mine.activity.ActivityPersonalInformation;
 import com.laiding.yl.youle.mine.activity.ActivitySet;
+import com.laiding.yl.youle.mine.entity.UserInfo;
+import com.laiding.yl.youle.mine.fragment.presenter.PresenterMine;
+import com.laiding.yl.youle.mine.fragment.view.IFragmentMine;
 import com.sunfusheng.glideimageview.GlideImageView;
 
 import butterknife.BindView;
@@ -24,11 +27,9 @@ import butterknife.Unbinder;
  * Remarks 我的
  */
 
-public class FragmentMine extends MyBaseFragment {
+public class FragmentMine extends MyBaseFragment implements IFragmentMine{
     public static FragmentMine newInstance() {
-
         Bundle args = new Bundle();
-
         FragmentMine fragment = new FragmentMine();
         fragment.setArguments(args);
         return fragment;
@@ -42,7 +43,7 @@ public class FragmentMine extends MyBaseFragment {
     @BindView(R.id.tv_title)
     TextView mTvTitle;
     @BindView(R.id.iv_user_avatar)
-    ImageView mIvUserAvatar;
+    GlideImageView mIvUserAvatar;
     @BindView(R.id.tv_user_name)
     TextView mTvUserName;
     @BindView(R.id.ll_top_avatar)
@@ -60,6 +61,8 @@ public class FragmentMine extends MyBaseFragment {
     @BindView(R.id.ll_set)
     LinearLayout mLlSet;
 
+    private PresenterMine mPresenterMine=new PresenterMine(this,this);
+
     @Override
     protected int getContentViewId() {
         return R.layout.fragment_mine;
@@ -74,6 +77,7 @@ public class FragmentMine extends MyBaseFragment {
         mTvTitle.setText("我的");
         mLlImBarRight.setVisibility(View.VISIBLE);
         mIvBarRight.loadLocalImage(R.mipmap.icon_shezhi12, R.mipmap.icon_shezhi12);
+        mPresenterMine.requestUserInfo();
     }
 
     @Override
@@ -106,4 +110,12 @@ public class FragmentMine extends MyBaseFragment {
         }
     }
 
+    @Override
+    public void showResult(UserInfo userInfo) {
+        if(userInfo==null)
+            return;
+
+        mIvUserAvatar.loadCircleImage(mPresenterMine.getAvatarImgUrl()+userInfo.getPhoto(), R.mipmap.ic_launcher_round);
+        mTvUserName.setText(userInfo.getU_nname());
+    }
 }

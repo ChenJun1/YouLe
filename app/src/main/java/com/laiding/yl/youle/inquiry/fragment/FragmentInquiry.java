@@ -7,10 +7,12 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.hyphenate.chat.EMClient;
 import com.laiding.yl.youle.R;
 import com.laiding.yl.youle.base.MyBaseFragment;
 import com.laiding.yl.youle.im.activity.ActivityChat;
 import com.sunfusheng.glideimageview.GlideImageView;
+import com.vondear.rxtools.view.RxToast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -128,7 +130,11 @@ public class FragmentInquiry extends MyBaseFragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_im_bar_right:
-                ActivityChat.start(mContext, "8899");
+                if(EMClient.getInstance().isConnected()){
+                    ActivityChat.start(mContext, "8899");
+                }else{
+                    RxToast.error("客服未连接");
+                }
                 break;
             case R.id.tv_gwy:
                 break;

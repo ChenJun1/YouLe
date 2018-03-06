@@ -29,6 +29,7 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/tv_d_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
@@ -37,6 +38,7 @@
                 android:textSize="@dimen/text_small_title" />
 
             <TextView
+                android:id="@+id/tv_d_room"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="32dp"
@@ -45,6 +47,7 @@
                 android:textColor="@color/color_838383" />
 
             <TextView
+                android:id="@+id/tv_d_duties"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_8"
@@ -54,6 +57,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/tv_d_info"
             android:layout_marginLeft="@dimen/margin_8"
             android:layout_width="match_parent"
             android:layout_height="0dp"

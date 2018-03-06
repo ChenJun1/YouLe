@@ -12,15 +12,23 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hyphenate.EMCallBack;
+import com.hyphenate.chat.EMClient;
+import com.laiding.yl.mvprxretrofitlibrary.manager.ActivityStackManager;
+import com.laiding.yl.mvprxretrofitlibrary.utlis.LogUtils;
+import com.laiding.yl.youle.MyApplication;
 import com.laiding.yl.youle.R;
 import com.laiding.yl.youle.base.MyBaseActivity;
+import com.laiding.yl.youle.login.activity.ActivityPhoneLogin;
 import com.laiding.yl.youle.mine.activity.view.IPersnonalInformation;
 import com.laiding.yl.youle.mine.entity.UserInfo;
 import com.laiding.yl.youle.mine.presenter.PresenterPersonalInformation;
 import com.sunfusheng.glideimageview.GlideImageView;
 import com.vondear.rxtools.RxPhotoTool;
 import com.vondear.rxtools.RxSPTool;
+import com.vondear.rxtools.view.dialog.RxDialog;
 import com.vondear.rxtools.view.dialog.RxDialogChooseImage;
+import com.vondear.rxtools.view.dialog.RxDialogSureCancel;
 import com.yalantis.ucrop.UCrop;
 import com.yalantis.ucrop.UCropActivity;
 
@@ -100,6 +108,7 @@ public class ActivityPersonalInformation extends MyBaseActivity implements IPers
 
     PresenterPersonalInformation presenter = new PresenterPersonalInformation(this, this);
     private static final int PRC_PHOTO_PICKER = 1;
+    private boolean isUpdate = false;
 
     @Override
     protected int getContentViewId() {
@@ -116,7 +125,7 @@ public class ActivityPersonalInformation extends MyBaseActivity implements IPers
         setTitle("个人资料");
         isBack(true);
 
-        mTvBarRight.setText("完成");
+        mTvBarRight.setText("保存");
         mTvBarRight.setBackgroundResource(R.drawable.btn_bg_medical_records);
         mTvBarRight.setVisibility(View.VISIBLE);
     }
@@ -126,7 +135,9 @@ public class ActivityPersonalInformation extends MyBaseActivity implements IPers
 
     }
 
-    @OnClick({R.id.ll_update_avatar, R.id.ll_nike_name, R.id.ll_gender, R.id.ll_birthday, R.id.ll_name, R.id.tv_update_phone, R.id.ll_location, R.id.ll_detail_location, R.id.ll_postal, R.id.ll_email})
+    @OnClick({R.id.ll_update_avatar, R.id.ll_nike_name, R.id.ll_gender, R.id.ll_birthday, R.id.ll_name,
+            R.id.ll_phone, R.id.ll_location, R.id.ll_detail_location, R.id.ll_postal, R.id.ll_email
+            , R.id.tv_bar_right})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_update_avatar:
@@ -134,35 +145,58 @@ public class ActivityPersonalInformation extends MyBaseActivity implements IPers
                 break;
             case R.id.ll_nike_name:
                 presenter.showDialogNikeName();
+                isUpdate = true;
                 break;
             case R.id.ll_gender:
                 presenter.showDialogGender();
+                isUpdate = true;
                 break;
             case R.id.ll_birthday:
                 presenter.showDialigBirthday();
+                isUpdate = true;
                 break;
             case R.id.ll_name:
                 presenter.showDialogName();
+                isUpdate = true;
                 break;
-            case R.id.tv_update_phone:
+            case R.id.ll_phone:
                 ActivityUpdatePhone.start(mContext);
                 break;
             case R.id.ll_location:
                 presenter.showDialogLocation();
+                isUpdate = true;
                 break;
             case R.id.ll_detail_location:
                 presenter.showDialogDetailLocation();
+                isUpdate = true;
                 break;
             case R.id.ll_postal:
                 presenter.showDialogPostal();
+                isUpdate = true;
                 break;
             case R.id.ll_email:
                 presenter.showDialogEmail();
+                isUpdate = true;
+                break;
+            case R.id.tv_bar_right:
+                final RxDialogSureCancel rxDialogSureCancel = new RxDialogSureCancel(mContext);//提示弹窗
+                rxDialogSureCancel.getTitleView().setBackgroundResource(R.mipmap.ic_launcher);
+                rxDialogSureCancel.setContent("是否保存个人信息？");
+                rxDialogSureCancel.getSureView().setOnClickListener(v -> {
+                    rxDialogSureCancel.cancel();
+                    isUpdate = false;
+                    presenter.requestUpdateUserInfo();
+                });
+                rxDialogSureCancel.getCancelView().setOnClickListener(v -> rxDialogSureCancel.cancel());
+                rxDialogSureCancel.show();
                 break;
         }
     }
 
 
+    /**
+     * 图片选择弹出
+     */
     private void initDialogChooseImage() {
         RxDialogChooseImage dialogChooseImage = new RxDialogChooseImage(this, TITLE);
         dialogChooseImage.show();
@@ -199,6 +233,7 @@ public class ActivityPersonalInformation extends MyBaseActivity implements IPers
     }
 
     private Uri resultUri;
+    private File mAvatarFile = null;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -220,13 +255,12 @@ public class ActivityPersonalInformation extends MyBaseActivity implements IPers
                 break;
             case RxPhotoTool.CROP_IMAGE://普通裁剪后的处理
                 mGivAvatar.loadLocalCircleImage(RxPhotoTool.cropImageUri.getPath(), R.mipmap.ic_launcher_round);
-//                RequestUpdateAvatar(new File(RxPhotoTool.getRealFilePath(mContext, RxPhotoTool.cropImageUri)));
                 break;
 
             case UCrop.REQUEST_CROP://UCrop裁剪之后的处理
                 if (resultCode == RESULT_OK) {
                     resultUri = UCrop.getOutput(data);
-                    roadImageView(resultUri, mGivAvatar);
+                    mAvatarFile = roadImageView(resultUri, mGivAvatar);
                     RxSPTool.putContent(mContext, "AVATAR", resultUri.toString());
                 } else if (resultCode == UCrop.RESULT_ERROR) {
                     final Throwable cropError = UCrop.getError(data);
@@ -243,6 +277,7 @@ public class ActivityPersonalInformation extends MyBaseActivity implements IPers
 
     //从Uri中加载图片 并将其转化成File文件返回
     private File roadImageView(Uri uri, GlideImageView imageView) {
+        isUpdate = true;
         imageView.loadLocalCircleImage(uri.getPath(), R.mipmap.ic_launcher_round);
         return (new File(RxPhotoTool.getImageAbsolutePath(this, uri)));
     }
@@ -296,6 +331,10 @@ public class ActivityPersonalInformation extends MyBaseActivity implements IPers
         mGivAvatar.loadCircleImage(url, R.mipmap.ic_launcher_round);
     }
 
+    @Override
+    public File getAvatar() {
+        return mAvatarFile;
+    }
 
     @Override
     public void setNikeName(CharSequence nikeName) {
@@ -304,7 +343,7 @@ public class ActivityPersonalInformation extends MyBaseActivity implements IPers
 
     @Override
     public CharSequence getNikeName() {
-        return mTvNickName.getText();
+        return mTvNickName.getText().toString().trim();
     }
 
     @Override
@@ -314,7 +353,7 @@ public class ActivityPersonalInformation extends MyBaseActivity implements IPers
 
     @Override
     public CharSequence getGender() {
-        return mTvGender.getText();
+        return mTvGender.getText().toString().trim();
     }
 
     @Override
@@ -324,7 +363,7 @@ public class ActivityPersonalInformation extends MyBaseActivity implements IPers
 
     @Override
     public CharSequence getBirthday() {
-        return mTvBirthday.getText();
+        return mTvBirthday.getText().toString().trim();
     }
 
     @Override
@@ -334,7 +373,7 @@ public class ActivityPersonalInformation extends MyBaseActivity implements IPers
 
     @Override
     public CharSequence getName() {
-        return mTvName.getText();
+        return mTvName.getText().toString().trim();
     }
 
     @Override
@@ -344,7 +383,7 @@ public class ActivityPersonalInformation extends MyBaseActivity implements IPers
 
     @Override
     public CharSequence getPhone() {
-        return mTvPhone.getText();
+        return mTvPhone.getText().toString().trim();
     }
 
     @Override
@@ -354,7 +393,7 @@ public class ActivityPersonalInformation extends MyBaseActivity implements IPers
 
     @Override
     public CharSequence getProvinceLocation() {
-        return mTvLocationProvince.getText();
+        return mTvLocationProvince.getText().toString().trim();
     }
 
     @Override
@@ -364,7 +403,7 @@ public class ActivityPersonalInformation extends MyBaseActivity implements IPers
 
     @Override
     public CharSequence getAreaLocation() {
-        return mTvLocationArea.getText();
+        return mTvLocationArea.getText().toString().trim();
     }
 
     @Override
@@ -374,7 +413,7 @@ public class ActivityPersonalInformation extends MyBaseActivity implements IPers
 
     @Override
     public CharSequence getDetailLocation() {
-        return mTvDetailLocation.getText();
+        return mTvDetailLocation.getText().toString().trim();
     }
 
     @Override
@@ -384,7 +423,7 @@ public class ActivityPersonalInformation extends MyBaseActivity implements IPers
 
     @Override
     public CharSequence getPostal() {
-        return mTvPostal.getText();
+        return mTvPostal.getText().toString().trim();
     }
 
     @Override
@@ -394,25 +433,59 @@ public class ActivityPersonalInformation extends MyBaseActivity implements IPers
 
     @Override
     public CharSequence getEmail() {
-        return mTvEmail.getText();
+        return mTvEmail.getText().toString().trim();
     }
 
     @Override
     public void getUserInfoResult(UserInfo userInfo) {
-        if(userInfo==null)
+        if (userInfo == null)
             return;
-
-        setNikeName(userInfo.getU_nname()==null?"无":userInfo.getU_nname());
-        setGender(userInfo.getU_sex()==null?"男":userInfo.getU_sex());
-        setBirthday(userInfo.getU_birthday()==null?"0":userInfo.getU_birthday());
-        setName(userInfo.getU_name()==null?"无":userInfo.getU_name());
-        setPhone(userInfo.getU_phone()==null?"无":userInfo.getU_phone());
-        setProvinceLocation(userInfo.getU_region()==null?"上海市":userInfo.getU_region());
-        setAreaLocation(userInfo.getU_region()==null?"上海市":userInfo.getU_region());
-        setDetailLocation(userInfo.getU_address()==null?"无":userInfo.getU_address());
-        setPostal(userInfo.getU_code()==null?"无":userInfo.getU_code());
-        setEmail(userInfo.getU_email()==null?"无":userInfo.getU_email());
+        mGivAvatar.loadCircleImage(presenter.getAvatarImgUrl()+userInfo.getPhoto(), R.mipmap.ic_launcher_round);
+        setNikeName(userInfo.getU_nname());
+        setGender(userInfo.getU_sex() == null ? "男" : userInfo.getU_sex());
+        setBirthday(userInfo.getU_birthday() == null ? "0" : userInfo.getU_birthday());
+        setName(userInfo.getU_name());
+        setPhone(userInfo.getU_phone());
+        setProvinceLocation(userInfo.getU_region() == null ? "上海市" : userInfo.getU_region());
+        setAreaLocation(userInfo.getU_city() == null ? "上海市" : userInfo.getU_city());
+        setDetailLocation(userInfo.getU_address());
+        setPostal(userInfo.getU_code());
+        setEmail(userInfo.getU_email());
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mAvatarFile = null;
+    }
+
+    @Override
+    public void isBackOnclik() {
+        goBack();
+    }
+
+    @Override
+    public void onBackPressed() {
+        goBack();
+    }
+
+    /**
+     * 页面退出
+     */
+    private void goBack() {
+        if (isUpdate) {
+            final RxDialogSureCancel rxDialogSureCancel = new RxDialogSureCancel(mContext);//提示弹窗
+            rxDialogSureCancel.getTitleView().setBackgroundResource(R.mipmap.ic_launcher);
+            rxDialogSureCancel.setContent("修改未保存，是否离开？");
+            rxDialogSureCancel.getSureView().setOnClickListener(v -> {
+                super.isBackOnclik();
+                rxDialogSureCancel.cancel();
+            });
+            rxDialogSureCancel.getCancelView().setOnClickListener(v -> rxDialogSureCancel.cancel());
+            rxDialogSureCancel.show();
+        } else {
+            super.isBackOnclik();
+        }
+    }
 
 }

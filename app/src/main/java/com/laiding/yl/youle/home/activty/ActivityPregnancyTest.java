@@ -2,17 +2,23 @@ package com.laiding.yl.youle.home.activty;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.hyphenate.chat.EMClient;
 import com.laiding.yl.youle.R;
 import com.laiding.yl.youle.base.MyBaseFragmentActivity;
 import com.laiding.yl.youle.home.adapter.AdapterPregnancyViewPage;
+import com.laiding.yl.youle.im.activity.ActivityChat;
 import com.sunfusheng.glideimageview.GlideImageView;
+import com.vondear.rxtools.view.RxToast;
 import com.yinglan.alphatabs.AlphaTabsIndicator;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by JunChen on 2018/1/21.
@@ -57,5 +63,14 @@ public class ActivityPregnancyTest extends MyBaseFragmentActivity {
         mViewPager.setAdapter(new AdapterPregnancyViewPage(getSupportFragmentManager()));
         mAlphaIndicator.setViewPager(mViewPager);
 
+    }
+
+    @OnClick(R.id.ll_im_bar_right)
+    public void onViewClicked() {
+        if(EMClient.getInstance().isConnected()){
+            ActivityChat.start(mContext, "8899");
+        }else{
+            RxToast.error("客服未连接");
+        }
     }
 }

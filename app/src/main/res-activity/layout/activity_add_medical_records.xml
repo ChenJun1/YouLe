@@ -81,7 +81,7 @@
                     android:layout_marginLeft="@dimen/margin_16"
                     android:gravity="center_vertical"
                     android:maxLines="1"
-                    android:text="2018-10-29"
+                    android:text=""
                     android:textColor="@color/color_585858" />
 
                 <ImageView
@@ -126,7 +126,7 @@
                     android:layout_marginLeft="@dimen/margin_16"
                     android:gravity="center_vertical"
                     android:maxLines="1"
-                    android:text="上海交大医院"
+                    android:text=""
                     android:textColor="@color/color_585858" />
 
                 <ImageView

@@ -10,9 +10,17 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.hyphenate.EMCallBack;
+import com.hyphenate.chat.EMClient;
 import com.laiding.yl.mvprxretrofitlibrary.base.BaseActivity;
+import com.laiding.yl.mvprxretrofitlibrary.manager.ActivityStackManager;
+import com.laiding.yl.mvprxretrofitlibrary.utlis.LogUtils;
 import com.laiding.yl.youle.R;
+import com.laiding.yl.youle.dao.UserInfoManager;
+import com.laiding.yl.youle.login.activity.ActivityPhoneLogin;
+import com.laiding.yl.youle.login.entity.User;
 import com.sunfusheng.glideimageview.GlideImageView;
+import com.vondear.rxtools.view.dialog.RxDialogSureCancel;
 
 import static com.vondear.rxtools.RxBarTool.getStatusBarHeight;
 
@@ -50,13 +58,15 @@ public abstract class MyBaseActivity extends BaseActivity {
             return;
         if(back){
             mIvBack.setVisibility(View.VISIBLE);
-            mIvBack.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    finish();
-                }
-            });
+            mIvBack.setOnClickListener(v ->isBackOnclik());
         }
+    }
+
+    /**
+     * 返回键点击事件
+     */
+    public void isBackOnclik(){
+        this.finish();
     }
 
     /**
@@ -103,7 +113,7 @@ public abstract class MyBaseActivity extends BaseActivity {
             window.setStatusBarColor(color);
             //设置导航栏颜色
             window.setNavigationBarColor(color);
-            ViewGroup contentView = ((ViewGroup) findViewById(android.R.id.content));
+            ViewGroup contentView =  findViewById(android.R.id.content);
             View childAt = contentView.getChildAt(0);
             if (childAt != null) {
                 childAt.setFitsSystemWindows(true);
@@ -114,7 +124,7 @@ public abstract class MyBaseActivity extends BaseActivity {
             //透明导航栏
             window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
             //设置contentview为fitsSystemWindows
-            ViewGroup contentView = (ViewGroup) findViewById(android.R.id.content);
+            ViewGroup contentView = findViewById(android.R.id.content);
             View childAt = contentView.getChildAt(0);
             if (childAt != null) {
                 childAt.setFitsSystemWindows(true);
@@ -127,4 +137,47 @@ public abstract class MyBaseActivity extends BaseActivity {
         }
     }
 
+    /**
+     *  token 过期重新登录
+     * @param erreMsg
+     */
+    @Override
+    public void isTokenExpired(String erreMsg) {
+        final RxDialogSureCancel rxDialogSureCancel = new RxDialogSureCancel(mContext);//提示弹窗
+        rxDialogSureCancel.setContent(erreMsg);
+        rxDialogSureCancel.getTitleView().setBackgroundResource(R.mipmap.ic_launcher);
+        rxDialogSureCancel.getSureView().setOnClickListener(v ->{
+            ActivityStackManager.getManager().finishAllActivity();
+            ActivityPhoneLogin.start(mContext);
+
+            EMClient.getInstance().logout(true, new EMCallBack() {
+
+                @Override
+                public void onSuccess() {
+                    // TODO Auto-generated method stub
+                    LogUtils.e("推出成功");
+                }
+
+                @Override
+                public void onProgress(int progress, String status) {
+                    // TODO Auto-generated method stub
+
+                }
+
+                @Override
+                public void onError(int code, String message) {
+                    // TODO Auto-generated method stub
+                    LogUtils.e("推出失败");
+                }
+            });
+        });
+        rxDialogSureCancel.getCancelView().setOnClickListener(v -> rxDialogSureCancel.cancel());
+        rxDialogSureCancel.show();
+    }
+
+    @Override
+    public boolean isLogin() {
+        User user = UserInfoManager.getUserInfo();
+        return !user.getToken().isEmpty();
+    }
 }

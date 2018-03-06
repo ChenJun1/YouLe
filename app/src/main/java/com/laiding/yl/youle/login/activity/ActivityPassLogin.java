@@ -181,6 +181,16 @@ public class ActivityPassLogin extends MyBaseActivity implements IPassLogin {
     }
 
     private boolean checkPhone() {
+        if(getPhone().isEmpty()) {
+            RxToast.warning("请输入手机号");
+            return false;
+        }
+
+        if(getPassWord().isEmpty()){
+            RxToast.warning("请输入密码");
+            return false;
+        }
+
         if (!RxRegTool.isMobile(String.valueOf(mEtMobile.getText()))) {
             RxToast.error("请输入正确手机号");
             return false;
@@ -194,7 +204,8 @@ public class ActivityPassLogin extends MyBaseActivity implements IPassLogin {
     }
 
 
-    @OnClick({R.id.iv_clean_phone, R.id.clean_password, R.id.iv_show_pwd, R.id.btn_login2})
+    @OnClick({R.id.iv_clean_phone, R.id.clean_password, R.id.iv_show_pwd, R.id.btn_login2
+    ,R.id.get_pass_tv})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_clean_phone:
@@ -217,8 +228,12 @@ public class ActivityPassLogin extends MyBaseActivity implements IPassLogin {
                 break;
             case R.id.btn_login2:
                 RxKeyboardTool.hideSoftInput(ActivityPassLogin.this);
-//                if (checkPhone())
+                if (checkPhone())
                     persenter.login();
+                break;
+                case R.id.get_pass_tv:
+                RxKeyboardTool.hideSoftInput(ActivityPassLogin.this);
+                  ActivityUpdatePassWord.start(mContext);
                 break;
         }
     }

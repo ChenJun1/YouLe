@@ -14,6 +14,10 @@ import com.laiding.yl.youle.R;
 import com.laiding.yl.youle.base.MyBaseActivity;
 import com.laiding.yl.youle.login.activity.ActivityUpdatePassWord;
 import com.laiding.yl.youle.login.activity.ActivityPhoneLogin;
+import com.laiding.yl.youle.mine.activity.view.ISet;
+import com.laiding.yl.youle.mine.activity.view.ISetPass;
+import com.laiding.yl.youle.mine.presenter.PresenterSet;
+import com.vondear.rxtools.view.RxToast;
 import com.vondear.rxtools.view.dialog.RxDialogSureCancel;
 
 import butterknife.BindView;
@@ -24,7 +28,7 @@ import butterknife.OnClick;
  * Remarks 设置
  */
 
-public class ActivitySet extends MyBaseActivity {
+public class ActivitySet extends MyBaseActivity implements ISet{
     @BindView(R.id.tv_personal_information)
     TextView mTvPersonalInformation;
     @BindView(R.id.tv_account_binding)
@@ -40,7 +44,7 @@ public class ActivitySet extends MyBaseActivity {
         Intent starter = new Intent(context, ActivitySet.class);
         context.startActivity(starter);
     }
-
+    private PresenterSet mPresenterSet=new PresenterSet(this,this);
     @Override
     protected int getContentViewId() {
         return R.layout.activity_set;
@@ -68,7 +72,7 @@ public class ActivitySet extends MyBaseActivity {
                 ActivityAccountBinding.start(mContext);
                 break;
             case R.id.tv_change_password:
-                ActivityUpdatePassWord.start(mContext);
+                ActivitySetPass.start(mContext);
                 break;
             case R.id.tv_about_us:
                 ActivityAboutUs.start(mContext);
@@ -77,43 +81,38 @@ public class ActivitySet extends MyBaseActivity {
                 final RxDialogSureCancel rxDialogSureCancel = new RxDialogSureCancel(mContext);//提示弹窗
                 rxDialogSureCancel.setContent("是否退出登陆？");
                 rxDialogSureCancel.getTitleView().setBackgroundResource(R.mipmap.ic_launcher);
-                rxDialogSureCancel.getSureView().setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        ActivityStackManager.getManager().finishAllActivity();
-                        ActivityPhoneLogin.start(mContext);
-                        EMClient.getInstance().logout(true, new EMCallBack() {
-
-                            @Override
-                            public void onSuccess() {
-                                // TODO Auto-generated method stub
-                                LogUtils.e("推出成功");
-                            }
-
-                            @Override
-                            public void onProgress(int progress, String status) {
-                                // TODO Auto-generated method stub
-
-                            }
-
-                            @Override
-                            public void onError(int code, String message) {
-                                // TODO Auto-generated method stub
-                                LogUtils.e("推出失败");
-                            }
-                        });
-                    }
-                });
-                rxDialogSureCancel.getCancelView().setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        rxDialogSureCancel.cancel();
-                    }
-                });
+                rxDialogSureCancel.getSureView().setOnClickListener(v -> mPresenterSet.requestSetPass());
+                rxDialogSureCancel.getCancelView().setOnClickListener(v -> rxDialogSureCancel.cancel());
                 rxDialogSureCancel.show();
 
                 break;
         }
     }
 
+    @Override
+    public void isSuccess() {
+        RxToast.success("退出成功");
+        ActivityStackManager.getManager().finishAllActivity();
+        ActivityPhoneLogin.start(mContext);
+        EMClient.getInstance().logout(true, new EMCallBack() {
+
+            @Override
+            public void onSuccess() {
+                // TODO Auto-generated method stub
+                LogUtils.e("推出成功");
+            }
+
+            @Override
+            public void onProgress(int progress, String status) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onError(int code, String message) {
+                // TODO Auto-generated method stub
+                LogUtils.e("推出失败");
+            }
+        });
+    }
 }

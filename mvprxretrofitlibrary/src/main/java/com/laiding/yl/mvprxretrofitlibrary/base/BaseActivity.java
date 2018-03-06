@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+
+import com.laiding.yl.mvprxretrofitlibrary.R;
 import com.laiding.yl.mvprxretrofitlibrary.listener.LifeCycleListener;
 import com.laiding.yl.mvprxretrofitlibrary.listener.ProgressListener;
 import com.laiding.yl.mvprxretrofitlibrary.manager.ActivityStackManager;
@@ -16,6 +18,7 @@ import com.trello.rxlifecycle2.components.RxActivity;
 import com.vondear.rxtools.RxBarTool;
 import com.vondear.rxtools.RxKeyboardTool;
 import com.vondear.rxtools.view.RxToast;
+import com.vondear.rxtools.view.dialog.RxDialogSureCancel;
 
 import java.util.List;
 
@@ -173,6 +176,8 @@ public abstract class BaseActivity extends RxActivity implements EasyPermissions
     public void showError(String errorMsg) {
         RxToast.error(errorMsg);
     }
+
+
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {

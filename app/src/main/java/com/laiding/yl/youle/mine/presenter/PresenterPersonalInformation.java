@@ -18,10 +18,12 @@ import com.laiding.yl.youle.mine.entity.UserInfo;
 import com.laiding.yl.youle.widget.wheelview.AddressPickTask;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.vondear.rxtools.RxDataTool;
+import com.vondear.rxtools.view.RxToast;
 import com.vondear.rxtools.view.dialog.RxDialogEditSureCancel;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,6 +33,9 @@ import cn.qqtheme.framework.entity.Province;
 import cn.qqtheme.framework.picker.DatePicker;
 import cn.qqtheme.framework.picker.SinglePicker;
 import io.reactivex.disposables.Disposable;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 import static com.vondear.rxtools.view.RxToast.showToast;
 
@@ -40,7 +45,7 @@ import static com.vondear.rxtools.view.RxToast.showToast;
  */
 
 public class PresenterPersonalInformation extends MyBasePresenter<IPersnonalInformation, ActivityPersonalInformation> {
-
+    private static final String TAG = "PresenterPersonalInform";
     public PresenterPersonalInformation(IPersnonalInformation view, ActivityPersonalInformation activity) {
         super(view, activity);
     }
@@ -56,7 +61,7 @@ public class PresenterPersonalInformation extends MyBasePresenter<IPersnonalInfo
         request.put("u_id", user.getU_id());
         request.put("token", user.getToken());
 
-        HttpRxObserver httpRxObserver=new HttpRxObserver<HttpResponse<UserInfo>>() {
+        HttpRxObserver httpRxObserver=new HttpRxObserver<HttpResponse<UserInfo>>(TAG,getView()) {
             @Override
             protected void onStart(Disposable d) {
 
@@ -69,12 +74,74 @@ public class PresenterPersonalInformation extends MyBasePresenter<IPersnonalInfo
 
             @Override
             protected void onSuccess(HttpResponse<UserInfo> response) {
+                if (response.isSuccess())
                     getView().getUserInfoResult(response.getResult());
             }
         };
 
         new HttpRxObservable<UserInfo>().getObservable(ApiUtlis.getUserApi().getUserInfo(request),getActivity(), ActivityEvent.STOP).subscribe(httpRxObserver);
     }
+
+    /**
+     * 修改个人信息
+     */
+    public void requestUpdateUserInfo() {
+
+        final User user = UserInfoManager.getUserInfo();
+        final Map<String, RequestBody> request =new HashMap<>();
+        RequestBody uid = RequestBody.create(MediaType.parse("text/plain"), user.getU_id());
+        RequestBody nname = RequestBody.create(MediaType.parse("text/plain"), getView().getNikeName().toString());
+        RequestBody name = RequestBody.create(MediaType.parse("text/plain"), getView().getName().toString());
+        RequestBody gender = RequestBody.create(MediaType.parse("text/plain"), getView().getGender().toString());
+        RequestBody email = RequestBody.create(MediaType.parse("text/plain"), getView().getEmail().toString());
+        RequestBody brt = RequestBody.create(MediaType.parse("text/plain"), getView().getBirthday().toString());
+        RequestBody region = RequestBody.create(MediaType.parse("text/plain"), getView().getProvinceLocation().toString());
+        RequestBody city = RequestBody.create(MediaType.parse("text/plain"), getView().getAreaLocation().toString());
+        RequestBody code = RequestBody.create(MediaType.parse("text/plain"), getView().getPostal().toString());
+        RequestBody detailLocation = RequestBody.create(MediaType.parse("text/plain"), getView().getDetailLocation().toString());
+        RequestBody token = RequestBody.create(MediaType.parse("text/plain"), user.getToken());
+
+        request.put("u_id", uid);
+        request.put("u_nname", nname.equals("")?null:nname);
+        request.put("u_name", name.equals("")?null:name);
+        request.put("u_sex", gender.equals("")?null:gender);
+        request.put("u_email", email.equals("")?null:email);
+        request.put("u_birthday",brt.equals("")?null:brt);
+        request.put("u_region",region.equals("")?null:region);
+        request.put("u_city",region.equals("")?null:city);
+        request.put("u_code",code.equals("")?null:code);
+        request.put("u_address", detailLocation.equals("")?null:detailLocation);
+        request.put("token", token);
+        MultipartBody.Part imgFile=null;
+        if(getView().getAvatar()!=null) {
+            RequestBody file = RequestBody.create(MediaType.parse("image/*; charset=utf-8"), getView().getAvatar());
+            imgFile=MultipartBody.Part.createFormData("photo","photo.jpg",file);
+        }
+
+
+        HttpRxObserver httpRxObserver=new HttpRxObserver<HttpResponse<UserInfo>>(TAG,getView()) {
+            @Override
+            protected void onStart(Disposable d) {
+
+            }
+
+            @Override
+            protected void onError(ApiException e) {
+
+            }
+
+            @Override
+            protected void onSuccess(HttpResponse<UserInfo> response) {
+                if (response.isSuccess()) {
+                    getView().getUserInfoResult(response.getResult());
+                    RxToast.success("保存成功");
+                }
+            }
+        };
+
+        new HttpRxObservable<UserInfo>().getObservable(ApiUtlis.getUserApi().userUpdate(request,imgFile),getActivity(), ActivityEvent.STOP).subscribe(httpRxObserver);
+    }
+
 
 
     /**
@@ -239,6 +306,14 @@ public class PresenterPersonalInformation extends MyBasePresenter<IPersnonalInfo
         emailDialog.show();
     }
 
+    /**
+     * 计算年龄
+     * @param nowYear
+     * @param nowMonth
+     * @param inputYeay
+     * @param inputMonth
+     * @return
+     */
     private int getAge(int nowYear, int nowMonth, int inputYeay, int inputMonth) {
         int age = nowYear - inputYeay > 0 ? nowYear - inputYeay : 0;
 
@@ -247,5 +322,13 @@ public class PresenterPersonalInformation extends MyBasePresenter<IPersnonalInfo
         } else {
             return --age > 0 ? age : 0;
         }
+    }
+
+    /**
+     * 头像图片地址
+     * @return
+     */
+    public String getAvatarImgUrl(){
+        return "http://47.97.185.141/youle/frontend/web/uploads/";
     }
 }

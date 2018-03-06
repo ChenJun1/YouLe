@@ -11,8 +11,18 @@ import java.util.List;
  */
 
 public interface IFragmentClinic extends IBaseView {
-    void showResult(List<ClinicBean> clinicBeanList);
+    void showResult(ClinicBean clinicBean);
 
+    int getPage();
 
+    String getName();
+
+    String getInfo();
+
+    String getGrade();
+
+    String getService();
+
+    int getAddress();
 
 }

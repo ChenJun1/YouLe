@@ -9,6 +9,7 @@
     android:paddingRight="@dimen/margin_16">
 
     <TextView
+        android:id="@+id/time_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/tv_medical_records"
@@ -52,6 +53,7 @@
         android:background="#f993a6" />
 
     <TextView
+        android:id="@+id/r_project_tv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"

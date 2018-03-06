@@ -39,7 +39,7 @@ import butterknife.BindView;
 
 public class FragmentInformation extends MyBaseFragment implements IInformationFragment {
 
-    private static final int PAGE_SIZE = 3;
+    public static final int PAGE_SIZE = 10;
 
     public static FragmentInformation newInstance() {
 
@@ -184,29 +184,33 @@ public class FragmentInformation extends MyBaseFragment implements IInformationF
 
     }
     @Override
-    public void showResult(List<CommunityBean> userBean) {
+    public void showResult(List<CommunityBean> list) {
+        if(list==null){
+            if(isRefresh){
+                mSwipeLayout.setRefreshing(false);
+            }else{
+                adapter.loadMoreFail();
+            }
+            adapter.addFooterView(notDataView);
+            return;
+        }
+
         adapter.removeAllFooterView();
         if (isRefresh) {
-            adapter.setNewData(userBean);
+            adapter.setNewData(list);
             mSwipeLayout.setRefreshing(false);
-            if (userBean == null) {
+            if (list.size()<1) {
                 adapter.addFooterView(notDataView);
             }
         } else {
-            adapter.loadMoreFail();
-            adapter.loadMoreComplete();
-            if (userBean != null && userBean.size() > 0) {
-                adapter.addData(userBean);
-            } else {
-                adapter.loadMoreEnd(isRefresh);
+            if (list.size() > 0) {
+                adapter.addData(list);
             }
         }
 
-
-        if (userBean == null || userBean.size() < PAGE_SIZE) {
+        if (list.size() < PAGE_SIZE) {
             //第一页如果不够一页就不显示没有更多数据布局
             adapter.loadMoreEnd(isRefresh);
-
         } else {
             adapter.loadMoreComplete();
         }

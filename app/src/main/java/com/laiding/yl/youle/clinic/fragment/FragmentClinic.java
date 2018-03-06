@@ -9,6 +9,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -25,7 +26,7 @@ import com.laiding.yl.youle.clinic.activity.ActivityClinicDetail;
 import com.laiding.yl.youle.clinic.adapter.AdapterClinicFragment;
 import com.laiding.yl.youle.clinic.entity.ClinicBean;
 import com.laiding.yl.youle.clinic.fragment.view.IFragmentClinic;
-import com.laiding.yl.youle.home.entity.ForumPostsBean;
+import com.laiding.yl.youle.clinic.presenter.PresenterClinic;
 import com.laiding.yl.youle.widget.MyItemDecoration;
 import com.vondear.rxtools.RxDeviceTool;
 
@@ -42,6 +43,8 @@ import butterknife.OnClick;
 
 public class FragmentClinic extends MyBaseFragment implements IFragmentClinic {
 
+    public static final int PAGE_SIZE = 10;
+
     public static FragmentClinic newInstance() {
 
         Bundle args = new Bundle();
@@ -53,8 +56,8 @@ public class FragmentClinic extends MyBaseFragment implements IFragmentClinic {
 
     @BindView(R.id.et_search)
     EditText mEtSearch;
-    @BindView(R.id.iv_clean_phone)
-    ImageView mIvCleanPhone;
+    @BindView(R.id.iv_clean_text)
+    ImageView mIvCleanText;
     @BindView(R.id.bt_search)
     Button mBtSearch;
     @BindView(R.id.spin_area)
@@ -69,12 +72,19 @@ public class FragmentClinic extends MyBaseFragment implements IFragmentClinic {
     SwipeRefreshLayout mSwipeLayout;
 
     private AdapterClinicFragment mAdapter;
-    private List<ForumPostsBean> list = new ArrayList<>();
+    private List<ClinicBean.HospitalListBean> list = new ArrayList<>();
     private List<String> areaList = new ArrayList<>();
     private List<String> gradeList = new ArrayList<>();
     private List<String> serviceList = new ArrayList<>();
 
     private int deviceWidth;//屏幕得宽
+    private View notDataView;
+    private int page = 1;
+    private boolean isRefresh = true;
+    private PresenterClinic mPresenterClinic = new PresenterClinic(this, this);
+    private String grade = "";
+    private String service = "";
+    private int address = 0;
 
     @Override
     protected int getContentViewId() {
@@ -88,18 +98,15 @@ public class FragmentClinic extends MyBaseFragment implements IFragmentClinic {
         initRefresh();
         initStringArray();
         initSpinner();
+        mPresenterClinic.requestClinicList();
     }
 
     private void initStringArray() {
-        areaList.clear();
         gradeList.clear();
         serviceList.clear();
+        areaList.clear();
 
         areaList.add("地区");
-        areaList.add("上海");
-        areaList.add("北京");
-        areaList.add("广东");
-        areaList.add("河北");
 
         gradeList.add("等级");
         gradeList.add("一级");
@@ -114,13 +121,21 @@ public class FragmentClinic extends MyBaseFragment implements IFragmentClinic {
         serviceList.add("三级试管");
     }
 
+    private void intrAreaStringArray(List<ClinicBean.AddressInfoBean> list) {
+        areaList.clear();
+        areaList.add("地区");
+        for (ClinicBean.AddressInfoBean bean : list) {
+            areaList.add(bean.getA_address());
+        }
+    }
+
     /**
      * 配置spinner
      */
     @SuppressLint("NewApi")
     private void initSpinner() {
-        deviceWidth= RxDeviceTool.getScreenWidth(mContext);
-        final ArrayAdapter<String> areaAdapter = new ArrayAdapter<String>(mContext,android.R.layout.simple_spinner_item, areaList);
+        deviceWidth = RxDeviceTool.getScreenWidth(mContext);
+        final ArrayAdapter<String> areaAdapter = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_item, areaList);
         final ArrayAdapter<String> gradeAdapter = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_item, gradeList);
         final ArrayAdapter<String> serviceAdapter = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_item, serviceList);
         areaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -136,7 +151,40 @@ public class FragmentClinic extends MyBaseFragment implements IFragmentClinic {
         mSpinArea.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                LogUtils.d(areaAdapter.getItem(position) + "==========");
+                address = position;
+                page = 1;
+                isRefresh = true;
+                mPresenterClinic.requestClinicList();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        mSpinGrade.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                grade = position == 0 ? "" : gradeAdapter.getItem(position);
+                page = 1;
+                isRefresh = true;
+                mPresenterClinic.requestClinicList();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        mSpinService.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                service = position == 0 ? "" : serviceAdapter.getItem(position);
+                page = 1;
+                isRefresh = true;
+                mPresenterClinic.requestClinicList();
             }
 
             @Override
@@ -152,32 +200,50 @@ public class FragmentClinic extends MyBaseFragment implements IFragmentClinic {
      */
     private void initRefresh() {
         mSwipeLayout.setColorSchemeResources(R.color.color_FF4081, R.color.color_303F9F);
-        mSwipeLayout.setOnRefreshListener(() -> mSwipeLayout.setRefreshing(false));
+        mSwipeLayout.setOnRefreshListener(() -> refreshData());
+    }
+
+    /**
+     * 刷新数据
+     */
+    private void refreshData() {
+        page = 1;
+        mSwipeLayout.setRefreshing(true);
+        mAdapter.setEnableLoadMore(false);
+        isRefresh = true;
+        mPresenterClinic.requestClinicList();
+    }
+
+    /**
+     * 加载更多
+     */
+    private void loadMore() {
+        page++;
+        isRefresh = false;
+        mSwipeLayout.setRefreshing(false);
+        mPresenterClinic.requestClinicList();
+
     }
 
     /**
      * 初始化Adapter
      */
     private void initAdapter() {
+        notDataView = getLayoutInflater().inflate(R.layout.empty_text_view, (ViewGroup) mClinicRl.getParent(), false);
         mClinicRl.setLayoutManager(new LinearLayoutManager(mContext));
         mClinicRl.addItemDecoration(new MyItemDecoration());
         mClinicRl.addOnItemTouchListener(new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ActivityClinicDetail.start(mContext);
+                ClinicBean.HospitalListBean item = mAdapter.getItem(position);
+                ActivityClinicDetail.start(mContext, item.getH_id());
             }
         });
-        list.add(new ForumPostsBean());
-        list.add(new ForumPostsBean());
-//        list.add(new ForumPostsBean());
-//        list.add(new ForumPostsBean());
-//        list.add(new ForumPostsBean());
-//        list.add(new ForumPostsBean());
-//        list.add(new ForumPostsBean());
+
         mAdapter = new AdapterClinicFragment(list);
         mAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_LEFT);
         mAdapter.setEnableLoadMore(true);
-        mAdapter.setOnLoadMoreListener(() -> mAdapter.loadMoreComplete(), mClinicRl);
+        mAdapter.setOnLoadMoreListener(() -> loadMore(), mClinicRl);
         mClinicRl.setAdapter(mAdapter);
     }
 
@@ -196,10 +262,10 @@ public class FragmentClinic extends MyBaseFragment implements IFragmentClinic {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (!TextUtils.isEmpty(s) && mIvCleanPhone.getVisibility() == View.GONE) {
-                    mIvCleanPhone.setVisibility(View.VISIBLE);
+                if (!TextUtils.isEmpty(s) && mIvCleanText.getVisibility() == View.GONE) {
+                    mIvCleanText.setVisibility(View.VISIBLE);
                 } else if (TextUtils.isEmpty(s)) {
-                    mIvCleanPhone.setVisibility(View.GONE);
+                    mIvCleanText.setVisibility(View.GONE);
                 }
             }
         });
@@ -211,20 +277,92 @@ public class FragmentClinic extends MyBaseFragment implements IFragmentClinic {
     }
 
 
-    @OnClick({R.id.iv_clean_phone, R.id.bt_search})
+    @OnClick({R.id.iv_clean_text, R.id.bt_search})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.iv_clean_phone:
+            case R.id.iv_clean_text:
                 mEtSearch.setText("");
                 break;
             case R.id.bt_search:
-
+                page = 1;
+                mPresenterClinic.requestClinicList();
                 break;
         }
     }
 
     @Override
-    public void showResult(List<ClinicBean> clinicBeanList) {
+    public void showResult(ClinicBean clinicBean) {
+        if (clinicBean == null) {
+            if (isRefresh) {
+                mSwipeLayout.setRefreshing(false);
+            } else {
+                mAdapter.loadMoreFail();
+            }
+            mAdapter.setEmptyView(notDataView);
+            return;
+        }
 
+        if (areaList.size() < 2) {
+            intrAreaStringArray(clinicBean.getAddressInfo());
+        }
+        if (isRefresh) {
+            mAdapter.setNewData(clinicBean.getHospitalList());
+            mSwipeLayout.setRefreshing(false);
+
+        } else {
+
+            if (clinicBean.getHospitalList() != null && clinicBean.getHospitalList().size() > 0) {
+
+                mAdapter.addData(clinicBean.getHospitalList());
+//                if (clinicBean.getHospitalList().size() < PAGE_SIZE) {
+//                    //第一页如果不够一页就不显示没有更多数据布局
+//                    mAdapter.loadMoreComplete();
+//                    mAdapter.loadMoreEnd(isRefresh);
+//                } else {
+//                    mAdapter.loadMoreComplete();
+//                }
+            }
+        }
+        if (mAdapter.getData().size() < 1) {
+            mAdapter.setEmptyView(notDataView);
+        }
+
+        if (clinicBean.getHospitalList() == null || clinicBean.getHospitalList().size() < PAGE_SIZE) {
+            //第一页如果不够一页就不显示没有更多数据布局
+            mAdapter.loadMoreEnd(isRefresh);
+        } else {
+            mAdapter.loadMoreComplete();
+        }
+
+    }
+
+    @Override
+    public int getPage() {
+        return page;
+    }
+
+    @Override
+    public String getName() {
+        return mEtSearch.getText().toString();
+    }
+
+    @Override
+    public String getInfo() {
+        return mEtSearch.getText().toString();
+    }
+
+    @Override
+    public String getGrade() {
+        return grade;
+    }
+
+    @Override
+    public String getService() {
+        return service;
+    }
+
+    @Override
+    public int getAddress() {
+        return address;
     }
 }

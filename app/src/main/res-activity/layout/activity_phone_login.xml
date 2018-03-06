@@ -151,7 +151,7 @@
                 <com.sunfusheng.glideimageview.GlideImageView
                     android:padding="@dimen/margin_3"
                     android:id="@+id/giv_agree"
-                    android:src="@mipmap/denglu_icon_fuxuankuang"
+                    android:src="@mipmap/icon_tkxx"
                     android:layout_width="23dp"
                     android:layout_height="23dp" />
 

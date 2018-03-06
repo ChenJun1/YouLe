@@ -1,10 +1,13 @@
 package com.laiding.yl.youle.login.presenter;
 
+import com.hyphenate.EMCallBack;
+import com.hyphenate.chat.EMClient;
 import com.laiding.yl.mvprxretrofitlibrary.http.exception.ApiException;
 import com.laiding.yl.mvprxretrofitlibrary.http.observer.HttpRxObservable;
 import com.laiding.yl.mvprxretrofitlibrary.http.observer.HttpRxObserver;
 import com.laiding.yl.mvprxretrofitlibrary.http.retrofit.HttpRequest;
 import com.laiding.yl.mvprxretrofitlibrary.http.retrofit.HttpResponse;
+import com.laiding.yl.mvprxretrofitlibrary.utlis.LogUtils;
 import com.laiding.yl.youle.api.ApiUtlis;
 import com.laiding.yl.youle.base.MyBasePresenter;
 import com.laiding.yl.youle.dao.UserDaoUtil;
@@ -24,21 +27,21 @@ import retrofit2.Response;
  */
 
 public class PresenterPassLogin extends MyBasePresenter<IPassLogin,ActivityPassLogin> {
+    private static final String TAG = "PresenterPassLogin";
     public PresenterPassLogin(IPassLogin view, ActivityPassLogin activity) {
         super(view, activity);
     }
-
     /**
      * 密码登录
      */
     public void login(){
         Map<String, Object> request = HttpRequest.getRequest();
-//        request.put("u_phone", getActivity().getPhone());
-//        request.put("u_pwd", getActivity().getPassWord());
-        request.put("u_phone", "17621876063");
-        request.put("u_pwd", "123");
+        request.put("u_phone", getActivity().getPhone());
+        request.put("u_pwd", getActivity().getPassWord());
+//        request.put("u_phone", "17621876063");
+//        request.put("u_pwd", "123");
 
-        HttpRxObserver<HttpResponse<User>> observer=new HttpRxObserver<HttpResponse<User>>() {
+        HttpRxObserver<HttpResponse<User>> observer=new HttpRxObserver<HttpResponse<User>>(TAG,getView()) {
             @Override
             protected void onStart(Disposable d) {
 
@@ -57,12 +60,42 @@ public class PresenterPassLogin extends MyBasePresenter<IPassLogin,ActivityPassL
                     UserDaoUtil daoUtil=new UserDaoUtil(getActivity());
                     daoUtil.deleteAll();
                     daoUtil.insertUser(user);
-
                     getActivity().showResult();
+                    loginIM();//登录环信
                 }
             }
         };
 
         new HttpRxObservable<User>().getObservable(ApiUtlis.getUserApi().passWordLogin(request),getActivity(), ActivityEvent.STOP).subscribe(observer);
+    }
+
+
+    /**
+     * 环信登录
+     */
+    public void loginIM(){
+        getView().showLoading();
+        EMClient.getInstance().login("8811", "123456", new EMCallBack() {
+            @Override
+            public void onSuccess() {
+                EMClient.getInstance().groupManager().loadAllGroups();
+                EMClient.getInstance().chatManager().loadAllConversations();
+//               getView().closeLoading();
+
+                if(EMClient.getInstance().isConnected()){
+                    LogUtils.i("环信登录成功"+EMClient.getInstance().isConnected());
+                }
+            }
+            @Override
+            public void onError(int i, String s) {
+//               getView().closeLoading();
+                LogUtils.e("环信登录失败"+s);
+            }
+
+            @Override
+            public void onProgress(int i, String s) {
+
+            }
+        });
     }
 }

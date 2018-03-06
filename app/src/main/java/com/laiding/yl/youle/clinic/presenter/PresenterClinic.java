@@ -23,16 +23,24 @@ import io.reactivex.disposables.Disposable;
  */
 
 public class PresenterClinic extends MyBaseFrgPresenter<IFragmentClinic,FragmentClinic> {
+    private static final String TAG = "PresenterClinic";
     public PresenterClinic(IFragmentClinic view, FragmentClinic fragmet) {
         super(view, fragmet);
     }
 
-    public void requestClinic(){
+    public void requestClinicList(){
 
         final Map<String,Object> request= HttpRequest.getRequest();
+        request.put("p", getView().getPage());
+        request.put("limit", FragmentClinic.PAGE_SIZE);
+        request.put("h_name", getView().getName());
+        request.put("h_info", getView().getInfo());
+        request.put("h_grade", getView().getGrade());
+        request.put("h_service", getView().getService());
+        request.put("hid", getView().getAddress());
 
 
-        HttpRxObserver httpRxObserver=new HttpRxObserver<HttpResponse<List<ClinicBean>>>() {
+        HttpRxObserver httpRxObserver=new HttpRxObserver<HttpResponse<ClinicBean>>(TAG,getView()) {
             @Override
             protected void onStart(Disposable d) {
 
@@ -40,18 +48,20 @@ public class PresenterClinic extends MyBaseFrgPresenter<IFragmentClinic,Fragment
 
             @Override
             protected void onError(ApiException e) {
-
+                if (getView() != null) {
+                    getView().showResult(null);
+                }
             }
 
             @Override
-            protected void onSuccess(HttpResponse<List<ClinicBean>> response) {
+            protected void onSuccess(HttpResponse<ClinicBean> response) {
                     if(response.isSuccess()){
-                        getFrgment().showResult(response.getResult());
+                        getView().showResult(response.getResult());
                     }
             }
         };
 
-        new HttpRxObservable<List<ClinicBean>>().getObservable(ApiUtlis.getClinicApi().getHospitalDetial(request),getFrgment(),FragmentEvent.STOP).subscribe(httpRxObserver);
+        new HttpRxObservable<ClinicBean>().getObservable(ApiUtlis.getClinicApi().getHospitalList(request),getFrgment(),FragmentEvent.STOP).subscribe(httpRxObserver);
     }
 
 

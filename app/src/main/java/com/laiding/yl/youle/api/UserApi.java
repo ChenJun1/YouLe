@@ -10,11 +10,15 @@ import java.util.Map;
 
 import io.reactivex.Observable;
 import okhttp3.FormBody;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import retrofit2.http.QueryMap;
 
 /**
@@ -22,7 +26,6 @@ import retrofit2.http.QueryMap;
  */
 
 public interface UserApi {
-    String url = "index.php";
 
     /**
      * 密码登录
@@ -39,7 +42,7 @@ public interface UserApi {
      * @return
      */
     @FormUrlEncoded
-    @POST(url+"?r=user/login")
+    @POST("?r=user/login")
     Observable<HttpResponse<User>> passWordLogin(@FieldMap Map<String, Object> request);
 
     /**
@@ -48,7 +51,7 @@ public interface UserApi {
      * @return
      */
     @FormUrlEncoded
-    @POST(url+"?r=user/register")
+    @POST("?r=user/register")
     Observable<HttpResponse<User>> codeLogin(@FieldMap Map<String, Object> request);
 
     /**
@@ -57,7 +60,7 @@ public interface UserApi {
      * @return
      */
     @FormUrlEncoded
-    @POST(url+"?r=user/tel")
+    @POST("?r=user/tel")
     Observable<HttpResponse>  getVerificationCode(@FieldMap Map<String, Object> request);
 
     /**
@@ -65,9 +68,9 @@ public interface UserApi {
      * @param request
      * @return
      */
-    @FormUrlEncoded
+    @Multipart
     @POST("?r=user/user_update")
-    Observable<HttpResponse>  userUpdate(@FieldMap Map<String, Object> request);
+    Observable<HttpResponse<UserInfo>>  userUpdate(@PartMap Map<String, RequestBody> request, @Part MultipartBody.Part file);
 
     /**
      *  设置密码
@@ -92,9 +95,8 @@ public interface UserApi {
      * @param request
      * @return
      */
-    @FormUrlEncoded
-    @POST("?r=user/out")
-    Observable<HttpResponse> loginOut(@FieldMap Map<String, Object> request);
+    @GET("?r=user/out")
+    Observable<HttpResponse> loginOut(@QueryMap Map<String, Object> request);
 
     /**
      *  修改密码
@@ -120,6 +122,6 @@ public interface UserApi {
      * @return
      */
     @FormUrlEncoded
-    @POST(url+"?r=user/user")
+    @POST("?r=user/user")
     Observable<HttpResponse<UserInfo>> getUserInfo(@FieldMap Map<String, Object> request);
 }

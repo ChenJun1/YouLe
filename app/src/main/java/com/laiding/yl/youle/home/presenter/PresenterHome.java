@@ -36,7 +36,7 @@ public class PresenterHome extends MyBaseFrgPresenter<IHomeFragment,FragmentHome
     }
 
     /**
-     * 登陆
+     * 社区列表
      * @param
      * @param
      */
@@ -45,7 +45,7 @@ public class PresenterHome extends MyBaseFrgPresenter<IHomeFragment,FragmentHome
         request.put("p", 1);
         request.put("limit", 5);
 
-        HttpRxObserver httpRxObserver=new HttpRxObserver<HttpResponse<List<CommunityBean>>>(TAG+"login") {
+        HttpRxObserver httpRxObserver=new HttpRxObserver<HttpResponse<List<CommunityBean>>>(TAG,getView()) {
             @Override
             protected void onStart(Disposable d) {
 

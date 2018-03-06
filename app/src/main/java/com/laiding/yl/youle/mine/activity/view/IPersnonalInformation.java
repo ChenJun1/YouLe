@@ -3,6 +3,8 @@ package com.laiding.yl.youle.mine.activity.view;
 import com.laiding.yl.mvprxretrofitlibrary.base.IBaseView;
 import com.laiding.yl.youle.mine.entity.UserInfo;
 
+import java.io.File;
+
 /**
  * Created by JunChen on 2018/1/31.
  * Remarks
@@ -10,6 +12,8 @@ import com.laiding.yl.youle.mine.entity.UserInfo;
 
 public interface IPersnonalInformation extends IBaseView {
     void setAvatar(String url);
+
+    File getAvatar();
 
     void setNikeName(CharSequence nikeName);
 

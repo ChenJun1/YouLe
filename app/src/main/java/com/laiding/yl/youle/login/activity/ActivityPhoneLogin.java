@@ -84,7 +84,7 @@ public class ActivityPhoneLogin extends MyBaseActivity implements ILoginView {
     private float scale = 0.6f; //logo缩放比例
     private int height = 0;
 
-    private boolean isAgree=false;  //阅读同意check
+    private boolean isAgree = true;  //阅读同意check
     private PresenterLogin presenter = new PresenterLogin(this, this);
 
     @Override
@@ -171,7 +171,7 @@ public class ActivityPhoneLogin extends MyBaseActivity implements ILoginView {
 
     @Override
     public void showResult() {
-            toChat();
+        toChat();
     }
 
     @Override
@@ -193,18 +193,55 @@ public class ActivityPhoneLogin extends MyBaseActivity implements ILoginView {
     /**
      * 检查正确手机号
      */
-    private void checkPhone() {
+    private boolean checkPhone() {
+
+        if (getPhone().isEmpty()) {
+            RxToast.warning("请输入手机号");
+            return false;
+        }
+
         if (RxRegTool.isMobile(String.valueOf(phoneEt.getText()))) {
             RxTool.countDown(countDown, 60000, 1000, "重新获取验证码");
-            presenter.getVerificationCode();
+            return true;
         } else {
-            RxToast.error("请输入正确手机号");
+            RxToast.warning("请输入正确手机号");
+            return false;
+        }
+
+    }
+
+    /**
+     * 检查正确手机号和验证码
+     */
+    private boolean checkPhoneAndCode() {
+
+        if (getPhone().isEmpty()) {
+            RxToast.warning("请输入手机号");
+            return false;
+        }
+
+        if (getVerificationCode().isEmpty()) {
+            RxToast.warning("请输入验证码");
+            return false;
+        }
+
+        if(!isAgree){
+            RxToast.warning("请阅读协议");
+            return isAgree;
+        }
+
+        if (RxRegTool.isMobile(String.valueOf(phoneEt.getText()))) {
+            RxTool.countDown(countDown, 60000, 1000, "重新获取验证码");
+            return true;
+        } else {
+            RxToast.warning("请输入正确手机号");
+            return false;
         }
 
     }
 
 
-    @OnClick({R.id.giv_agree,R.id.iv_clean_phone, R.id.countDown, R.id.login_bt, R.id.pass_login_tv, R.id.iv_weixin, R.id.iv_qq, R.id.iv_weibo})
+    @OnClick({R.id.giv_agree, R.id.iv_clean_phone, R.id.countDown, R.id.login_bt, R.id.pass_login_tv, R.id.iv_weixin, R.id.iv_qq, R.id.iv_weibo})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_clean_phone:
@@ -220,11 +257,12 @@ public class ActivityPhoneLogin extends MyBaseActivity implements ILoginView {
 //                    LogUtils.e("注册失败");
 //                }
                 //获取验证码
-                checkPhone();
+                if (checkPhone()) {
+                    presenter.getVerificationCode();
+                }
                 break;
             case R.id.login_bt:
-//                                presenter.login("17621876063", "123");
-
+                if(checkPhoneAndCode())
                 presenter.login();
                 break;
             case R.id.pass_login_tv:
@@ -237,12 +275,12 @@ public class ActivityPhoneLogin extends MyBaseActivity implements ILoginView {
             case R.id.iv_weibo:
                 break;
             case R.id.giv_agree:
-                if (isAgree){
+                if (isAgree) {
                     mGivAgree.loadLocalImage(R.mipmap.denglu_icon_fuxuankuang, R.mipmap.denglu_icon_fuxuankuang);
-                    isAgree=false;
-                }else{
-                    mGivAgree.loadLocalImage(R.mipmap.icon_tkxx,R.mipmap.icon_tkxx);
-                    isAgree=true;
+                    isAgree = false;
+                } else {
+                    mGivAgree.loadLocalImage(R.mipmap.icon_tkxx, R.mipmap.icon_tkxx);
+                    isAgree = true;
                 }
                 break;
         }
