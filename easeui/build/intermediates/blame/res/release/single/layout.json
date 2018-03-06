@@ -4,12 +4,12 @@
         "source": "E:\\MVP\\easemob-sdk-3.3.7\\examples\\easeui\\easeui\\src\\main\\res\\layout\\ease_layout_chat_primary_menu.xml"
     },
     {
-        "merged": "E:\\MVP\\easemob-sdk-3.3.7\\examples\\easeui\\easeui\\build\\intermediates\\res\\merged\\release\\layout\\ease_widget_voice_recorder.xml",
-        "source": "E:\\MVP\\easemob-sdk-3.3.7\\examples\\easeui\\easeui\\src\\main\\res\\layout\\ease_widget_voice_recorder.xml"
-    },
-    {
         "merged": "E:\\MVP\\easemob-sdk-3.3.7\\examples\\easeui\\easeui\\build\\intermediates\\res\\merged\\release\\layout\\abc_popup_menu_item_layout.xml",
         "source": "C:\\Users\\EDZ\\.android\\build-cache\\066ff5782e5b748810fad0943bbfbdc9a89b7210\\output\\res\\layout\\abc_popup_menu_item_layout.xml"
+    },
+    {
+        "merged": "E:\\MVP\\easemob-sdk-3.3.7\\examples\\easeui\\easeui\\build\\intermediates\\res\\merged\\release\\layout\\ease_widget_voice_recorder.xml",
+        "source": "E:\\MVP\\easemob-sdk-3.3.7\\examples\\easeui\\easeui\\src\\main\\res\\layout\\ease_widget_voice_recorder.xml"
     },
     {
         "merged": "E:\\MVP\\easemob-sdk-3.3.7\\examples\\easeui\\easeui\\build\\intermediates\\res\\merged\\release\\layout\\notification_template_part_time.xml",
@@ -68,12 +68,12 @@
         "source": "C:\\Users\\EDZ\\.android\\build-cache\\066ff5782e5b748810fad0943bbfbdc9a89b7210\\output\\res\\layout\\abc_list_menu_item_layout.xml"
     },
     {
-        "merged": "E:\\MVP\\easemob-sdk-3.3.7\\examples\\easeui\\easeui\\build\\intermediates\\res\\merged\\release\\layout\\ease_emojicon.xml",
-        "source": "E:\\MVP\\easemob-sdk-3.3.7\\examples\\easeui\\easeui\\src\\main\\res\\layout\\ease_emojicon.xml"
-    },
-    {
         "merged": "E:\\MVP\\easemob-sdk-3.3.7\\examples\\easeui\\easeui\\build\\intermediates\\res\\merged\\release\\layout\\abc_search_view.xml",
         "source": "C:\\Users\\EDZ\\.android\\build-cache\\066ff5782e5b748810fad0943bbfbdc9a89b7210\\output\\res\\layout\\abc_search_view.xml"
+    },
+    {
+        "merged": "E:\\MVP\\easemob-sdk-3.3.7\\examples\\easeui\\easeui\\build\\intermediates\\res\\merged\\release\\layout\\ease_emojicon.xml",
+        "source": "E:\\MVP\\easemob-sdk-3.3.7\\examples\\easeui\\easeui\\src\\main\\res\\layout\\ease_emojicon.xml"
     },
     {
         "merged": "E:\\MVP\\easemob-sdk-3.3.7\\examples\\easeui\\easeui\\build\\intermediates\\res\\merged\\release\\layout\\ease_row_received_voice.xml",
@@ -96,12 +96,12 @@
         "source": "E:\\MVP\\easemob-sdk-3.3.7\\examples\\easeui\\easeui\\src\\main\\res\\layout\\ease_widget_chat_primary_menu.xml"
     },
     {
-        "merged": "E:\\MVP\\easemob-sdk-3.3.7\\examples\\easeui\\easeui\\build\\intermediates\\res\\merged\\release\\layout\\ease_expression_gridview.xml",
-        "source": "E:\\MVP\\easemob-sdk-3.3.7\\examples\\easeui\\easeui\\src\\main\\res\\layout\\ease_expression_gridview.xml"
-    },
-    {
         "merged": "E:\\AndroidStudioProjects\\YouLe\\easeui\\build\\intermediates\\res\\merged\\release\\layout\\ease_row_received_location.xml",
         "source": "E:\\AndroidStudioProjects\\YouLe\\easeui\\src\\main\\res\\layout\\ease_row_received_location.xml"
+    },
+    {
+        "merged": "E:\\MVP\\easemob-sdk-3.3.7\\examples\\easeui\\easeui\\build\\intermediates\\res\\merged\\release\\layout\\ease_expression_gridview.xml",
+        "source": "E:\\MVP\\easemob-sdk-3.3.7\\examples\\easeui\\easeui\\src\\main\\res\\layout\\ease_expression_gridview.xml"
     },
     {
         "merged": "E:\\MVP\\easemob-sdk-3.3.7\\examples\\easeui\\easeui\\build\\intermediates\\res\\merged\\release\\layout\\ease_widget_chat_input_menu.xml",

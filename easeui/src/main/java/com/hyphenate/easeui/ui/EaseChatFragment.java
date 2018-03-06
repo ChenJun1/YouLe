@@ -896,11 +896,14 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
             Toast.makeText(getActivity(), R.string.sd_card_does_not_exist, Toast.LENGTH_SHORT).show();
             return;
         }
-
+        File imagePath = PathUtil.getInstance().getImagePath();
         cameraFile = new File(PathUtil.getInstance().getImagePath(), EMClient.getInstance().getCurrentUser()
                 + System.currentTimeMillis() + ".jpg");
         //noinspection ResultOfMethodCallIgnored
-        cameraFile.getParentFile().mkdirs();
+
+        File parentFile = cameraFile.getParentFile();
+        parentFile.mkdirs();
+
         startActivityForResult(
                 new Intent(MediaStore.ACTION_IMAGE_CAPTURE).putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(cameraFile)),
                 REQUEST_CODE_CAMERA);
