@@ -108,6 +108,5 @@ public class PresenterInformation extends MyBaseFrgPresenter<IInformationFragmen
          * 手动管理移除RxJava监听,如果不设置此参数默认自动管理移除RxJava监听（onCrete创建,onDestroy移除）
          */
         new HttpRxObservable<List<AdsPictures>>().getObservable(ApiUtlis.getCommunityApi().getCommunity(request), getFrgment(), FragmentEvent.STOP).subscribe(httpRxObserver);
-
     }
 }

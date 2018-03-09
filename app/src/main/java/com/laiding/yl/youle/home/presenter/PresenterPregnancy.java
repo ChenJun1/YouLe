@@ -48,7 +48,9 @@ public class PresenterPregnancy extends MyBaseFrgPresenter<IPregnancyFragment,Fr
 
             @Override
             protected void onError(ApiException e) {
-
+                if (getView() != null) {
+                    getView().showResult(null);
+                }
             }
 
             @Override

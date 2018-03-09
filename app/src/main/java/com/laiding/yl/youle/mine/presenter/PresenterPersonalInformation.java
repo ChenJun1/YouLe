@@ -323,12 +323,4 @@ public class PresenterPersonalInformation extends MyBasePresenter<IPersnonalInfo
             return --age > 0 ? age : 0;
         }
     }
-
-    /**
-     * 头像图片地址
-     * @return
-     */
-    public String getAvatarImgUrl(){
-        return "http://47.97.185.141/youle/frontend/web/uploads/";
-    }
 }

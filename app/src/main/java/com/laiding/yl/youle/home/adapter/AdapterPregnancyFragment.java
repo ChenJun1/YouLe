@@ -28,6 +28,6 @@ public class AdapterPregnancyFragment extends BaseQuickAdapter<PregnancyBean, Ba
         helper.setText(R.id.title_tv, item.getP_title());
         helper.setText(R.id.tv_p_price, item.getP_price());
         GlideImageView imageView = helper.getView(R.id.pic_iv);
-        imageView.loadImage(MConstant.IMGURL+item.getFile(),R.mipmap.ic_launcher);
+        imageView.loadImage(MConstant.PREGNANCYIMGURL+item.getImg(),R.mipmap.ic_launcher);
     }
 }

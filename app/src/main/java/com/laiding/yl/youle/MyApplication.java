@@ -11,10 +11,14 @@ import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMOptions;
 import com.laiding.yl.mvprxretrofitlibrary.utlis.LogUtils;
 import com.laiding.yl.youle.im.DemoHelper;
+import com.laiding.yl.youle.login.entity.DaoMaster;
+import com.laiding.yl.youle.login.entity.DaoSession;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
+import com.umeng.socialize.PlatformConfig;
+import com.umeng.socialize.UMShareAPI;
 import com.vondear.rxtools.RxAppTool;
 import com.vondear.rxtools.RxTool;
 
@@ -30,6 +34,7 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+//        UMShareAPI.get(this);//初始化sdk
         app = this;
         RxTool.init(this);
         setupDatabase();
@@ -116,5 +121,15 @@ public class MyApplication extends Application {
                 .tag("YOU")   //（可选）每个日志的全局标记。 默认PRETTY_LOGGER
                 .build();
         Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy));
+    }
+
+    //各个平台的配置
+    {
+        //微信
+        PlatformConfig.setWeixin("wxdc1e388c3822c80b", "3baf1193c85774b3fd9d18447d76cab0");
+        //新浪微博(第三个参数为回调地址)
+        PlatformConfig.setSinaWeibo("3921700954", "04b48b094faeb16683c32669824ebdad","http://sns.whalecloud.com/sina2/callback");
+        //QQ
+        PlatformConfig.setQQZone("100424468", "c7394704798a158208a74ab60104f0ba");
     }
 }

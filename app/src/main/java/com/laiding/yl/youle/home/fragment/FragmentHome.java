@@ -12,12 +12,11 @@ import android.widget.Toast;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.hyphenate.easeui.runtimepermissions.PermissionsAPI;
-import com.hyphenate.easeui.runtimepermissions.PermissionsManager;
-import com.hyphenate.easeui.runtimepermissions.PermissionsResultAction;
 import com.laiding.yl.mvprxretrofitlibrary.utlis.LogUtils;
 import com.laiding.yl.youle.Information.activity.ActivityInformationDetail;
 import com.laiding.yl.youle.MyApplication;
 import com.laiding.yl.youle.R;
+import com.laiding.yl.youle.ShareActivity;
 import com.laiding.yl.youle.base.MyBaseFragment;
 import com.laiding.yl.youle.home.activty.ActivityDietAssistant;
 import com.laiding.yl.youle.home.activty.ActivityGoodPregnancyGuidance;
@@ -29,12 +28,9 @@ import com.laiding.yl.youle.home.activty.ActivityTestTubeBabyProcess;
 import com.laiding.yl.youle.home.activty.ActivityTestTubeGuidance;
 import com.laiding.yl.youle.home.adapter.AdapterHomeFragement;
 import com.laiding.yl.youle.home.entity.CommunityBean;
-import com.laiding.yl.youle.home.entity.ForumPostsBean;
 import com.laiding.yl.youle.home.fragment.view.IHomeFragment;
 import com.laiding.yl.youle.home.presenter.PresenterHome;
-import com.laiding.yl.youle.login.entity.UserBean;
 import com.laiding.yl.youle.widget.MyItemDecoration;
-import com.vondear.rxtools.RxNetTool;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,8 +38,6 @@ import java.util.List;
 import butterknife.BindView;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
-
-import static android.nfc.tech.MifareUltralight.PAGE_SIZE;
 
 
 /**
@@ -63,7 +57,6 @@ public class FragmentHome extends MyBaseFragment implements IHomeFragment {
     public static FragmentHome newInstance() {
 
         Bundle args = new Bundle();
-
         FragmentHome fragment = new FragmentHome();
         fragment.setArguments(args);
         return fragment;
@@ -235,7 +228,9 @@ public class FragmentHome extends MyBaseFragment implements IHomeFragment {
         homeRl.addOnItemTouchListener(new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ActivityInformationDetail.start(mContext);
+                ShareActivity.start(mContext);
+//                CommunityBean bean= (CommunityBean) adapter.getItem(position);
+//                ActivityInformationDetail.start(mContext,bean==null?-1:Integer.valueOf(bean.getN_id()));
             }
         });
     }

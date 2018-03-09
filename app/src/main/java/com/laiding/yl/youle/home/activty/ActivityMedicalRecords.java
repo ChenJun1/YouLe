@@ -61,6 +61,11 @@ public class ActivityMedicalRecords extends MyBaseActivity implements IMedicalRe
     protected void init() {
         initView();
         initAdapter();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         presenter.requestHttp();
     }
 

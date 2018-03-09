@@ -23,17 +23,29 @@ import com.laiding.yl.youle.widget.photopicker.activity.BGAPhotoPickerPreviewAct
 import com.laiding.yl.youle.widget.photopicker.widget.BGASortableNinePhotoLayout;
 import com.sunfusheng.glideimageview.GlideImageView;
 import com.vondear.rxtools.RxFileTool;
+import com.vondear.rxtools.RxImageTool;
 import com.vondear.rxtools.RxPhotoTool;
+import com.vondear.rxtools.RxZipTool;
+import com.vondear.rxtools.view.RxToast;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.Flowable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 /**
  * Created by JunChen on 2018/1/24.
@@ -41,8 +53,8 @@ import pub.devrel.easypermissions.EasyPermissions;
  */
 
 public class ActivityAddMedicalRecords extends MyBaseActivity implements BGASortableNinePhotoLayout.Delegate, IAddMedicalRecordsActy {
+    private static final String TAG = "ActivityAddMedicalRecor";
     private static final int PRC_PHOTO_PICKER = 1;
-
     private static final int RC_CHOOSE_PHOTO = 1;
     private static final int RC_PHOTO_PREVIEW = 2;
 
@@ -187,10 +199,27 @@ public class ActivityAddMedicalRecords extends MyBaseActivity implements BGASort
                 presenter.showDialogHospital();
                 break;
             case R.id.tv_bar_right:
-                presenter.requestHttp();
-//                presenter.requestHttp2();
+                if(checkText())
+                presenter.LubanFile();
                 break;
         }
+    }
+
+    private boolean checkText(){
+        if(mEtMrTitle.getText().toString().isEmpty()){
+            RxToast.warning("请输入标题");
+            return false;
+        }
+        if(mTvMrHospital.getText().toString().isEmpty()){
+            RxToast.warning("请输入医院名");
+            return false;
+        }
+
+        if(mTvMrTime.getText().toString().isEmpty()){
+            RxToast.warning("请选择时间");
+            return false;
+        }
+        return true;
     }
 
     @Override
@@ -226,13 +255,16 @@ public class ActivityAddMedicalRecords extends MyBaseActivity implements BGASort
     @Override
     public List<File> getFileList() {
         ArrayList<String> data = mSnplMomentAddPhotos.getData();
-        List<File> files = new ArrayList<>();
-        for (String url : data) {
-            files.add(new File(url));
-            String fileSize = RxFileTool.getFileSize(new File(url));
-            LogUtils.i(fileSize);
+        final List<File> dataFiles = new ArrayList<>();
+        dataFiles.clear();
+        for (String datum : data) {
+            dataFiles.add(new File(datum));
         }
-        return files;
+        return dataFiles;
     }
 
+    @Override
+    public ArrayList<String> getFilStrings() {
+        return mSnplMomentAddPhotos.getData();
+    }
 }

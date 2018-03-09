@@ -25,6 +25,7 @@ import com.laiding.yl.youle.MyApplication;
 import com.laiding.yl.youle.R;
 import com.laiding.yl.youle.base.MyBaseFragment;
 import com.laiding.yl.youle.home.entity.CommunityBean;
+import com.laiding.yl.youle.utils.MConstant;
 import com.laiding.yl.youle.widget.MyItemDecoration;
 
 import java.util.ArrayList;
@@ -65,6 +66,7 @@ public class FragmentInformation extends MyBaseFragment implements IInformationF
     private int page = 1; //页
     private View headView;
     private View notDataView;
+
     @Override
     protected int getContentViewId() {
         return R.layout.fragment_information;
@@ -105,9 +107,14 @@ public class FragmentInformation extends MyBaseFragment implements IInformationF
     private void initCycleViewData(List<AdsPictures> picturesList) {
         urlList.clear();
         imageDescList.clear();
-        for(AdsPictures adsPictures:picturesList){
+        if (picturesList == null) {
             imageDescList.add("");
-            urlList.add("http://attach.bbs.miui.com/forum/201604/05/001754vp6j0vmcj49f0evc.jpg.thumb.jpg");
+            urlList.add("");
+        } else {
+            for (AdsPictures adsPictures : picturesList) {
+                imageDescList.add("");
+                urlList.add(MConstant.IMGURL + adsPictures.getFile());
+            }
         }
         mCycleView.setImageResources(imageDescList, urlList, new ImageCycleView.ImageCycleViewListener() {
             @Override
@@ -144,7 +151,8 @@ public class FragmentInformation extends MyBaseFragment implements IInformationF
         mInformationRl.addOnItemTouchListener(new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(final BaseQuickAdapter adapter, final View view, final int position) {
-                ActivityInformationDetail.start(mContext);
+                CommunityBean bean = (CommunityBean) adapter.getItem(position);
+                ActivityInformationDetail.start(mContext, bean == null ? -1 : Integer.valueOf(bean.getN_id().isEmpty() ? "-1" : bean.getN_id()));
             }
         });
     }
@@ -183,23 +191,23 @@ public class FragmentInformation extends MyBaseFragment implements IInformationF
     protected void initBundleData() {
 
     }
+
     @Override
     public void showResult(List<CommunityBean> list) {
-        if(list==null){
-            if(isRefresh){
+        adapter.removeAllFooterView();
+        if (list == null) {
+            if (isRefresh) {
                 mSwipeLayout.setRefreshing(false);
-            }else{
+            } else {
                 adapter.loadMoreFail();
             }
             adapter.addFooterView(notDataView);
             return;
         }
-
-        adapter.removeAllFooterView();
         if (isRefresh) {
             adapter.setNewData(list);
             mSwipeLayout.setRefreshing(false);
-            if (list.size()<1) {
+            if (list.size() < 1) {
                 adapter.addFooterView(notDataView);
             }
         } else {

@@ -12,6 +12,7 @@ import com.laiding.yl.mvprxretrofitlibrary.manager.ActivityStackManager;
 import com.laiding.yl.mvprxretrofitlibrary.utlis.LogUtils;
 import com.laiding.yl.youle.R;
 import com.laiding.yl.youle.base.MyBaseActivity;
+import com.laiding.yl.youle.dao.UserInfoManager;
 import com.laiding.yl.youle.login.activity.ActivityUpdatePassWord;
 import com.laiding.yl.youle.login.activity.ActivityPhoneLogin;
 import com.laiding.yl.youle.mine.activity.view.ISet;
@@ -28,7 +29,8 @@ import butterknife.OnClick;
  * Remarks 设置
  */
 
-public class ActivitySet extends MyBaseActivity implements ISet{
+public class ActivitySet extends MyBaseActivity implements ISet {
+
     @BindView(R.id.tv_personal_information)
     TextView mTvPersonalInformation;
     @BindView(R.id.tv_account_binding)
@@ -44,7 +46,11 @@ public class ActivitySet extends MyBaseActivity implements ISet{
         Intent starter = new Intent(context, ActivitySet.class);
         context.startActivity(starter);
     }
-    private PresenterSet mPresenterSet=new PresenterSet(this,this);
+
+    private boolean flag = true;
+
+    private PresenterSet mPresenterSet = new PresenterSet(this, this);
+
     @Override
     protected int getContentViewId() {
         return R.layout.activity_set;
@@ -54,6 +60,20 @@ public class ActivitySet extends MyBaseActivity implements ISet{
     protected void init() {
         setTitle("设置");
         isBack(true);
+        initTextView();
+    }
+
+    /**
+     * 判断是否设置过密码
+     */
+    private void initTextView(){
+        if (UserInfoManager.getUserInfo().getU_pwd().isEmpty()) {
+            mTvChangePassword.setText("设置密码");
+            flag = true;
+        } else {
+            mTvChangePassword.setText("修改密码");
+            flag = false;
+        }
     }
 
     @Override
@@ -72,7 +92,10 @@ public class ActivitySet extends MyBaseActivity implements ISet{
                 ActivityAccountBinding.start(mContext);
                 break;
             case R.id.tv_change_password:
-                ActivitySetPass.start(mContext);
+                if (flag)
+                    ActivitySetPass.start(mContext);
+                else
+                    ActivityUpdatePassWord.start(mContext);
                 break;
             case R.id.tv_about_us:
                 ActivityAboutUs.start(mContext);
@@ -84,7 +107,6 @@ public class ActivitySet extends MyBaseActivity implements ISet{
                 rxDialogSureCancel.getSureView().setOnClickListener(v -> mPresenterSet.requestSetPass());
                 rxDialogSureCancel.getCancelView().setOnClickListener(v -> rxDialogSureCancel.cancel());
                 rxDialogSureCancel.show();
-
                 break;
         }
     }

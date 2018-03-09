@@ -8,6 +8,7 @@ import com.laiding.yl.mvprxretrofitlibrary.http.retrofit.HttpResponse;
 import com.laiding.yl.youle.R;
 import com.laiding.yl.youle.api.ApiUtlis;
 import com.laiding.yl.youle.base.MyBasePresenter;
+import com.laiding.yl.youle.dao.UserInfoManager;
 import com.laiding.yl.youle.home.activty.ActivityAddMedicalRecords;
 import com.laiding.yl.youle.home.activty.view.IAddMedicalRecordsActy;
 import com.laiding.yl.youle.home.entity.CommunityBean;
@@ -19,6 +20,7 @@ import com.vondear.rxtools.RxDataTool;
 import com.vondear.rxtools.view.RxToast;
 import com.vondear.rxtools.view.dialog.RxDialogEditSureCancel;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -26,10 +28,14 @@ import java.util.List;
 import java.util.Map;
 
 import cn.qqtheme.framework.picker.DatePicker;
+import io.reactivex.Flowable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import top.zibin.luban.Luban;
 
 /**
  * Created by JunChen on 2018/2/3.
@@ -38,6 +44,7 @@ import okhttp3.RequestBody;
 
 public class PresenterAddMedicalRecords extends MyBasePresenter<IAddMedicalRecordsActy, ActivityAddMedicalRecords> {
     private static final String TAG = "PresenterAddMedicalReco";
+    private List<File> mFileList = new ArrayList<>();
 
     public PresenterAddMedicalRecords(IAddMedicalRecordsActy view, ActivityAddMedicalRecords activity) {
         super(view, activity);
@@ -51,14 +58,17 @@ public class PresenterAddMedicalRecords extends MyBasePresenter<IAddMedicalRecor
      */
     public void requestHttp() {
         final Map<String, RequestBody> request = new HashMap<>();
-        List<MultipartBody.Part> parts = MConstant.filesToMultipartBodyParts(getView().getFileList());
+        List<MultipartBody.Part> parts = MConstant.filesToMultipartBodyParts(mFileList);
 
         RequestBody r_project = RequestBody.create(MediaType.parse("text/plain"), getView().getMedicalTitle());
         RequestBody r_hospital = RequestBody.create(MediaType.parse("text/plain"), getView().getHospital());
         RequestBody time = RequestBody.create(MediaType.parse("text/plain"), getView().getTime());
         RequestBody r_content = RequestBody.create(MediaType.parse("text/plain"), getView().getRemarkes());
+        RequestBody uid = RequestBody.create(MediaType.parse("text/plain"), UserInfoManager.getUserInfo().getU_id());
+
 
         request.put("r_project", r_project);
+        request.put("u_id", uid);
         request.put("r_hospital", r_hospital);
         request.put("time", time);
         request.put("r_content", r_content);
@@ -78,6 +88,7 @@ public class PresenterAddMedicalRecords extends MyBasePresenter<IAddMedicalRecor
             protected void onSuccess(HttpResponse response) {
                 if (response.isSuccess()) {
                     RxToast.success(response.getMsg());
+                    getActivity().finish();
                 }
             }
         };
@@ -87,6 +98,48 @@ public class PresenterAddMedicalRecords extends MyBasePresenter<IAddMedicalRecor
          * 手动管理移除RxJava监听,如果不设置此参数默认自动管理移除RxJava监听（onCrete创建,onDestroy移除）
          */
         new HttpRxObservable().getObservable(ApiUtlis.getHomeApi().getAddRecord(request,parts), getActivity(), ActivityEvent.STOP).subscribe(httpRxObserver);
+    }
+
+    public void LubanFile() {
+        if (getView().getFilStrings() == null || getView().getFilStrings().size() < 1) {
+            requestHttp();
+        } else {
+            getView().showLoading();
+            mFileList.clear();
+            Flowable.just(getView().getFilStrings())
+                    .observeOn(Schedulers.io())
+                    .map(list -> {
+                        // 同步方法直接返回压缩后的文件
+                        List<File> files = new ArrayList<>();
+                        try {
+                            files = Luban.with(getActivity()).load(list).get();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        return files;
+
+                    })
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(files -> {
+                        if (files.size() < 1) {
+                            NoCompression();
+                        } else {
+                            mFileList.addAll(files);
+                            requestHttp();
+                        }
+                    });
+        }
+    }
+
+    private void NoCompression() {
+        ArrayList<String> data = getView().getFilStrings();
+        final List<File> dataFiles = new ArrayList<>();
+        dataFiles.clear();
+        for (String datum : data) {
+            dataFiles.add(new File(datum));
+        }
+        mFileList.addAll(dataFiles);
+        requestHttp();
     }
 
 

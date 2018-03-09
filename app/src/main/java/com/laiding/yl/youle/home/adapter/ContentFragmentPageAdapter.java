@@ -1,0 +1,63 @@
+package com.laiding.yl.youle.home.adapter;
+
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.PagerAdapter;
+import android.util.Log;
+
+
+import com.laiding.yl.youle.home.entity.ContentModel;
+import com.laiding.yl.youle.home.entity.ContentPageItem;
+import com.laiding.yl.youle.home.fragment.ContentFragment;
+
+import java.util.List;
+
+
+
+public class ContentFragmentPageAdapter extends FragmentPagerAdapter {
+
+    private List<ContentPageItem> mTabs;
+
+    public ContentFragmentPageAdapter(FragmentManager fm, List<ContentPageItem> tabs) {
+        super(fm);
+        mTabs = tabs;
+    }
+
+    /**
+     * Return the {@link android.support.v4.app.Fragment} to be displayed at {@code position}.
+     * <p/>
+     */
+    @Override
+    public Fragment getItem(int i) {
+        Log.d("ContentFragment", "getItem " + i);
+        ContentModel model = new ContentModel();
+        model.setPostion(i);
+        model.setContent(" content : " + mTabs.get(i).getTitle().toString());
+        return ContentFragment.newInstance(model);
+    }
+
+    @Override
+    public int getCount() {
+        return mTabs.size();
+    }
+
+    // BEGIN_INCLUDE (pageradapter_getpagetitle)
+
+    /**
+     * Return the title of the item at {@code position}. This is important as what this method
+     * returns is what is displayed in the {@link }.
+     * <p/>
+     * Here we return the value returned from {@link ContentPageItem#getTitle()}.
+     */
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return mTabs.get(position).getTitle();
+    }
+    // END_INCLUDE (pageradapter_getpagetitle)
+
+    @Override
+    public int getItemPosition(Object object) {
+        return PagerAdapter.POSITION_NONE;
+    }
+}

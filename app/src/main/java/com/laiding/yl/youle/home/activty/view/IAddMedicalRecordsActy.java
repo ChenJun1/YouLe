@@ -4,6 +4,7 @@ import com.laiding.yl.mvprxretrofitlibrary.base.IBaseView;
 
 import java.io.File;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,4 +26,6 @@ public interface IAddMedicalRecordsActy extends IBaseView {
     String getRemarkes();
 
     List<File> getFileList();
+
+    ArrayList<String> getFilStrings();
 }

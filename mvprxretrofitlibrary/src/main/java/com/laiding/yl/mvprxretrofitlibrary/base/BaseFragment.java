@@ -9,10 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.laiding.yl.mvprxretrofitlibrary.listener.FrgLifeCycleListener;
-import com.laiding.yl.mvprxretrofitlibrary.listener.ProgressListener;
-import com.laiding.yl.mvprxretrofitlibrary.widget.RLoadingDialog;
 import com.trello.rxlifecycle2.components.support.RxFragment;
 import com.vondear.rxtools.view.RxToast;
+import com.vondear.rxtools.view.dialog.RxDialogLoading;
 
 import java.util.List;
 
@@ -25,11 +24,11 @@ import pub.devrel.easypermissions.EasyPermissions;
  * Remarks
  */
 
-public abstract class BaseFragment extends RxFragment implements IBaseView,EasyPermissions.PermissionCallbacks{
+public abstract class BaseFragment extends RxFragment implements IBaseView, EasyPermissions.PermissionCallbacks {
     private static final String TAG = "BaseFragment";
     protected Unbinder unBinder;
     protected Context mContext;
-    protected RLoadingDialog mLoadingDialog;
+    protected RxDialogLoading mLoadingDialog;
 
     @Override
     public void onAttach(Activity activity) {
@@ -50,11 +49,9 @@ public abstract class BaseFragment extends RxFragment implements IBaseView,EasyP
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(getContentViewId(), container, false);
-        if (mLoadingDialog == null) {
-            mLoadingDialog = new RLoadingDialog(getActivity(), false);
-        }
         mContext = getActivity();
         unBinder = ButterKnife.bind(this, view);
+        initDialog();
         initBundleData();
         init();
         return view;
@@ -177,7 +174,18 @@ public abstract class BaseFragment extends RxFragment implements IBaseView,EasyP
     }
 
     /**
-     *  提示错误信息
+     * 初始化dialog
+     */
+    public void initDialog() {
+        if (mLoadingDialog == null) {
+            mLoadingDialog = new RxDialogLoading(mContext);
+            mLoadingDialog.setCanceledOnTouchOutside(false);
+        }
+    }
+
+    /**
+     * 提示错误信息
+     *
      * @param errorMsg
      */
     @Override

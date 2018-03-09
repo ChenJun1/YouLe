@@ -7,18 +7,13 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-
-import com.laiding.yl.mvprxretrofitlibrary.R;
 import com.laiding.yl.mvprxretrofitlibrary.listener.LifeCycleListener;
-import com.laiding.yl.mvprxretrofitlibrary.listener.ProgressListener;
 import com.laiding.yl.mvprxretrofitlibrary.manager.ActivityStackManager;
 import com.laiding.yl.mvprxretrofitlibrary.utlis.LogUtils;
-import com.laiding.yl.mvprxretrofitlibrary.widget.RLoadingDialog;
 import com.trello.rxlifecycle2.components.RxActivity;
-import com.vondear.rxtools.RxBarTool;
 import com.vondear.rxtools.RxKeyboardTool;
 import com.vondear.rxtools.view.RxToast;
-import com.vondear.rxtools.view.dialog.RxDialogSureCancel;
+import com.vondear.rxtools.view.dialog.RxDialogLoading;
 
 import java.util.List;
 
@@ -39,7 +34,7 @@ public abstract class BaseActivity extends RxActivity implements EasyPermissions
     private static final String TAG = "BaseActivity";
     protected Context mContext;
     protected Unbinder unBinder;
-    protected RLoadingDialog mLoadingDialog;
+    protected RxDialogLoading mLoadingDialog;
     protected TextView mTitle=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,15 +43,15 @@ public abstract class BaseActivity extends RxActivity implements EasyPermissions
             mListener.onCreate(savedInstanceState);
         }
         ActivityStackManager.getManager().push(this);
+        int contentViewId = getContentViewId();
         setContentView(getContentViewId());
 //        RxBarTool.setTransparentStatusBar(this);//状态栏透明化
         mContext = this;
         unBinder = ButterKnife.bind(this);
-        if (mLoadingDialog == null) {
-            mLoadingDialog = new RLoadingDialog(this, true);
-        }
-
+        initDialog();
     }
+
+
 
     @Override
     protected void onStart() {
@@ -177,6 +172,15 @@ public abstract class BaseActivity extends RxActivity implements EasyPermissions
         RxToast.error(errorMsg);
     }
 
+    /**
+     * 初始化dialog
+     */
+    public void initDialog() {
+        if (mLoadingDialog == null) {
+            mLoadingDialog = new RxDialogLoading(mContext);
+            mLoadingDialog.setCanceledOnTouchOutside(false);
+        }
+    }
 
 
     @Override

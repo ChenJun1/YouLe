@@ -22,7 +22,9 @@ import com.laiding.yl.youle.base.MyBaseActivity;
 import com.laiding.yl.youle.login.activity.ActivityPhoneLogin;
 import com.laiding.yl.youle.mine.activity.view.IPersnonalInformation;
 import com.laiding.yl.youle.mine.entity.UserInfo;
+import com.laiding.yl.youle.mine.fragment.FragmentMine;
 import com.laiding.yl.youle.mine.presenter.PresenterPersonalInformation;
+import com.laiding.yl.youle.utils.MConstant;
 import com.sunfusheng.glideimageview.GlideImageView;
 import com.vondear.rxtools.RxPhotoTool;
 import com.vondear.rxtools.RxSPTool;
@@ -52,6 +54,8 @@ import static com.vondear.rxtools.view.dialog.RxDialogChooseImage.LayoutType.TIT
  */
 
 public class ActivityPersonalInformation extends MyBaseActivity implements IPersnonalInformation {
+    public final static int UPDATEPHONE = 0x100;
+
     @BindView(R.id.ll_top_head)
     LinearLayout mLlTopHead;
     @BindView(R.id.ll_update_avatar)
@@ -160,7 +164,8 @@ public class ActivityPersonalInformation extends MyBaseActivity implements IPers
                 isUpdate = true;
                 break;
             case R.id.ll_phone:
-                ActivityUpdatePhone.start(mContext);
+                Intent starter = new Intent(mContext, ActivityUpdatePhone2.class);
+                startActivityForResult(starter, UPDATEPHONE);
                 break;
             case R.id.ll_location:
                 presenter.showDialogLocation();
@@ -235,6 +240,7 @@ public class ActivityPersonalInformation extends MyBaseActivity implements IPers
     private Uri resultUri;
     private File mAvatarFile = null;
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
@@ -269,8 +275,15 @@ public class ActivityPersonalInformation extends MyBaseActivity implements IPers
             case UCrop.RESULT_ERROR://UCrop裁剪错误之后的处理
                 final Throwable cropError = UCrop.getError(data);
                 break;
+            case UPDATEPHONE:// 修改成功手机号
+                if (resultCode == RESULT_OK) {
+                    String phone = data.getExtras().getString("PHONE");
+                    mTvPhone.setText(phone);
+                }
+                break;
             default:
                 break;
+
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -440,7 +453,8 @@ public class ActivityPersonalInformation extends MyBaseActivity implements IPers
     public void getUserInfoResult(UserInfo userInfo) {
         if (userInfo == null)
             return;
-        mGivAvatar.loadCircleImage(presenter.getAvatarImgUrl()+userInfo.getPhoto(), R.mipmap.ic_launcher_round);
+        saveUseInfo(userInfo);
+        mGivAvatar.loadCircleImage(MConstant.AVATARIMGURL+ userInfo.getPhoto(), R.mipmap.ic_launcher_round);
         setNikeName(userInfo.getU_nname());
         setGender(userInfo.getU_sex() == null ? "男" : userInfo.getU_sex());
         setBirthday(userInfo.getU_birthday() == null ? "0" : userInfo.getU_birthday());
@@ -451,6 +465,13 @@ public class ActivityPersonalInformation extends MyBaseActivity implements IPers
         setDetailLocation(userInfo.getU_address());
         setPostal(userInfo.getU_code());
         setEmail(userInfo.getU_email());
+    }
+
+    private void saveUseInfo(UserInfo userInfo){
+        Intent intent=new Intent();
+        intent.putExtra(FragmentMine.AVATAR, userInfo.getPhoto());
+        intent.putExtra(FragmentMine.NNAME, userInfo.getU_nname());
+        this.setResult(RESULT_OK,intent);
     }
 
     @Override

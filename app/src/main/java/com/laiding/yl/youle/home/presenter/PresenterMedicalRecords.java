@@ -7,13 +7,11 @@ import com.laiding.yl.mvprxretrofitlibrary.http.retrofit.HttpRequest;
 import com.laiding.yl.mvprxretrofitlibrary.http.retrofit.HttpResponse;
 import com.laiding.yl.youle.api.ApiUtlis;
 import com.laiding.yl.youle.base.MyBasePresenter;
-import com.laiding.yl.youle.home.activty.ActivityAddMedicalRecords;
+import com.laiding.yl.youle.dao.UserInfoManager;
 import com.laiding.yl.youle.home.activty.ActivityMedicalRecords;
 import com.laiding.yl.youle.home.activty.view.IMedicalRecordsActy;
-import com.laiding.yl.youle.home.entity.CommunityBean;
 import com.laiding.yl.youle.home.entity.MedicalRecordsBean;
 import com.trello.rxlifecycle2.android.ActivityEvent;
-import com.trello.rxlifecycle2.android.FragmentEvent;
 
 import java.util.List;
 import java.util.Map;
@@ -35,7 +33,9 @@ public class PresenterMedicalRecords extends MyBasePresenter<IMedicalRecordsActy
      *诊疗记录
      */
     public void requestHttp(){
-
+        final Map<String, Object> request = HttpRequest.getRequest();
+        request.put("u_id", UserInfoManager.getUserInfo().getU_id());
+        request.put("token", UserInfoManager.getUserInfo().getToken());
         HttpRxObserver httpRxObserver=new HttpRxObserver<HttpResponse<List<MedicalRecordsBean>>>(TAG,getView()) {
             @Override
             protected void onStart(Disposable d) {
@@ -60,6 +60,6 @@ public class PresenterMedicalRecords extends MyBasePresenter<IMedicalRecordsActy
          * ActivityEvent.PAUSE(FragmentEvent.PAUSE)
          * 手动管理移除RxJava监听,如果不设置此参数默认自动管理移除RxJava监听（onCrete创建,onDestroy移除）
          */
-        new HttpRxObservable<List<MedicalRecordsBean>>().getObservable(ApiUtlis.getHomeApi().getRecordList(), getActivity(), ActivityEvent.STOP).subscribe(httpRxObserver);
+        new HttpRxObservable<List<MedicalRecordsBean>>().getObservable(ApiUtlis.getHomeApi().getRecordList(request), getActivity(), ActivityEvent.STOP).subscribe(httpRxObserver);
     }
 }

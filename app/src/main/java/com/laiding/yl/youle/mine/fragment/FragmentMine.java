@@ -1,10 +1,9 @@
 package com.laiding.yl.youle.mine.fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -15,12 +14,11 @@ import com.laiding.yl.youle.mine.activity.ActivitySet;
 import com.laiding.yl.youle.mine.entity.UserInfo;
 import com.laiding.yl.youle.mine.fragment.presenter.PresenterMine;
 import com.laiding.yl.youle.mine.fragment.view.IFragmentMine;
+import com.laiding.yl.youle.utils.MConstant;
 import com.sunfusheng.glideimageview.GlideImageView;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 /**
  * Created by JunChen on 2018/1/22.
@@ -28,6 +26,9 @@ import butterknife.Unbinder;
  */
 
 public class FragmentMine extends MyBaseFragment implements IFragmentMine{
+    public static final int REQUESTCODE=0x1000;
+    public static final String AVATAR="AVATAR";
+    public static final String NNAME="NNAME";
     public static FragmentMine newInstance() {
         Bundle args = new Bundle();
         FragmentMine fragment = new FragmentMine();
@@ -89,7 +90,8 @@ public class FragmentMine extends MyBaseFragment implements IFragmentMine{
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_top_avatar:
-                ActivityPersonalInformation.start(mContext);
+                Intent intent=new Intent(mContext,ActivityPersonalInformation.class);
+                startActivityForResult(intent,REQUESTCODE);
                 break;
             case R.id.ll_theme:
                 break;
@@ -111,11 +113,22 @@ public class FragmentMine extends MyBaseFragment implements IFragmentMine{
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode== Activity.RESULT_OK&& requestCode==REQUESTCODE){
+            Bundle extras = data.getExtras();
+            String avatarUrl=extras.getString(AVATAR);
+            String nname=extras.getString(NNAME);
+            mIvUserAvatar.loadCircleImage(MConstant.AVATARIMGURL+avatarUrl, R.mipmap.ic_launcher_round);
+            mTvUserName.setText(nname);
+        }
+    }
+
+    @Override
     public void showResult(UserInfo userInfo) {
         if(userInfo==null)
             return;
-
-        mIvUserAvatar.loadCircleImage(mPresenterMine.getAvatarImgUrl()+userInfo.getPhoto(), R.mipmap.ic_launcher_round);
+        mIvUserAvatar.loadCircleImage(MConstant.AVATARIMGURL+userInfo.getPhoto(), R.mipmap.ic_launcher_round);
         mTvUserName.setText(userInfo.getU_nname());
     }
 }

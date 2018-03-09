@@ -312,15 +312,7 @@ public class FragmentClinic extends MyBaseFragment implements IFragmentClinic {
         } else {
 
             if (clinicBean.getHospitalList() != null && clinicBean.getHospitalList().size() > 0) {
-
                 mAdapter.addData(clinicBean.getHospitalList());
-//                if (clinicBean.getHospitalList().size() < PAGE_SIZE) {
-//                    //第一页如果不够一页就不显示没有更多数据布局
-//                    mAdapter.loadMoreComplete();
-//                    mAdapter.loadMoreEnd(isRefresh);
-//                } else {
-//                    mAdapter.loadMoreComplete();
-//                }
             }
         }
         if (mAdapter.getData().size() < 1) {

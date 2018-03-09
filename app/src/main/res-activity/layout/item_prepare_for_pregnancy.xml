@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:padding="@dimen/margin_16"
+    android:background="@color/colorWhite"
+    android:layout_height="100dp">
+
+
+    <com.sunfusheng.glideimageview.GlideImageView
+        android:id="@+id/pic_iv"
+        android:layout_gravity="center_vertical"
+        android:src="@mipmap/ic_launcher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_marginLeft="@dimen/margin_16"
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/title_tv"
+            android:text="99元试管指导套餐 有效就医指导提高试管成功率"
+            android:textSize="@dimen/text_small_title"
+            android:textColor="@color/color_2c2c2c"
+            android:maxLines="2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_weight="1"
+            android:gravity="bottom"
+            android:id="@+id/tv_p_price"
+            android:layout_gravity="bottom"
+            android:textSize="@dimen/text_small_title"
+            android:text="¥ 99"
+            android:textColor="#f993a6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</LinearLayout>

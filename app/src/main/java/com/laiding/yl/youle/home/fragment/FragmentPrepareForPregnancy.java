@@ -136,27 +136,27 @@ public class FragmentPrepareForPregnancy extends MyBaseFragment implements IPreg
                 adapter.loadMoreFail();
             }
             adapter.setEmptyView(notDataView);
-            return;
-        }
+        }else {
 
-        if (isRefresh) {
-            adapter.setNewData(list);
-            mSwipeLayout.setRefreshing(false);
+            if (isRefresh) {
+                adapter.setNewData(list);
+                mSwipeLayout.setRefreshing(false);
 
-        } else {
-            if (list.size() > 0) {
-                adapter.addData(list);
+            } else {
+                if (list.size() > 0) {
+                    adapter.addData(list);
+                }
             }
-        }
-        if (adapter.getData().size() == 0) {
-            adapter.setEmptyView(notDataView);
-        }
+            if (adapter.getData().size() == 0) {
+                adapter.setEmptyView(notDataView);
+            }
 
-        if (list.size() < PAGE_SIZE) {
-            //第一页如果不够一页就不显示没有更多数据布局
-            adapter.loadMoreEnd(isRefresh);
-        } else {
-            adapter.loadMoreComplete();
+            if (list.size() < PAGE_SIZE) {
+                //第一页如果不够一页就不显示没有更多数据布局
+                adapter.loadMoreEnd(isRefresh);
+            } else {
+                adapter.loadMoreComplete();
+            }
         }
 
     }

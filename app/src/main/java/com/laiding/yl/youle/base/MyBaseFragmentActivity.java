@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -22,10 +21,7 @@ import com.laiding.yl.youle.dao.UserInfoManager;
 import com.laiding.yl.youle.login.activity.ActivityPhoneLogin;
 import com.laiding.yl.youle.login.entity.User;
 import com.sunfusheng.glideimageview.GlideImageView;
-import com.vondear.rxtools.RxBarTool;
 import com.vondear.rxtools.view.dialog.RxDialogSureCancel;
-
-import org.w3c.dom.Text;
 
 import static com.vondear.rxtools.RxBarTool.getStatusBarHeight;
 

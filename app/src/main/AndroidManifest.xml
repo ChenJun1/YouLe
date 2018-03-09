@@ -28,6 +28,9 @@
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <!--友盟分享登录需要权限-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
 
     <application
         android:name=".MyApplication"
@@ -37,7 +40,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".login.activity.ActivityPhoneLogin">
+        <activity android:name=".login.activity.ActivityPhoneLogin"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
 
         </activity>
 
@@ -148,8 +153,56 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <!-- ======================================自定义图片选择============================================-->
 
+        <!--===================友盟========================================================-->
+        <!--微信-->
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+        <!--新浪微博-->
+        <activity
+            android:name=".share.WBShareActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <!--qq精简版-->
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
 
-        <!-- 首页 -->
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <!--这里的scheme是qq分享要用的，100424468为自己申请的appid，真实项目中需要替换-->
+                <data android:scheme="tencent100424468"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+        <!--分享编辑页-->
+        <activity
+            android:name="com.umeng.socialize.editorpage.ShareActivity"
+            android:excludeFromRecents="true"
+            android:theme="@style/Theme.UMDefault"
+            />
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="561cae6ae0f55abd990035bf">
+        </meta-data>
+        <!--===================友盟========================================================-->
+
+        <!-- ==================================首页=================================== -->
         <activity
             android:name=".home.activty.ActivityHome"
             android:launchMode="singleTask"
@@ -242,9 +295,9 @@
             android:name=".mine.activity.ActivityAboutUs"
             android:screenOrientation="portrait" />
         <!-- 修改手机号-->
-        <activity
-            android:name=".mine.activity.ActivityUpdatePhone"
-            android:screenOrientation="portrait" />
+        <!--<activity-->
+            <!--android:name=".mine.activity.ActivityUpdatePhone"-->
+            <!--android:screenOrientation="portrait" />-->
         <!-- 设置密码-->
         <activity android:name=".mine.activity.ActivitySetPass"
             android:screenOrientation="portrait"/>
@@ -255,7 +308,7 @@
         <activity android:name=".home.activty.ActivityPregnancyDetail"
             android:screenOrientation="portrait"/>
 
-
+        <activity android:name=".ShareActivity" />
     </application>
 
 </manifest>

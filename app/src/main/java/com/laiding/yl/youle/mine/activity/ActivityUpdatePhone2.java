@@ -7,9 +7,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.laiding.yl.mvprxretrofitlibrary.manager.ActivityStackManager;
 import com.laiding.yl.youle.R;
 import com.laiding.yl.youle.base.MyBaseActivity;
+import com.laiding.yl.youle.mine.activity.view.IUpdatePhone;
+import com.laiding.yl.youle.mine.presenter.PresenterUpdatePhone;
 import com.vondear.rxtools.RxRegTool;
 import com.vondear.rxtools.RxTool;
 import com.vondear.rxtools.view.RxToast;
@@ -22,7 +23,7 @@ import butterknife.OnClick;
  * Remarks 修改手机号
  */
 
-public class ActivityUpdatePhone2 extends MyBaseActivity {
+public class ActivityUpdatePhone2 extends MyBaseActivity implements IUpdatePhone {
     @BindView(R.id.et_mobile)
     EditText mEtMobile;
     @BindView(R.id.et_verification)
@@ -32,10 +33,12 @@ public class ActivityUpdatePhone2 extends MyBaseActivity {
     @BindView(R.id.login_bt)
     Button mLoginBt;
 
-    public static void start(Context context) {
-        Intent starter = new Intent(context, ActivityUpdatePhone2.class);
-        context.startActivity(starter);
-    }
+public static void start(Context context) {
+    Intent starter = new Intent(context, ActivityUpdatePhone2.class);
+    context.startActivity(starter);
+}
+
+    private PresenterUpdatePhone presenter = new PresenterUpdatePhone(this, this);
 
     @Override
     protected int getContentViewId() {
@@ -58,10 +61,11 @@ public class ActivityUpdatePhone2 extends MyBaseActivity {
         switch (view.getId()) {
             case R.id.countDown:
                 checkPhone();
+
                 break;
             case R.id.login_bt:
-                ActivityUpdatePhone.mUpdatePhoneActivity.finish();
-                this.finish();
+                if (checkText())
+                    presenter.requestHttp();
                 break;
         }
     }
@@ -69,9 +73,42 @@ public class ActivityUpdatePhone2 extends MyBaseActivity {
     private void checkPhone() {
         if (RxRegTool.isMobile(String.valueOf(mEtMobile.getText()))) {
             RxTool.countDown(mCountDown, 60000, 1000, "重新获取验证码");
+            presenter.getVerificationCode();
         } else {
             RxToast.error("请输入正确手机号");
         }
 
     }
+
+    @Override
+    public String getPhone() {
+        return mEtMobile.getText().toString();
+    }
+
+    @Override
+    public String getCode() {
+        return mEtVerification.getText().toString();
+    }
+
+    @Override
+    public void showResult() {
+        Intent intent = new Intent();
+        intent.putExtra("PHONE", getPhone());
+        this.setResult(RESULT_OK,intent);
+        this.finish();
+    }
+
+    private boolean checkText() {
+        if (mEtMobile.getText().toString().isEmpty()) {
+            RxToast.warning("请输入手机号");
+            return false;
+        }
+
+        if (mEtVerification.getText().toString().isEmpty()) {
+            RxToast.warning("请输入验证码");
+            return false;
+        }
+        return true;
+    }
 }
+

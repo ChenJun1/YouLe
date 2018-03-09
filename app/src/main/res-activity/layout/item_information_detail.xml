@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/colorWhite"
+    android:paddingLeft="@dimen/margin_16"
+    android:paddingRight="@dimen/margin_16"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.sunfusheng.glideimageview.GlideImageView
+            android:id="@+id/photo_giv"
+            android:src="@mipmap/ic_launcher_round"
+            android:layout_width="50dp"
+            android:layout_height="50dp" />
+        <TextView
+            android:id="@+id/u_nname_tv"
+            android:layout_marginLeft="@dimen/margin_5"
+            android:gravity="center"
+            android:textColor="@color/color_1e1e1e"
+            android:text="奥尔良"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/m_message_tv"
+        android:textColor="#595959"
+        android:text="体外受精是一种特殊的技术？"
+        android:layout_marginLeft="58dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

@@ -205,7 +205,7 @@ public class ActivityPassLogin extends MyBaseActivity implements IPassLogin {
 
 
     @OnClick({R.id.iv_clean_phone, R.id.clean_password, R.id.iv_show_pwd, R.id.btn_login2
-    ,R.id.get_pass_tv})
+    ,R.id.get_pass_tv,R.id.verification_code_login_tv})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_clean_phone:
@@ -213,6 +213,9 @@ public class ActivityPassLogin extends MyBaseActivity implements IPassLogin {
                 break;
             case R.id.clean_password:
                 mEtPassword.setText("");
+                break;
+            case R.id.verification_code_login_tv:
+                ActivityPhoneLogin.start(mContext);
                 break;
             case R.id.iv_show_pwd:
                 if (mEtPassword.getInputType() != InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {

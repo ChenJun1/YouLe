@@ -8,6 +8,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -45,6 +46,7 @@ public class ActivityDoctorList extends MyBaseActivity implements IDoctorList {
         context.startActivity(starter);
     }
 
+    private View notDataView;
     private AdapterDocotrList adapter;
     private List<ClinicDetailBean.DoctorListBean> list = new ArrayList<>();
 
@@ -74,6 +76,7 @@ public class ActivityDoctorList extends MyBaseActivity implements IDoctorList {
     }
 
     private void initAdapter() {
+        notDataView = getLayoutInflater().inflate(R.layout.empty_text_view, (ViewGroup) mRlview.getParent(), false);
         adapter = new AdapterDocotrList(list);
         adapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_LEFT);
         adapter.setOnItemClickListener((adapter, view, position) -> {
@@ -81,6 +84,9 @@ public class ActivityDoctorList extends MyBaseActivity implements IDoctorList {
             ActivityDoctorDetail.start(mContext, item.getD_id());
         });
         mRlview.setAdapter(adapter);
+        if (list.size() < 1) {
+            adapter.setEmptyView(notDataView);
+        }
     }
 
     private void initView() {

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="@dimen/margin_8"
+    android:layout_width="100dp"
+    android:layout_height="100dp">
+
+    <com.sunfusheng.glideimageview.GlideImageView
+        android:id="@+id/giv_pic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>
