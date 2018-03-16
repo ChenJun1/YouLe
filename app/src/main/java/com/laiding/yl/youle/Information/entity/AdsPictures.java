@@ -7,17 +7,20 @@ package com.laiding.yl.youle.Information.entity;
 
 public class AdsPictures {
 
+
     /**
      * c_id : 2
-     * file : 1516775894596.jpg
-     * c_genre : 内链
-     * c_link : http://youle-pc-back.com/?r=news/news_info&n_id=1
+     * file : http://back.51laiding.xyz/uploads/1520845023888.jpg
+     * c_genre : 1
+     * c_link :
+     * n_id : 2
      */
 
     private String c_id;
     private String file;
     private String c_genre;
     private String c_link;
+    private String n_id;
 
     public String getC_id() {
         return c_id;
@@ -49,5 +52,13 @@ public class AdsPictures {
 
     public void setC_link(String c_link) {
         this.c_link = c_link;
+    }
+
+    public String getN_id() {
+        return n_id;
+    }
+
+    public void setN_id(String n_id) {
+        this.n_id = n_id;
     }
 }

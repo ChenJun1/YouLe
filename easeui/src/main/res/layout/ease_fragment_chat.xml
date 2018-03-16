@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:hyphenate="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:animateLayoutChanges="true"
-    android:background="#f2f0eb" >
+    android:background="#F1f1f1">
 
     <com.hyphenate.easeui.widget.EaseTitleBar
         android:id="@+id/title_bar"
@@ -12,13 +13,42 @@
         android:layout_height="wrap_content"
         hyphenate:titleBarLeftImage="@drawable/ease_mm_title_back" />
 
-    <RelativeLayout
+
+    <LinearLayout
+        android:id="@+id/pop_ll"
+        android:background="#FFFFFF"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/input_menu"
-        android:layout_below="@id/title_bar" >
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="8dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="8dp">
+
+        <TextView
+            android:id="@+id/pop_title_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="#f993a6"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/pop_content_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textColor="#1f1f1f" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_weight="1"
+        android:id="@+id/rl_rl"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
 
         <com.hyphenate.easeui.widget.EaseChatMessageList
+            android:scrollbars="none"
             android:id="@+id/message_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
@@ -34,7 +64,9 @@
     <com.hyphenate.easeui.widget.EaseChatInputMenu
         android:id="@+id/input_menu"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" />
+        android:layout_height="wrap_content" />
 
-</RelativeLayout>
+
+
+
+</LinearLayout>

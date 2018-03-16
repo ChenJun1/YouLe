@@ -17,7 +17,7 @@ public class PregnancyBean {
 
     private String p_id;
     private String p_title;
-    private String img;
+    private String file;
     private String p_price;
     private String c_category;
 
@@ -37,12 +37,12 @@ public class PregnancyBean {
         this.p_title = p_title;
     }
 
-    public String getImg() {
-        return img;
+    public String getFile() {
+        return file;
     }
 
-    public void setImg(String img) {
-        this.img = img;
+    public void setFile(String file) {
+        this.file = file;
     }
 
     public String getP_price() {

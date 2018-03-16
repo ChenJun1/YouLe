@@ -37,7 +37,7 @@ import butterknife.OnClick;
  * Remarks 资讯详情
  */
 
-public class ActivityInformationDetail extends MyBaseActivity implements IInformationDetail {
+public class  ActivityInformationDetail extends MyBaseActivity implements IInformationDetail {
     public static final String NID = "NID";
     public static final int PAGE_SIZE = 10;
     @BindView(R.id.iv_bar_right)
@@ -144,10 +144,10 @@ public class ActivityInformationDetail extends MyBaseActivity implements IInform
         if (bean == null)
             return;
         mTvInformationTitle.setText(bean.getN_title());
-        mPhotoGiv.loadCircleImage(MConstant.AVATARIMGURL + bean.getPhoto(), R.mipmap.ic_launcher_round);
+        mPhotoGiv.loadCircleImage(bean.getPhoto(), R.mipmap.ic_launcher_round);
         mUNnameTv.setText(bean.getU_nname());
         mTimeTv.setText(bean.getTime());
-        mFileGiv.loadImage(MConstant.IMGURL + bean.getFile(), R.mipmap.ic_launcher);
+        mFileGiv.loadImage(bean.getFile(), R.mipmap.ic_launcher);
         mNContentTv.setText(bean.getN_content() == null ? "" : Html.fromHtml(bean.getN_content()));
     }
 

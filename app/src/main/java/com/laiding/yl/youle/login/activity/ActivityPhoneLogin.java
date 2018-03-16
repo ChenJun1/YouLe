@@ -94,8 +94,6 @@ public class ActivityPhoneLogin extends MyBaseActivity implements ILoginView {
 
     @Override
     protected void init() {
-
-        loginIv.loadImage("https://www.zhuangbi.info/uploads/i/2017-12-27-33edf85858c00f22a9ec69c1037eb88b.jpg", R.mipmap.ic_launcher);
         initEvent();
         initView();
     }

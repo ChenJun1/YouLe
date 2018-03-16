@@ -30,7 +30,7 @@ public class StartServiceReceiver extends BroadcastReceiver {
 				&& !intent.getAction().equals("android.intent.action.QUICKBOOT_POWERON")) {
 			return;
 		}
-		EMLog.d("boot", "start IM service on boot");
+		EMLog.d("boot", "start IM ServiceAppInit on boot");
 		Intent startServiceIntent=new Intent(context, EMChatService.class);
 		startServiceIntent.putExtra("reason", "boot");
 		context.startService(startServiceIntent);

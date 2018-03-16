@@ -96,7 +96,7 @@ public class ActivityMedicalRecordsDetail extends MyBaseActivity implements IMed
                 String item = (String) adapter.getItem(position);
                 final  RxDialogScaleView rxDialogScaleView = new RxDialogScaleView(mContext);
                 //加载BitMap到视图
-                Glide.with(mContext).asBitmap().load(MConstant.RECORDSIMGURL+item).into(new SimpleTarget<Bitmap>() {
+                Glide.with(mContext).asBitmap().load(item).into(new SimpleTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
                         rxDialogScaleView.setImageBitmap(resource);
@@ -124,7 +124,9 @@ public class ActivityMedicalRecordsDetail extends MyBaseActivity implements IMed
             mStringList.clear();
             String imgs = bean.getImg();
             String[] split = imgs.split(",");
-            mStringList.addAll(Arrays.asList(split));
+            for (String aSplit : split) {
+                mStringList.add(MConstant.RECORDIMG + aSplit);
+            }
             adpter.setNewData(mStringList);
         }
     }

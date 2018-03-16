@@ -33,4 +33,11 @@ public class EaseConstant {
     
     public static final String EXTRA_CHAT_TYPE = "chatType";
     public static final String EXTRA_USER_ID = "userId";
+    public static final String EXTRA_DESCRIPIONTITLE = "EXTRA_DESCRIPIONTITLE";
+    public static final String EXTRA_DESCRIPIONCONTENT = "EXTRA_DESCRIPIONCONTENT";
+
+    public static final String  MESSAGE_USERNAME = "EXTRA_DESCRIPIONCONTENT";
+    public static final String MESSAGE_USERIMG = "EXTRA_DESCRIPIONCONTENT";
+
+
 }

@@ -145,7 +145,7 @@ public abstract class MyBaseActivity extends BaseActivity {
     public void isTokenExpired(String erreMsg) {
         final RxDialogSureCancel rxDialogSureCancel = new RxDialogSureCancel(mContext);//提示弹窗
         rxDialogSureCancel.setContent(erreMsg);
-        rxDialogSureCancel.getTitleView().setBackgroundResource(R.mipmap.ic_launcher);
+        rxDialogSureCancel.getTitleView().setBackgroundResource(R.mipmap.home_log);
         rxDialogSureCancel.getSureView().setOnClickListener(v ->{
             ActivityStackManager.getManager().finishAllActivity();
             ActivityPhoneLogin.start(mContext);

@@ -273,6 +273,7 @@
                         android:textColor="@color/color_1d1d1d" />
 
                     <TextView
+                        android:visibility="gone"
                         android:id="@+id/tv_nyqn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

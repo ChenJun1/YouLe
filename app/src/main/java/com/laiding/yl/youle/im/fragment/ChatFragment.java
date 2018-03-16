@@ -11,7 +11,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Toast;
@@ -81,6 +80,8 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                 DemoHelper.getInstance().getModel().isMsgRoaming() && (chatType != EaseConstant.CHATTYPE_CHATROOM));
     }
 
+
+
     @Override
     protected void setUpView() {
         setChatFragmentHelper(this);
@@ -92,16 +93,12 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
         }
         super.setUpView();
         // set click listener
-        titleBar.setLeftLayoutClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                if (EasyUtils.isSingleActivity(getActivity())) {
-                    Intent intent = new Intent(getActivity(), ActivityHome.class);
-                    startActivity(intent);
-                }
-                onBackPressed();
+        titleBar.setLeftLayoutClickListener(v -> {
+            if (EasyUtils.isSingleActivity(getActivity())) {
+                Intent intent = new Intent(getActivity(), ActivityHome.class);
+                startActivity(intent);
             }
+            onBackPressed();
         });
         ((EaseEmojiconMenu)inputMenu.getEmojiconMenu()).addEmojiconGroup(EmojiconExampleGroupData.getData());
 

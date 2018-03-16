@@ -4,6 +4,7 @@ package com.laiding.yl.mvprxretrofitlibrary.http.observer;
 import android.text.TextUtils;
 
 
+import com.laiding.yl.mvprxretrofitlibrary.R;
 import com.laiding.yl.mvprxretrofitlibrary.base.IBaseView;
 import com.laiding.yl.mvprxretrofitlibrary.http.exception.ApiException;
 import com.laiding.yl.mvprxretrofitlibrary.http.exception.ExceptionEngine;
@@ -61,7 +62,9 @@ public abstract class HttpRxObserver<T> implements Observer<T>, HttpRequestListe
         ApiException apiException = (ApiException) e;
         onError(apiException);
         if (mView != null)
-            if(apiException.getCode()==ExceptionEngine.X1008){
+            if(apiException.getCode()==ExceptionEngine.X1008||apiException.getCode()==ExceptionEngine.X1007){
+                mView.isTokenExpired("登录失效，重新登陆");
+            }else if(apiException.getCode()==ExceptionEngine.X1018){
                 mView.isTokenExpired(apiException.getMsg());
             }else{
                 mView.showError(apiException.getMsg());

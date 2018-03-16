@@ -119,7 +119,7 @@ public class FragmentMine extends MyBaseFragment implements IFragmentMine{
             Bundle extras = data.getExtras();
             String avatarUrl=extras.getString(AVATAR);
             String nname=extras.getString(NNAME);
-            mIvUserAvatar.loadCircleImage(MConstant.AVATARIMGURL+avatarUrl, R.mipmap.ic_launcher_round);
+            mIvUserAvatar.loadCircleImage(avatarUrl, R.mipmap.im_avatar);
             mTvUserName.setText(nname);
         }
     }
@@ -128,7 +128,7 @@ public class FragmentMine extends MyBaseFragment implements IFragmentMine{
     public void showResult(UserInfo userInfo) {
         if(userInfo==null)
             return;
-        mIvUserAvatar.loadCircleImage(MConstant.AVATARIMGURL+userInfo.getPhoto(), R.mipmap.ic_launcher_round);
+        mIvUserAvatar.loadCircleImage(userInfo.getPhoto(), R.mipmap.im_avatar);
         mTvUserName.setText(userInfo.getU_nname());
     }
 }

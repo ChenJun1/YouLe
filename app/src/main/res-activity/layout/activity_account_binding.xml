@@ -33,6 +33,7 @@
             android:textColor="@color/color_1e1e1e" />
 
         <TextView
+            android:id="@+id/pone_tv"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"

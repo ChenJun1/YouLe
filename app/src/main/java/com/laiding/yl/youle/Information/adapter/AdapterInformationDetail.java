@@ -8,6 +8,7 @@ import com.laiding.yl.youle.Information.entity.CommentListBean;
 import com.laiding.yl.youle.R;
 import com.laiding.yl.youle.utils.MConstant;
 import com.sunfusheng.glideimageview.GlideImageView;
+import com.vondear.rxtools.RxDataTool;
 
 import java.util.List;
 
@@ -26,7 +27,8 @@ public class AdapterInformationDetail extends BaseQuickAdapter<CommentListBean.M
     protected void convert(BaseViewHolder helper, CommentListBean.MessageInfoBean item) {
         helper.setText(R.id.u_nname_tv, item.getU_nname());
         helper.setText(R.id.m_message_tv, item.getM_message());
+        helper.setText(R.id.m_time_tv,MConstant.TimeStamp2Date(item.getTime(),""));
         GlideImageView glideImageView= helper.getView(R.id.photo_giv);
-        glideImageView.loadCircleImage(MConstant.PREGNANCYIMGURL + item.getPhoto(), R.mipmap.ic_launcher_round);
+        glideImageView.loadCircleImage(item.getPhoto(), R.mipmap.ic_launcher_round);
     }
 }

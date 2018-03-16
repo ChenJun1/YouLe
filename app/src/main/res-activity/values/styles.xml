@@ -1,23 +1,60 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
+
+
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="BaseAppTheme" parent="AppTheme2">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:actionBarSize">48dp</item>
+    </style>
+
+    <style name="AppBaseTheme" parent="Theme.AppCompat.Light.DarkActionBar"></style>
+    <style name="AppTheme2" parent="AppBaseTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme1" parent="AppTheme.Base">
+    </style>
+    <style name="AppTheme.Base" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <!--<item name="android:windowBackground">@color/color_F1F1F1</item>-->
+        <!--<item name="android:colorBackground">@color/color_F1F1F1</item>-->
     </style>
 
     <style name="AppBlackTheme" parent="Theme.AppCompat.Light.NoActionBar">
 
     </style>
 
+    <!--启动页-->
+    <style name="LauncherTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
 
     <!--Linearlayout-->
     <style name="hLinearLayout">
         <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="toolBar">
+        <item name="colorControlNormal">#ffffff</item>
+        <item name="android:homeAsUpIndicator">@mipmap/cha</item>
+        <item name="android:titleTextStyle">@style/titlestyle</item>
+
+    </style>
+
+    <style name="titlestyle">
+
+        <item name="android:textSize">12sp</item>
     </style>
 
 </resources>

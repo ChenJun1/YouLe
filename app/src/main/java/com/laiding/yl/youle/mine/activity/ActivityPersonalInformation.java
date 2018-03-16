@@ -185,7 +185,7 @@ public class ActivityPersonalInformation extends MyBaseActivity implements IPers
                 break;
             case R.id.tv_bar_right:
                 final RxDialogSureCancel rxDialogSureCancel = new RxDialogSureCancel(mContext);//提示弹窗
-                rxDialogSureCancel.getTitleView().setBackgroundResource(R.mipmap.ic_launcher);
+                rxDialogSureCancel.getTitleView().setBackgroundResource(R.mipmap.home_log);
                 rxDialogSureCancel.setContent("是否保存个人信息？");
                 rxDialogSureCancel.getSureView().setOnClickListener(v -> {
                     rxDialogSureCancel.cancel();
@@ -260,7 +260,7 @@ public class ActivityPersonalInformation extends MyBaseActivity implements IPers
 
                 break;
             case RxPhotoTool.CROP_IMAGE://普通裁剪后的处理
-                mGivAvatar.loadLocalCircleImage(RxPhotoTool.cropImageUri.getPath(), R.mipmap.ic_launcher_round);
+                mGivAvatar.loadLocalCircleImage(RxPhotoTool.cropImageUri.getPath(), R.mipmap.im_avatar);
                 break;
 
             case UCrop.REQUEST_CROP://UCrop裁剪之后的处理
@@ -341,7 +341,7 @@ public class ActivityPersonalInformation extends MyBaseActivity implements IPers
 
     @Override
     public void setAvatar(String url) {
-        mGivAvatar.loadCircleImage(url, R.mipmap.ic_launcher_round);
+        mGivAvatar.loadCircleImage(url, R.mipmap.im_avatar);
     }
 
     @Override
@@ -454,7 +454,7 @@ public class ActivityPersonalInformation extends MyBaseActivity implements IPers
         if (userInfo == null)
             return;
         saveUseInfo(userInfo);
-        mGivAvatar.loadCircleImage(MConstant.AVATARIMGURL+ userInfo.getPhoto(), R.mipmap.ic_launcher_round);
+        mGivAvatar.loadCircleImage(userInfo.getPhoto(), R.mipmap.im_avatar);
         setNikeName(userInfo.getU_nname());
         setGender(userInfo.getU_sex() == null ? "男" : userInfo.getU_sex());
         setBirthday(userInfo.getU_birthday() == null ? "0" : userInfo.getU_birthday());
@@ -496,7 +496,7 @@ public class ActivityPersonalInformation extends MyBaseActivity implements IPers
     private void goBack() {
         if (isUpdate) {
             final RxDialogSureCancel rxDialogSureCancel = new RxDialogSureCancel(mContext);//提示弹窗
-            rxDialogSureCancel.getTitleView().setBackgroundResource(R.mipmap.ic_launcher);
+            rxDialogSureCancel.getTitleView().setBackgroundResource(R.mipmap.home_log);
             rxDialogSureCancel.setContent("修改未保存，是否离开？");
             rxDialogSureCancel.getSureView().setOnClickListener(v -> {
                 super.isBackOnclik();

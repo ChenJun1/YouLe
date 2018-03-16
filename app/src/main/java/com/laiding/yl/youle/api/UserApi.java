@@ -124,4 +124,14 @@ public interface UserApi {
     @FormUrlEncoded
     @POST("?r=user/user")
     Observable<HttpResponse<UserInfo>> getUserInfo(@FieldMap Map<String, Object> request);
+
+    /**
+     *  忘记密码
+     * @param request
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("?r=user/forget_pwd")
+    Observable<HttpResponse> forgetPwd(@FieldMap Map<String, Object> request);
+
 }

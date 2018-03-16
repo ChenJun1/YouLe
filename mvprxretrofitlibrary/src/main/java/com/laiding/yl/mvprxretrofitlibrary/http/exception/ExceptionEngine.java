@@ -43,6 +43,7 @@ public class ExceptionEngine {
     public static final int X1013 = -1013;    //两次密码不一致
     public static final int X1014 = -1014;    //昵称已占用
     public static final int X1015 = -1015;    //尚未设置密码
+    public static final int X1018 = -1018;    // 请先登陆
 
     public static ApiException handleException(Throwable e) {
         ApiException ex;

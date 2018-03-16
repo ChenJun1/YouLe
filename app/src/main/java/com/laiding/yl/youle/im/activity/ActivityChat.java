@@ -2,7 +2,6 @@ package com.laiding.yl.youle.im.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 
 import com.hyphenate.easeui.EaseConstant;
@@ -19,9 +18,11 @@ import com.laiding.yl.youle.im.fragment.ChatFragment;
 
 public class ActivityChat extends MyBaseFragmentActivity {
 
-    public static void start(Context context, String uid) {
+    public static void start(Context context, String uid, String DescripionTitle,String DescripionContent) {
         Intent starter = new Intent(context, ActivityChat.class);
         starter.putExtra(EaseConstant.EXTRA_USER_ID, uid);
+        starter.putExtra(EaseConstant.EXTRA_DESCRIPIONTITLE, DescripionTitle);
+        starter.putExtra(EaseConstant.EXTRA_DESCRIPIONCONTENT, DescripionContent);
         context.startActivity(starter);
     }
 

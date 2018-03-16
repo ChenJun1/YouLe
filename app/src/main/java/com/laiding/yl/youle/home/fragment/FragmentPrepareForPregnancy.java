@@ -111,7 +111,9 @@ public class FragmentPrepareForPregnancy extends MyBaseFragment implements IPreg
         mRcyView.addOnItemTouchListener(new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ActivityPregnancyDetail.start(mContext);
+                PregnancyBean item = (PregnancyBean) adapter.getItem(position);
+                int pid=item==null?-1:Integer.valueOf(item.getP_id());
+                ActivityPregnancyDetail.start(mContext,pid);
             }
         });
     }

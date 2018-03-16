@@ -11,6 +11,7 @@ import com.laiding.yl.mvprxretrofitlibrary.utlis.LogUtils;
 import com.laiding.yl.youle.api.ApiUtlis;
 import com.laiding.yl.youle.base.MyBasePresenter;
 import com.laiding.yl.youle.dao.UserDaoUtil;
+import com.laiding.yl.youle.dao.UserInfoManager;
 import com.laiding.yl.youle.login.activity.ActivityPhoneLogin;
 import com.laiding.yl.youle.login.activity.view.ILoginView;
 import com.laiding.yl.youle.login.entity.User;
@@ -60,7 +61,7 @@ public class PresenterLogin extends MyBasePresenter<ILoginView,ActivityPhoneLogi
                     User user = response.getResult();
                     UserDaoUtil daoUtil=new UserDaoUtil(getActivity());
                     daoUtil.deleteAll();
-//                    daoUtil.insertUser(user);
+                    daoUtil.insertUser(user);
                     getView().showResult();
                     loginIM();//登录环信
                 }
@@ -81,6 +82,7 @@ public class PresenterLogin extends MyBasePresenter<ILoginView,ActivityPhoneLogi
      *
      */
     public void getVerificationCode(){
+
         final Map<String, Object> request = HttpRequest.getRequest();
         request.put("u_phone", getView().getPhone());
         request.put("v_type", 0); //0（注册和登陆）
@@ -114,29 +116,32 @@ public class PresenterLogin extends MyBasePresenter<ILoginView,ActivityPhoneLogi
      * 环信登录
      */
    public void loginIM(){
-//        getView().showLoading();
-       EMClient.getInstance().login("8811", "123456", new EMCallBack() {
-           @Override
-           public void onSuccess() {
-               EMClient.getInstance().groupManager().loadAllGroups();
-               EMClient.getInstance().chatManager().loadAllConversations();
+       User userInfo = UserInfoManager.getUserInfo();
+       if(userInfo!=null) {
+           EMClient.getInstance().login(userInfo.getU_id(), userInfo.getU_id(), new EMCallBack() {
+               @Override
+               public void onSuccess() {
+                   EMClient.getInstance().groupManager().loadAllGroups();
+                   EMClient.getInstance().chatManager().loadAllConversations();
 //               getView().closeLoading();
 
-               if(EMClient.getInstance().isConnected()){
-                   LogUtils.i("环信登录成功"+EMClient.getInstance().isConnected());
-              }
-           }
-           @Override
-           public void onError(int i, String s) {
+                   if (EMClient.getInstance().isConnected()) {
+                       LogUtils.i("环信登录成功" + EMClient.getInstance().isConnected());
+                   }
+               }
+
+               @Override
+               public void onError(int i, String s) {
 //               getView().closeLoading();
-               LogUtils.e("环信登录失败"+s);
-           }
+                   LogUtils.e("环信登录失败" + s);
+               }
 
-           @Override
-           public void onProgress(int i, String s) {
+               @Override
+               public void onProgress(int i, String s) {
 
-           }
-       });
+               }
+           });
+       }
    }
     
 }

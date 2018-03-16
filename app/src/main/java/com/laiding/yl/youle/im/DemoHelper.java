@@ -1281,6 +1281,7 @@ public class DemoHelper {
 		// To get instance of EaseUser, here we get it from the user list in memory
 		// You'd better cache it if you get it from your server
         EaseUser user = null;
+
         if(username.equals(EMClient.getInstance().getCurrentUser()))
             return getUserProfileManager().getCurrentUserInfo();
         user = getContactList().get(username);
@@ -1293,6 +1294,7 @@ public class DemoHelper {
             user = new EaseUser(username);
             EaseCommonUtils.setUserInitialLetter(user);
         }
+
         return user;
 	}
 	

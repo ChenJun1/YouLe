@@ -145,7 +145,7 @@ public class ActivityClinicDetail extends MyBaseActivity implements IClinicDetai
 
             ClinicDetailBean.HospitalInfoBean hospital_info = detailBean.getHospital_info();
             if (hospital_info != null) {
-                mGivPic.loadImage(MConstant.IMGURL + hospital_info.getFile(), R.mipmap.ic_launcher);
+                mGivPic.loadImage(hospital_info.getFile(), R.mipmap.ic_launcher);
                 mTvClinicTitle.setText(hospital_info.getH_name());
                 mTvPhone.setText(hospital_info.getH_phone());
                 mTvContent.setText(Html.fromHtml(hospital_info.getH_info() == null ? "" : hospital_info.getH_info()));

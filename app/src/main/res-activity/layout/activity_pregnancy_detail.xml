@@ -10,17 +10,23 @@
 
     <include layout="@layout/layout_head" />
 
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <com.sunfusheng.glideimageview.GlideImageView
+            <com.jorge.circlelibrary.ImageCycleView
+                android:layout_height="200dp"
                 android:layout_width="match_parent"
-                android:layout_height="160dp" />
+                android:id="@+id/cycleView"/>
 
             <TextView
+                android:id="@+id/p_title_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorWhite"
@@ -28,7 +34,7 @@
                 android:paddingLeft="@dimen/margin_16"
                 android:paddingRight="@dimen/margin_16"
                 android:paddingTop="@dimen/margin_8"
-                android:text="99元试管指导套餐99元试管指导套餐99元试管指导套餐"
+                android:text=""
                 android:textColor="@color/color_2c2c2c"
                 android:textSize="@dimen/text_small_title"
                 android:textStyle="bold" />
@@ -44,122 +50,162 @@
                 android:paddingTop="@dimen/margin_8">
 
                 <TextView
+                    android:id="@+id/p_price_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="¥99"
+                    android:text=""
                     android:textColor="@color/color_f993a6"
                     android:textSize="@dimen/text_small_title"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="#f993a6"
-                    android:padding="@dimen/margin_5"
-                    android:text="医院推荐"
-                    android:textColor="@color/colorWhite" />
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:background="#f993a6"-->
+                    <!--android:padding="@dimen/margin_5"-->
+                    <!--android:text="医院推荐"-->
+                    <!--android:textColor="@color/colorWhite" />-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_8"
-                    android:background="#f993a6"
-                    android:padding="@dimen/margin_5"
-                    android:text="医院推荐"
-                    android:textColor="@color/colorWhite" />
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginLeft="@dimen/margin_8"-->
+                    <!--android:background="#f993a6"-->
+                    <!--android:padding="@dimen/margin_5"-->
+                    <!--android:text="医院推荐"-->
+                    <!--android:textColor="@color/colorWhite" />-->
             </LinearLayout>
+
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="@dimen/margin_5"-->
+                <!--android:background="@color/colorWhite"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:padding="@dimen/margin_16">-->
+
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:text="开通地址"-->
+                    <!--android:textColor="@color/color_1e1e1e"-->
+                    <!--android:textSize="@dimen/text_small_title" />-->
+
+
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="上海市"-->
+                    <!--android:textColor="@color/color_969696"-->
+                    <!--android:textSize="@dimen/text_small_title" />-->
+
+                <!--<ImageView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_marginLeft="@dimen/margin_8"-->
+                    <!--android:src="@mipmap/icon_mrjiantou" />-->
+            <!--</LinearLayout>-->
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginTop="@dimen/margin_5"
-                android:background="@color/colorWhite"
-                android:orientation="horizontal"
-                android:padding="@dimen/margin_16">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="开通地址"
-                    android:textColor="@color/color_1e1e1e"
-                    android:textSize="@dimen/text_small_title" />
-
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="上海市"
-                    android:textColor="@color/color_969696"
-                    android:textSize="@dimen/text_small_title" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="@dimen/margin_8"
-                    android:src="@mipmap/icon_mrjiantou" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_5"
-                android:background="@color/colorWhite"
-                android:orientation="vertical">
-
-                <com.laiding.yl.youle.widget.slidingview.CustomSlidingTabLayout
-                    android:id="@+id/sliding_tabs"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:BottomLineColor="#cccccc"
-                    app:BottomLineHeight="1px"
-                    app:IndicatorHeight="2dp"
-                    app:defaultTextColor="#575757"
-                    app:needBold="false"
-                    app:selectedTextColor="#1e1e1e"
-                    app:shouldExpand="true"
-                    app:textSize="15sp" />
-
-                <android.support.v4.view.ViewPager
-                    android:id="@+id/viewpager"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/white" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_marginTop="@dimen/margin_5"
-                android:id="@+id/ll_call_doctor"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/margin_40"
                 android:background="@color/colorWhite"
                 android:orientation="horizontal">
 
-                <TextView
+                <LinearLayout
+                    android:id="@+id/service_ll"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginRight="@dimen/margin_8"
-                    android:src="@mipmap/icon_zixun" />
+                    <TextView
+                        android:id="@+id/service_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="服务介绍"
+                        android:textColor="@color/color_1f1f1f" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:text="咨询客服"
-                    android:textColor="@color/color_2c2c2c" />
+                    <View
+                        android:id="@+id/service_view"
+                        android:layout_width="@dimen/margin_55"
+                        android:layout_height="2dp"
+                        android:layout_gravity="center"
+                        android:background="#f993a6" />
+                </LinearLayout>
 
-                <TextView
+                <LinearLayout
+                    android:id="@+id/reservation_ll"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/reservation_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="预约说明"
+                        android:textColor="@color/color_575757" />
+
+                    <View
+                        android:id="@+id/reservation_view"
+                        android:layout_width="@dimen/margin_55"
+                        android:layout_height="2dp"
+                        android:layout_gravity="center"
+                        android:background="#f993a6"
+                        android:visibility="gone" />
+                </LinearLayout>
+
             </LinearLayout>
+
+            <TextView
+                android:textColor="@color/color_1f1f1f"
+                android:textSize="@dimen/text_small_title"
+                android:id="@+id/content_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
         </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <LinearLayout
+        android:id="@+id/ll_call_doctor"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_40"
+        android:layout_marginTop="@dimen/margin_5"
+        android:background="@color/colorWhite"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginRight="@dimen/margin_8"
+            android:src="@mipmap/icon_zixun" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="咨询客服"
+            android:textColor="@color/color_2c2c2c" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+    </LinearLayout>
 </LinearLayout>

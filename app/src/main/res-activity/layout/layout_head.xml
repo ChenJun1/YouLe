@@ -18,7 +18,8 @@
             android:gravity="center_vertical"
             android:visibility="invisible">
 
-            <ImageView
+            <com.sunfusheng.glideimageview.GlideImageView
+                android:id="@+id/back_glv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_16"

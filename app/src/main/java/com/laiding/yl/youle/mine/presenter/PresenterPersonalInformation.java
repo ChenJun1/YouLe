@@ -152,7 +152,7 @@ public class PresenterPersonalInformation extends MyBasePresenter<IPersnonalInfo
         nikeNameDialog.getEditText().setHint("昵称");
         nikeNameDialog.getEditText().setText(getView().getNikeName());
         nikeNameDialog.getEditText().setSelection(getView().getNikeName().length());
-        nikeNameDialog.getTitleView().setBackgroundResource(R.mipmap.ic_launcher);
+        nikeNameDialog.getTitleView().setBackgroundResource(R.mipmap.home_log);
         nikeNameDialog.getSureView().setOnClickListener(v -> {
             CharSequence nikeName = nikeNameDialog.getEditText().getText();
             getView().setNikeName(nikeName);
@@ -221,7 +221,7 @@ public class PresenterPersonalInformation extends MyBasePresenter<IPersnonalInfo
         NameDialog.getEditText().setHint("姓名");
         NameDialog.getEditText().setText(getView().getName());
         NameDialog.getEditText().setSelection(getView().getName().length());
-        NameDialog.getTitleView().setBackgroundResource(R.mipmap.ic_launcher);
+        NameDialog.getTitleView().setBackgroundResource(R.mipmap.home_log);
         NameDialog.getSureView().setOnClickListener(v -> {
             CharSequence Name = NameDialog.getEditText().getText();
             getView().setName(Name);
@@ -260,7 +260,7 @@ public class PresenterPersonalInformation extends MyBasePresenter<IPersnonalInfo
         detailLocationDialog.getEditText().setHint("详细地址");
         detailLocationDialog.getEditText().setText(getView().getDetailLocation());
         detailLocationDialog.getEditText().setSelection(getView().getDetailLocation().length());
-        detailLocationDialog.getTitleView().setBackgroundResource(R.mipmap.ic_launcher);
+        detailLocationDialog.getTitleView().setBackgroundResource(R.mipmap.home_log);
         detailLocationDialog.getSureView().setOnClickListener(v -> {
             CharSequence Name = detailLocationDialog.getEditText().getText();
             getView().setDetailLocation(Name);
@@ -278,7 +278,7 @@ public class PresenterPersonalInformation extends MyBasePresenter<IPersnonalInfo
         postalDialog.getEditText().setHint("详细地址");
         postalDialog.getEditText().setText(getView().getPostal());
         postalDialog.getEditText().setSelection(getView().getPostal().length());
-        postalDialog.getTitleView().setBackgroundResource(R.mipmap.ic_launcher);
+        postalDialog.getTitleView().setBackgroundResource(R.mipmap.home_log);
         postalDialog.getSureView().setOnClickListener(v -> {
             CharSequence postal = postalDialog.getEditText().getText();
             getView().setPostal(postal);
@@ -296,7 +296,7 @@ public class PresenterPersonalInformation extends MyBasePresenter<IPersnonalInfo
         emailDialog.getEditText().setHint("邮箱");
         emailDialog.getEditText().setText(getView().getEmail());
         emailDialog.getEditText().setSelection(getView().getEmail().length());
-        emailDialog.getTitleView().setBackgroundResource(R.mipmap.ic_launcher);
+        emailDialog.getTitleView().setBackgroundResource(R.mipmap.home_log);
         emailDialog.getSureView().setOnClickListener(v -> {
             CharSequence email = emailDialog.getEditText().getText();
             getView().setEmail(email);

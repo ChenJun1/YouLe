@@ -16,20 +16,15 @@ import com.laiding.yl.mvprxretrofitlibrary.utlis.LogUtils;
 import com.laiding.yl.youle.Information.activity.ActivityInformationDetail;
 import com.laiding.yl.youle.MyApplication;
 import com.laiding.yl.youle.R;
-import com.laiding.yl.youle.ShareActivity;
 import com.laiding.yl.youle.base.MyBaseFragment;
-import com.laiding.yl.youle.home.activty.ActivityDietAssistant;
-import com.laiding.yl.youle.home.activty.ActivityGoodPregnancyGuidance;
-import com.laiding.yl.youle.home.activty.ActivityIVFSuccessRate;
-import com.laiding.yl.youle.home.activty.ActivityLegitimateSurrogacy;
 import com.laiding.yl.youle.home.activty.ActivityMedicalRecords;
 import com.laiding.yl.youle.home.activty.ActivityPregnancyTest;
-import com.laiding.yl.youle.home.activty.ActivityTestTubeBabyProcess;
-import com.laiding.yl.youle.home.activty.ActivityTestTubeGuidance;
 import com.laiding.yl.youle.home.adapter.AdapterHomeFragement;
 import com.laiding.yl.youle.home.entity.CommunityBean;
 import com.laiding.yl.youle.home.fragment.view.IHomeFragment;
 import com.laiding.yl.youle.home.presenter.PresenterHome;
+import com.laiding.yl.youle.utils.MConstant;
+import com.laiding.yl.youle.webview.ActivityWebView;
 import com.laiding.yl.youle.widget.MyItemDecoration;
 
 import java.util.ArrayList;
@@ -105,79 +100,59 @@ public class FragmentHome extends MyBaseFragment implements IHomeFragment {
      * 添加头部
      */
     private void addHeadView() {
+
         View head = getLayoutInflater().inflate(R.layout.fragment_home_head_view, (ViewGroup) homeRl.getParent(), false);
         adapter.addHeaderView(head);
         //试管婴儿流程
-        head.findViewById(R.id.btn_Process).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LogUtils.d("btn_Process" + "=========");
-                ActivityTestTubeBabyProcess.start(mContext);
-            }
+        head.findViewById(R.id.btn_Process).setOnClickListener(v -> {
+            LogUtils.d("btn_Process" + "=========");
+//            ActivityTestTubeBabyProcess.start(mContext);
+            ActivityWebView.start(mContext, MConstant.SURROGATEPROCESS,"试管婴儿流程");
         });
         //试管婴儿成功率
-        head.findViewById(R.id.btn_success_rate).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LogUtils.d("btn_Process" + "=========");
-                ActivityIVFSuccessRate.start(mContext);
-            }
+        head.findViewById(R.id.btn_success_rate).setOnClickListener(v -> {
+            LogUtils.d("btn_Process" + "=========");
+//            ActivityIVFSuccessRate.start(mContext);
+            ActivityWebView.start(mContext, MConstant.TESTTUBEASSISTANT,"试管婴儿成功率");
         });
         //今日待办
-        head.findViewById(R.id.ll_today_to_be_done).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LogUtils.d("btn_Process" + "=========");
-                startCarlendar();
-            }
+        head.findViewById(R.id.ll_today_to_be_done).setOnClickListener(v -> {
+            LogUtils.d("btn_Process" + "=========");
+            startCarlendar();
         });
         //诊疗记录
-        head.findViewById(R.id.ll_medical_records).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LogUtils.d("btn_Process" + "=========");
-                ActivityMedicalRecords.start(mContext);
-            }
+        head.findViewById(R.id.ll_medical_records).setOnClickListener(v -> {
+            LogUtils.d("btn_Process" + "=========");
+            ActivityMedicalRecords.start(mContext);
         });
         //饮食助手
-        head.findViewById(R.id.ll_diet_assistant).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LogUtils.d("btn_Process" + "=========");
-                ActivityDietAssistant.start(mContext);
-            }
+        head.findViewById(R.id.ll_diet_assistant).setOnClickListener(v -> {
+            LogUtils.d("btn_Process" + "=========");
+//            ActivityDietAssistant.start(mContext);
+            ActivityWebView.start(mContext, MConstant.DIETASSISTANT,"饮食助手");
         });
         //好孕指导
-        head.findViewById(R.id.ll_good_prgegnancy_guidance).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LogUtils.d("btn_Process" + "=========");
-                ActivityGoodPregnancyGuidance.start(mContext);
-            }
+        head.findViewById(R.id.ll_good_prgegnancy_guidance).setOnClickListener(v -> {
+            LogUtils.d("btn_Process" + "=========");
+//            ActivityGoodPregnancyGuidance.start(mContext);
+            ActivityWebView.start(mContext, MConstant.Can,"能不能做");
         });
         //备孕检查
-        head.findViewById(R.id.ll_pregnancy_test).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LogUtils.d("btn_Process" + "=========");
-                ActivityPregnancyTest.start(mContext);
-            }
+        head.findViewById(R.id.ll_pregnancy_test).setOnClickListener(v -> {
+            LogUtils.d("btn_Process" + "=========");
+            ActivityPregnancyTest.start(mContext);
         });
         //试管指导
-        head.findViewById(R.id.ll_test_tube_guidance).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LogUtils.d("btn_Process" + "=========");
-                ActivityTestTubeGuidance.start(mContext);
-            }
+        head.findViewById(R.id.ll_test_tube_guidance).setOnClickListener(v -> {
+            LogUtils.d("btn_Process" + "=========");
+//            ActivityTestTubeGuidance.start(mContext);
+            ActivityWebView.start(mContext, MConstant.DAIYUNZIDAO,"试管指导");
         });
         //合法代孕
-        head.findViewById(R.id.ll_legitimate_surrogacy).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LogUtils.d("btn_Process" + "=========");
-                ActivityLegitimateSurrogacy.start(mContext);
-            }
+        head.findViewById(R.id.ll_legitimate_surrogacy).setOnClickListener(v -> {
+            LogUtils.d("btn_Process" + "=========");
+//            ActivityLegitimateSurrogacy.start(mContext);
+            ActivityWebView.start(mContext, MConstant.HEFADAIYUN,"合法代孕");
         });
     }
 
@@ -228,9 +203,9 @@ public class FragmentHome extends MyBaseFragment implements IHomeFragment {
         homeRl.addOnItemTouchListener(new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ShareActivity.start(mContext);
-//                CommunityBean bean= (CommunityBean) adapter.getItem(position);
-//                ActivityInformationDetail.start(mContext,bean==null?-1:Integer.valueOf(bean.getN_id()));
+//                ShareActivity.start(mContext);
+                CommunityBean bean= (CommunityBean) adapter.getItem(position);
+                ActivityInformationDetail.start(mContext,bean==null?-1:Integer.valueOf(bean.getN_id()));
             }
         });
     }
@@ -251,8 +226,9 @@ public class FragmentHome extends MyBaseFragment implements IHomeFragment {
 
     @Override
     public void showResult(List<CommunityBean> userBean) {
-        adapter.removeAllFooterView();
+        adapter.removeFooterView(notDataView);
         if(userBean==null) {
+            adapter.setNewData(null);
             adapter.addFooterView(notDataView);
         }else{
             adapter.setNewData(userBean);

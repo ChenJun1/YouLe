@@ -20,6 +20,7 @@ import com.laiding.yl.youle.mine.activity.view.ISetPass;
 import com.laiding.yl.youle.mine.presenter.PresenterSet;
 import com.vondear.rxtools.view.RxToast;
 import com.vondear.rxtools.view.dialog.RxDialogSureCancel;
+import com.zzhoujay.richtext.RichText;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -103,7 +104,7 @@ public class ActivitySet extends MyBaseActivity implements ISet {
             case R.id.btn_out_login:
                 final RxDialogSureCancel rxDialogSureCancel = new RxDialogSureCancel(mContext);//提示弹窗
                 rxDialogSureCancel.setContent("是否退出登陆？");
-                rxDialogSureCancel.getTitleView().setBackgroundResource(R.mipmap.ic_launcher);
+                rxDialogSureCancel.getTitleView().setBackgroundResource(R.mipmap.home_log);
                 rxDialogSureCancel.getSureView().setOnClickListener(v -> mPresenterSet.requestSetPass());
                 rxDialogSureCancel.getCancelView().setOnClickListener(v -> rxDialogSureCancel.cancel());
                 rxDialogSureCancel.show();
@@ -113,6 +114,7 @@ public class ActivitySet extends MyBaseActivity implements ISet {
 
     @Override
     public void isSuccess() {
+        RichText.recycle();//富文本加载框架
         RxToast.success("退出成功");
         ActivityStackManager.getManager().finishAllActivity();
         ActivityPhoneLogin.start(mContext);

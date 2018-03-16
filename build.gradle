@@ -25,6 +25,7 @@ allprojects {
         maven { url "https://jitpack.io" }
         maven { url "https://raw.githubusercontent.com/HyphenateInc/Hyphenate-SDK-Android/master/repository" }
     }
+
 }
 
 task clean(type: Delete) {

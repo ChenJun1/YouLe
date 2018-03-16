@@ -31,7 +31,7 @@ public class AdapterInformationFragment extends BaseQuickAdapter<CommunityBean, 
     protected void convert(BaseViewHolder helper, CommunityBean item) {
         helper.setText(R.id.tv_content, Html.fromHtml(item.getN_content()==null?"":item.getN_content()));
         GlideImageView imageView = helper.getView(R.id.gridView);
-        imageView.loadImage(MConstant.IMGURL+item.getFile(),R.mipmap.ic_launcher);
+        imageView.loadImage(item.getFile(),R.mipmap.ic_launcher);
 
         Date date1 = RxTimeTool.string2Date(item.getTime()==null?"": item.getTime());
         helper.setText(R.id.tv_time,RxTimeTool.simpleDateFormat("MM-dd", date1));

@@ -67,7 +67,7 @@ public class ActivityDoctorDetail extends MyBaseActivity implements IDoctorDetai
     @Override
     public void showResult(DoctorBean bean) {
         if (bean != null) {
-            mGivAvatar.loadCircleImage(MConstant.IMGURL+bean.getD_file(), R.mipmap.ic_launcher_round);
+            mGivAvatar.loadCircleImage(bean.getD_file(), R.mipmap.ic_launcher_round);
             mNameTv.setText(bean.getD_name());
             mRomDutiesTv.setText(bean.getD_room() + "  " + bean.getD_duties());
             mAddressTv.setText(bean.getH_name());

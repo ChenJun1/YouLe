@@ -26,7 +26,7 @@ public class AdapterDocotrList extends BaseQuickAdapter<ClinicDetailBean.DoctorL
     @Override
     protected void convert(BaseViewHolder helper, ClinicDetailBean.DoctorListBean item) {
         GlideImageView imageView= helper.getView(R.id.tv_avatar);
-        imageView.loadCircleImage(MConstant.IMGURL+item.getD_file(), R.mipmap.ic_launcher_round);
+        imageView.loadCircleImage(item.getD_file(), R.mipmap.ic_launcher_round);
         helper.setText(R.id.tv_d_name, item.getD_name());
         helper.setText(R.id.tv_d_room, item.getD_room());
         helper.setText(R.id.tv_d_duties, item.getD_duties());

@@ -12,11 +12,11 @@ import com.orhanobut.logger.Logger;
  */
 public class LogUtils {
 
-    private static boolean allowD = true;
-    private static boolean allowE = true;
-    private static boolean allowI = true;
-    private static boolean allowV = true;
-    private static boolean allowW = true;
+    private static boolean allowD = false;
+    private static boolean allowE = false;
+    private static boolean allowI = false;
+    private static boolean allowV = false;
+    private static boolean allowW = false;
 
     private LogUtils() {
     }

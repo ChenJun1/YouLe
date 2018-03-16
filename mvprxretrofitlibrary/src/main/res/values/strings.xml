@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">mvprxretrofitlibrary</string>
+    <string name="token_exception">登录失效，重新登陆</string>
 </resources>

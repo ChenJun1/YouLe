@@ -31,6 +31,6 @@ public class AdapterClinicFragment extends BaseQuickAdapter<ClinicBean.HospitalL
         helper.setText(R.id.clinic_name_tv, item.getH_name());
         helper.setText(R.id.content_tv, Html.fromHtml(item.getH_info()==null?"":item.getH_info()));
         GlideImageView view = helper.getView(R.id.iv_icon);
-        view.loadCircleImage(MConstant.IMGURL+item.getImg(), R.mipmap.ic_launcher_round);
+        view.loadCircleImage(item.getImg(), R.mipmap.ic_launcher_round);
     }
 }

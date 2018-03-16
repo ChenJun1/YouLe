@@ -23,6 +23,6 @@ public class AdapterMedicalRecordsImg extends BaseQuickAdapter<String,BaseViewHo
     @Override
     protected void convert(BaseViewHolder helper, String item) {
         GlideImageView view = helper.getView(R.id.giv_pic);
-        view.loadImage(MConstant.RECORDSIMGURL + item,R.mipmap.ic_launcher);
+        view.loadImage(item,R.mipmap.ic_launcher);
     }
 }

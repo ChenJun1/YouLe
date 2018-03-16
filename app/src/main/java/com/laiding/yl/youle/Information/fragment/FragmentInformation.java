@@ -26,6 +26,7 @@ import com.laiding.yl.youle.R;
 import com.laiding.yl.youle.base.MyBaseFragment;
 import com.laiding.yl.youle.home.entity.CommunityBean;
 import com.laiding.yl.youle.utils.MConstant;
+import com.laiding.yl.youle.webview.ActivityWebView;
 import com.laiding.yl.youle.widget.MyItemDecoration;
 
 import java.util.ArrayList;
@@ -113,7 +114,7 @@ public class FragmentInformation extends MyBaseFragment implements IInformationF
         } else {
             for (AdsPictures adsPictures : picturesList) {
                 imageDescList.add("");
-                urlList.add(MConstant.IMGURL + adsPictures.getFile());
+                urlList.add(adsPictures.getFile());
             }
         }
         mCycleView.setImageResources(imageDescList, urlList, new ImageCycleView.ImageCycleViewListener() {
@@ -127,6 +128,17 @@ public class FragmentInformation extends MyBaseFragment implements IInformationF
             public void onImageClick(int position, View imageView) {
                 /**实现点击事件*/
                 LogUtils.d("点击" + position);
+                if (picturesList != null) {
+                    AdsPictures adsPictures = picturesList.get(position);
+                    if (adsPictures != null) {
+                        if (adsPictures.getC_genre() != null && adsPictures.getC_genre().equals("1")) {
+                            ActivityInformationDetail.start(mContext, adsPictures.getN_id() == null ? -1 : Integer.valueOf(adsPictures.getN_id()));
+                        }else if (adsPictures.getC_genre() == null || !adsPictures.getC_genre().equals("2")) {
+                            ActivityWebView.start(mContext,adsPictures.getC_link(),"资讯");
+                        }
+                    }
+
+                }
             }
         });
 
@@ -194,13 +206,14 @@ public class FragmentInformation extends MyBaseFragment implements IInformationF
 
     @Override
     public void showResult(List<CommunityBean> list) {
-        adapter.removeAllFooterView();
+        adapter.removeFooterView(notDataView);
         if (list == null) {
             if (isRefresh) {
                 mSwipeLayout.setRefreshing(false);
             } else {
                 adapter.loadMoreFail();
             }
+            adapter.setNewData(null);
             adapter.addFooterView(notDataView);
             return;
         }

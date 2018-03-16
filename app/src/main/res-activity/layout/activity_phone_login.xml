@@ -21,7 +21,7 @@
         android:layout_marginTop="60dp"
         android:background="@null"
         android:scaleType="centerCrop"
-        android:src="@mipmap/ic_launcher" />
+        android:src="@mipmap/home_log" />
 
     <ScrollView
         android:id="@+id/scrollView"
@@ -179,6 +179,7 @@
                 android:textColor="@color/colorWhite" />
 
             <LinearLayout
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -205,6 +206,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_20"

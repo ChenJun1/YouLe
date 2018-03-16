@@ -5,6 +5,7 @@ import android.icu.util.Output;
 import com.laiding.yl.mvprxretrofitlibrary.http.retrofit.HttpResponse;
 import com.laiding.yl.youle.home.entity.MedicalRecordsBean;
 import com.laiding.yl.youle.home.entity.PregnancyBean;
+import com.laiding.yl.youle.home.entity.PregnancyDetailBean;
 import com.laiding.yl.youle.login.entity.UserBean;
 
 import java.util.List;
@@ -34,9 +35,8 @@ public interface HomeApi {
      * @param request
      * @return
      */
-    @FormUrlEncoded
     @GET("?r=index/pregnant_info")
-    Observable<HttpResponse<UserBean>> getPregnantDetail(@QueryMap Map<String, Object> request);
+    Observable<HttpResponse<PregnancyDetailBean>> getPregnantDetail(@QueryMap Map<String, Object> request);
 
     /**
      * 备孕列表

@@ -11,6 +11,7 @@ import com.laiding.yl.mvprxretrofitlibrary.utlis.LogUtils;
 import com.laiding.yl.youle.api.ApiUtlis;
 import com.laiding.yl.youle.base.MyBasePresenter;
 import com.laiding.yl.youle.dao.UserDaoUtil;
+import com.laiding.yl.youle.dao.UserInfoManager;
 import com.laiding.yl.youle.login.activity.ActivityPassLogin;
 import com.laiding.yl.youle.login.activity.view.IPassLogin;
 import com.laiding.yl.youle.login.entity.User;
@@ -26,22 +27,22 @@ import retrofit2.Response;
  * Remarks
  */
 
-public class PresenterPassLogin extends MyBasePresenter<IPassLogin,ActivityPassLogin> {
+public class PresenterPassLogin extends MyBasePresenter<IPassLogin, ActivityPassLogin> {
     private static final String TAG = "PresenterPassLogin";
+
     public PresenterPassLogin(IPassLogin view, ActivityPassLogin activity) {
         super(view, activity);
     }
+
     /**
      * 密码登录
      */
-    public void login(){
+    public void login() {
         Map<String, Object> request = HttpRequest.getRequest();
         request.put("u_phone", getActivity().getPhone());
         request.put("u_pwd", getActivity().getPassWord());
-//        request.put("u_phone", "17621876063");
-//        request.put("u_pwd", "123");
 
-        HttpRxObserver<HttpResponse<User>> observer=new HttpRxObserver<HttpResponse<User>>(TAG,getView()) {
+        HttpRxObserver<HttpResponse<User>> observer = new HttpRxObserver<HttpResponse<User>>(TAG, getView()) {
             @Override
             protected void onStart(Disposable d) {
 
@@ -54,10 +55,10 @@ public class PresenterPassLogin extends MyBasePresenter<IPassLogin,ActivityPassL
 
             @Override
             protected void onSuccess(HttpResponse<User> response) {
-                if(response.isSuccess()){
+                if (response.isSuccess()) {
                     //持久化用户信息
                     User user = response.getResult();
-                    UserDaoUtil daoUtil=new UserDaoUtil(getActivity());
+                    UserDaoUtil daoUtil = new UserDaoUtil(getActivity());
                     daoUtil.deleteAll();
                     daoUtil.insertUser(user);
                     getActivity().showResult();
@@ -66,36 +67,39 @@ public class PresenterPassLogin extends MyBasePresenter<IPassLogin,ActivityPassL
             }
         };
 
-        new HttpRxObservable<User>().getObservable(ApiUtlis.getUserApi().passWordLogin(request),getActivity(), ActivityEvent.STOP).subscribe(observer);
+        new HttpRxObservable<User>().getObservable(ApiUtlis.getUserApi().passWordLogin(request), getActivity(), ActivityEvent.STOP).subscribe(observer);
     }
 
 
     /**
      * 环信登录
      */
-    public void loginIM(){
-        getView().showLoading();
-        EMClient.getInstance().login("8811", "123456", new EMCallBack() {
-            @Override
-            public void onSuccess() {
-                EMClient.getInstance().groupManager().loadAllGroups();
-                EMClient.getInstance().chatManager().loadAllConversations();
+    public void loginIM() {
+        User userInfo = UserInfoManager.getUserInfo();
+        if (userInfo != null) {
+            EMClient.getInstance().login(userInfo.getU_id(), userInfo.getU_id(), new EMCallBack() {
+                @Override
+                public void onSuccess() {
+                    EMClient.getInstance().groupManager().loadAllGroups();
+                    EMClient.getInstance().chatManager().loadAllConversations();
 //               getView().closeLoading();
 
-                if(EMClient.getInstance().isConnected()){
-                    LogUtils.i("环信登录成功"+EMClient.getInstance().isConnected());
+                    if (EMClient.getInstance().isConnected()) {
+                        LogUtils.i("环信登录成功" + EMClient.getInstance().isConnected());
+                    }
                 }
-            }
-            @Override
-            public void onError(int i, String s) {
+
+                @Override
+                public void onError(int i, String s) {
 //               getView().closeLoading();
-                LogUtils.e("环信登录失败"+s);
-            }
+                    LogUtils.e("环信登录失败" + s);
+                }
 
-            @Override
-            public void onProgress(int i, String s) {
+                @Override
+                public void onProgress(int i, String s) {
 
-            }
-        });
+                }
+            });
+        }
     }
 }
