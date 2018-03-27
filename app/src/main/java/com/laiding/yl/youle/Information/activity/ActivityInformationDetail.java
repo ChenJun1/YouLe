@@ -76,7 +76,6 @@ public class ActivityInformationDetail extends MyBaseActivity implements IInform
 
     @Override
     protected void init() {
-//        sda
         setTitle("资讯详情");
         mIvBarRight.loadLocalImage(R.mipmap.icon_zaixiankefu, R.mipmap.icon_zaixiankefu);
         mIvBarRight.setVisibility(View.VISIBLE);
