@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.laiding.yl.youle.R;
 import com.laiding.yl.youle.base.MyBaseFragment;
+import com.laiding.yl.youle.mine.activity.ActivityCommonTool;
 import com.laiding.yl.youle.mine.activity.ActivityPersonalInformation;
 import com.laiding.yl.youle.mine.activity.ActivitySet;
 import com.laiding.yl.youle.mine.entity.UserInfo;
@@ -102,6 +103,7 @@ public class FragmentMine extends MyBaseFragment implements IFragmentMine{
             case R.id.ll_history:
                 break;
             case R.id.ll_utils:
+                ActivityCommonTool.start(mContext);
                 break;
             case R.id.ll_set:
                 ActivitySet.start(mContext);

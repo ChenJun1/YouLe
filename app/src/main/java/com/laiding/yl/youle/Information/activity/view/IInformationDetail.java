@@ -1,9 +1,9 @@
-package com.laiding.yl.youle.Information.activity.view;
+package com.laiding.yl.youle.information.activity.view;
 
 import com.laiding.yl.mvprxretrofitlibrary.base.IBaseView;
-import com.laiding.yl.youle.Information.entity.CommentBean;
-import com.laiding.yl.youle.Information.entity.CommentListBean;
-import com.laiding.yl.youle.Information.entity.InformationDetailBean;
+import com.laiding.yl.youle.information.entity.CommentListBean;
+import com.laiding.yl.youle.information.entity.InformationDetailBean;
+
 
 import java.util.List;
 

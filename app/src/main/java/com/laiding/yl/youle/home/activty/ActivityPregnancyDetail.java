@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.hyphenate.chat.EMClient;
 import com.jorge.circlelibrary.ImageCycleView;
 import com.laiding.yl.mvprxretrofitlibrary.utlis.LogUtils;
 import com.laiding.yl.youle.MyApplication;
@@ -80,6 +81,7 @@ public class ActivityPregnancyDetail extends MyBaseFragmentActivity implements I
      * 装在数据的集合  图片地址
      */
     ArrayList<String> urlList = new ArrayList<>();
+
     @Override
     protected int getContentViewId() {
         return R.layout.activity_pregnancy_detail;
@@ -93,6 +95,7 @@ public class ActivityPregnancyDetail extends MyBaseFragmentActivity implements I
         initView();
         prsenter.requestHttp();
     }
+
     /**
      * 初始化轮播图
      */
@@ -104,7 +107,8 @@ public class ActivityPregnancyDetail extends MyBaseFragmentActivity implements I
     }
 
     /**
-     *  填充轮播图
+     * 填充轮播图
+     *
      * @param picturesList
      */
     private void initCycleViewData(List<String> picturesList) {
@@ -116,7 +120,7 @@ public class ActivityPregnancyDetail extends MyBaseFragmentActivity implements I
         } else {
             for (String adsPictures : picturesList) {
                 imageDescList.add("");
-                urlList.add("http://back.51laiding.xyz/photo/"+adsPictures);
+                urlList.add("http://back.51laiding.xyz/photo/" + adsPictures);
             }
         }
         mCycleView.setImageResources(imageDescList, urlList, new ImageCycleView.ImageCycleViewListener() {
@@ -184,7 +188,12 @@ public class ActivityPregnancyDetail extends MyBaseFragmentActivity implements I
                     mRichText = RichText.from(mPregnancyDetailBean.getP_bespeak()).cache(CacheType.all).into(mContentTv);
                 break;
             case R.id.ll_call_doctor:
-                ActivityChat.start(mContext, "19", "","");
+                if (!EMClient.getInstance().isConnected()) {
+                    isTokenExpired("客服未连接,请重新登录");
+
+                } else {
+                    ActivityChat.start(mContext, "19", "", "");
+                }
                 break;
         }
     }

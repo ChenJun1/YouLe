@@ -1,17 +1,17 @@
-package com.laiding.yl.youle.Information.presenter;
+package com.laiding.yl.youle.information.presenter;
 
 import com.laiding.yl.mvprxretrofitlibrary.http.exception.ApiException;
 import com.laiding.yl.mvprxretrofitlibrary.http.observer.HttpRxObservable;
 import com.laiding.yl.mvprxretrofitlibrary.http.observer.HttpRxObserver;
 import com.laiding.yl.mvprxretrofitlibrary.http.retrofit.HttpRequest;
 import com.laiding.yl.mvprxretrofitlibrary.http.retrofit.HttpResponse;
-import com.laiding.yl.youle.Information.entity.AdsPictures;
-import com.laiding.yl.youle.Information.fragment.FragmentInformation;
-import com.laiding.yl.youle.Information.fragment.view.IInformationFragment;
+
 import com.laiding.yl.youle.api.ApiUtlis;
 import com.laiding.yl.youle.base.MyBaseFrgPresenter;
 import com.laiding.yl.youle.home.entity.CommunityBean;
-import com.laiding.yl.youle.login.entity.UserBean;
+import com.laiding.yl.youle.information.entity.AdsPictures;
+import com.laiding.yl.youle.information.fragment.FragmentInformation;
+import com.laiding.yl.youle.information.fragment.view.IInformationFragment;
 import com.trello.rxlifecycle2.android.FragmentEvent;
 
 import java.util.List;

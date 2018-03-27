@@ -1,20 +1,27 @@
 package com.laiding.yl.youle.base;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.DownloadListener;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.google.gson.Gson;
+import com.hyphenate.chat.EMClient;
 import com.just.agentweb.AgentWeb;
 import com.just.agentweb.AgentWebSettingsImpl;
 import com.just.agentweb.AgentWebUIControllerImplBase;
@@ -24,6 +31,9 @@ import com.just.agentweb.IWebLayout;
 import com.just.agentweb.MiddlewareWebChromeBase;
 import com.just.agentweb.MiddlewareWebClientBase;
 import com.just.agentweb.PermissionInterceptor;
+import com.laiding.yl.youle.im.activity.ActivityChat;
+
+import java.util.HashMap;
 
 /**
  * Created by cenxiaozhong on 2017/7/22.
@@ -32,7 +42,7 @@ import com.just.agentweb.PermissionInterceptor;
  */
 
 public abstract class BaseAgentWebActivity extends AppCompatActivity {
-
+    private static final String TAG = "BaseAgentWebActivity";
     protected AgentWeb mAgentWeb;
     private AgentWebUIControllerImplBase mAgentWebUIController;
     private ErrorLayoutEntity mErrorLayoutEntity;
@@ -62,8 +72,8 @@ public abstract class BaseAgentWebActivity extends AppCompatActivity {
         mAgentWeb = AgentWeb.with(this)
                 .setAgentWebParent(getAgentWebParent(), new ViewGroup.LayoutParams(-1, -1))
                 .useDefaultIndicator(getIndicatorColor(), getIndicatorHeight())
-                .setWebChromeClient(getWebChromeClient())
                 .setWebViewClient(getWebViewClient())
+                .setWebChromeClient(getWebChromeClient())
                 .setWebView(getWebView())
                 .setPermissionInterceptor(getPermissionInterceptor())
                 .setWebLayout(getWebLayout())
@@ -236,4 +246,6 @@ public abstract class BaseAgentWebActivity extends AppCompatActivity {
         return this.mMiddleWareWebClient = new MiddlewareWebClientBase() {
         };
     }
+
+
 }

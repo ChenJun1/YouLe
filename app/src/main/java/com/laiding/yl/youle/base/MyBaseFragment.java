@@ -15,6 +15,7 @@ import com.hyphenate.chat.EMClient;
 import com.laiding.yl.mvprxretrofitlibrary.base.BaseFragment;
 import com.laiding.yl.mvprxretrofitlibrary.manager.ActivityStackManager;
 import com.laiding.yl.mvprxretrofitlibrary.utlis.LogUtils;
+import com.laiding.yl.youle.MyApplication;
 import com.laiding.yl.youle.R;
 import com.laiding.yl.youle.dao.UserInfoManager;
 import com.laiding.yl.youle.login.activity.ActivityPhoneLogin;

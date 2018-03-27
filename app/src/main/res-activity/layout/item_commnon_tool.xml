@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_8"
+    android:layout_marginLeft="@dimen/margin_8"
+    android:layout_marginRight="@dimen/margin_8"
+    android:background="@color/colorWhite"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/margin_16"
+    android:paddingTop="@dimen/margin_16">
+
+
+    <com.sunfusheng.glideimageview.GlideImageView
+        android:id="@+id/pic_gliv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:src="@mipmap/ic_launcher_round" />
+
+    <TextView
+        android:id="@+id/text_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_8"
+        android:gravity="center"
+        android:textColor="@color/color_2c2c2c"
+        android:textStyle="bold" />
+</LinearLayout>

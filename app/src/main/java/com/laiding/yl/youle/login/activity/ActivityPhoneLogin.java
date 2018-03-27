@@ -28,12 +28,15 @@ import com.laiding.yl.youle.login.activity.view.ILoginView;
 import com.laiding.yl.youle.login.entity.User;
 import com.laiding.yl.youle.login.entity.UserBean;
 import com.laiding.yl.youle.login.presenter.PresenterLogin;
+import com.laiding.yl.youle.utils.MConstant;
+import com.laiding.yl.youle.webview.ActivityWebView;
 import com.laiding.yl.youle.widget.RLoadingDialog;
 import com.sunfusheng.glideimageview.GlideImageView;
 import com.vondear.rxtools.RxAnimationTool;
 import com.vondear.rxtools.RxRegTool;
 import com.vondear.rxtools.RxTool;
 import com.vondear.rxtools.view.RxToast;
+import com.vondear.rxtools.view.dialog.RxDialogScaleView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -78,6 +81,8 @@ public class ActivityPhoneLogin extends MyBaseActivity implements ILoginView {
     RelativeLayout mRoot;
     @BindView(R.id.content)
     LinearLayout mContent;
+    @BindView(R.id.xieyi_tv)
+    TextView mXieYiTv;
 
     private int screenHeight = 0;//屏幕高度
     private int keyHeight = 0; //软件盘弹起后所占高度
@@ -223,8 +228,8 @@ public class ActivityPhoneLogin extends MyBaseActivity implements ILoginView {
             return false;
         }
 
-        if(!isAgree){
-            RxToast.warning("请阅读协议");
+        if (!isAgree) {
+            RxToast.warning("请阅读并同意用户协议");
             return isAgree;
         }
 
@@ -239,7 +244,7 @@ public class ActivityPhoneLogin extends MyBaseActivity implements ILoginView {
     }
 
 
-    @OnClick({R.id.giv_agree, R.id.iv_clean_phone, R.id.countDown, R.id.login_bt, R.id.pass_login_tv, R.id.iv_weixin, R.id.iv_qq, R.id.iv_weibo})
+    @OnClick({R.id.xieyi_tv, R.id.giv_agree, R.id.iv_clean_phone, R.id.countDown, R.id.login_bt, R.id.pass_login_tv, R.id.iv_weixin, R.id.iv_qq, R.id.iv_weibo})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_clean_phone:
@@ -260,8 +265,8 @@ public class ActivityPhoneLogin extends MyBaseActivity implements ILoginView {
                 }
                 break;
             case R.id.login_bt:
-                if(checkPhoneAndCode())
-                presenter.login();
+                if (checkPhoneAndCode())
+                    presenter.login();
                 break;
             case R.id.pass_login_tv:
                 ActivityPassLogin.start(this);
@@ -271,6 +276,9 @@ public class ActivityPhoneLogin extends MyBaseActivity implements ILoginView {
             case R.id.iv_qq:
                 break;
             case R.id.iv_weibo:
+                break;
+            case R.id.xieyi_tv:
+                ActivityWebView.start(mContext, MConstant.PROTOCOL,"用户协议");
                 break;
             case R.id.giv_agree:
                 if (isAgree) {

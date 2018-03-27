@@ -25,7 +25,7 @@ public class AdapterPregnancyViewPage extends FragmentPagerAdapter {
         mFragments.add(FragmentPrepareForPregnancy.newInstance("3"));
         mFragments.add(FragmentPrepareForPregnancy.newInstance("4"));
         mFragments.add(FragmentPrepareForPregnancy.newInstance("5"));
-        mFragments.add(FragmentPrepareForPregnancy.newInstance("6"));
+//        mFragments.add(FragmentPrepareForPregnancy.newInstance("6"));
     }
 
     @Override

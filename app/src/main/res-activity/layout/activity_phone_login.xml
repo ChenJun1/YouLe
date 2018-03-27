@@ -149,6 +149,8 @@
                 android:orientation="horizontal">
 
                 <com.sunfusheng.glideimageview.GlideImageView
+                    android:paddingTop="@dimen/margin_5"
+                    android:paddingBottom="@dimen/margin_5"
                     android:padding="@dimen/margin_3"
                     android:id="@+id/giv_agree"
                     android:src="@mipmap/icon_tkxx"
@@ -156,6 +158,8 @@
                     android:layout_height="23dp" />
 
                 <TextView
+                    android:paddingTop="@dimen/margin_5"
+                    android:paddingBottom="@dimen/margin_5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/margin_5"
@@ -163,15 +167,21 @@
                     android:textColor="#99ffffff" />
 
                 <TextView
+                    android:paddingTop="@dimen/margin_5"
+                    android:paddingBottom="@dimen/margin_5"
+                    android:id="@+id/xieyi_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="《已阅读并同意》"
+                    android:text="《用户协议和法律协议》"
                     android:textColor="@color/colorWhite" />
             </LinearLayout>
 
             <TextView
+                android:paddingBottom="3dp"
+                android:paddingTop="3dp"
+                android:gravity="center"
                 android:id="@+id/pass_login_tv"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/margin_16"
@@ -209,7 +219,7 @@
                 android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_20"
+                android:layout_marginTop="@dimen/margin_17"
                 android:orientation="horizontal">
 
                 <ImageView

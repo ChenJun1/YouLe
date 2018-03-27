@@ -18,6 +18,8 @@ import android.app.ActivityManager.RunningTaskInfo;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
+import android.os.Build;
 import android.text.TextUtils;
 
 import com.hyphenate.chat.EMConversation.EMConversationType;
@@ -30,6 +32,7 @@ import com.hyphenate.util.EMLog;
 import com.hyphenate.util.HanziToPinyin;
 import com.hyphenate.util.HanziToPinyin.Token;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 

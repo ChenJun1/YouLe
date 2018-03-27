@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@color/colorWhite"
+    android:background="@color/color_FAFAFA"
     android:orientation="vertical"
     android:layout_height="match_parent">
 
@@ -55,11 +55,12 @@
     <com.sunfusheng.glideimageview.GlideImageView
         android:id="@+id/file_giv"
         android:layout_width="match_parent"
+        android:scaleType="fitXY"
         android:layout_height="200dp"
         android:layout_marginTop="@dimen/margin_8"
         android:paddingLeft="@dimen/margin_16"
         android:paddingRight="@dimen/margin_16"
-        android:src="@mipmap/ic_launcher_round" />
+        android:src="@mipmap/ic_launcher" />
 
     <TextView
         android:id="@+id/n_content_tv"
@@ -77,9 +78,9 @@
         android:background="#F1F1F1" />
 
     <LinearLayout
+        android:background="@color/colorWhite"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_5"
         android:orientation="horizontal"
         android:paddingBottom="@dimen/margin_5"
         android:paddingLeft="@dimen/margin_16"

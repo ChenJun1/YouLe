@@ -106,7 +106,7 @@
     <dimen name="text_20">20sp</dimen>
     <dimen name="text_21">21sp</dimen>
 
-
+    <dimen name="default_padding">16dp</dimen>
 
 
 </resources>

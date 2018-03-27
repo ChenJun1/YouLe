@@ -1,6 +1,5 @@
 package com.hyphenate.easeui.ui;
 
-import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ClipboardManager;
@@ -47,6 +46,7 @@ import com.hyphenate.easeui.model.EaseAtMessageHelper;
 import com.hyphenate.easeui.runtimepermissions.PermissionsAPI;
 import com.hyphenate.easeui.runtimepermissions.PermissionsManager;
 import com.hyphenate.easeui.runtimepermissions.PermissionsResultAction;
+import com.hyphenate.easeui.utils.PhotoFileProvider;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.hyphenate.easeui.utils.EaseUserUtils;
 import com.hyphenate.easeui.widget.EaseAlertDialog;
@@ -61,8 +61,6 @@ import com.hyphenate.easeui.widget.chatrow.EaseCustomChatRowProvider;
 import com.hyphenate.exceptions.HyphenateException;
 import com.hyphenate.util.EMLog;
 import com.hyphenate.util.PathUtil;
-
-import org.w3c.dom.Text;
 
 import java.io.File;
 import java.util.List;
@@ -924,9 +922,28 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
         File parentFile = cameraFile.getParentFile();
         parentFile.mkdirs();
 
+//        startActivityForResult(
+//                new Intent(MediaStore.ACTION_IMAGE_CAPTURE).putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(cameraFile)),
+//                REQUEST_CODE_CAMERA);
+
         startActivityForResult(
-                new Intent(MediaStore.ACTION_IMAGE_CAPTURE).putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(cameraFile)),
+                new Intent(MediaStore.ACTION_IMAGE_CAPTURE).putExtra(MediaStore.EXTRA_OUTPUT,createFileUri(cameraFile)),
                 REQUEST_CODE_CAMERA);
+    }
+    /**
+     * 根据文件创建 Uri
+     *   在官方7.0的以上的系统中，尝试传递 file://URI可能会触发FileUriExposedException。
+     *   需要用FileProvider
+     * @param file
+     * @return
+     */
+    public Uri createFileUri(File file) {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+            String authority = "com.hyphenate.easeui.photo_picker.file_provider";
+            return PhotoFileProvider.getUriForFile(getActivity(), authority, file);
+        } else {
+            return Uri.fromFile(file);
+        }
     }
 
     /**

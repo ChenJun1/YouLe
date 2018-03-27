@@ -104,7 +104,7 @@ public abstract class HttpRxObserver<T> implements Observer<T>, HttpRequestListe
             RxActionManagerImpl.getInstance().cancel(mTag);
         }
         if (mView != null) {
-            mView.showLoading();
+            mView.closeLoading();
         }
     }
 

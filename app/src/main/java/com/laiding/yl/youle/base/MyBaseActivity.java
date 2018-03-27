@@ -3,6 +3,7 @@ package com.laiding.yl.youle.base;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -12,25 +13,30 @@ import android.widget.TextView;
 
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
+import com.hyphenate.chat.EMMessage;
+import com.hyphenate.chat.EMMessageBody;
 import com.laiding.yl.mvprxretrofitlibrary.base.BaseActivity;
 import com.laiding.yl.mvprxretrofitlibrary.manager.ActivityStackManager;
 import com.laiding.yl.mvprxretrofitlibrary.utlis.LogUtils;
 import com.laiding.yl.youle.R;
+import com.laiding.yl.youle.base.view.IEaseNotification;
 import com.laiding.yl.youle.dao.UserInfoManager;
 import com.laiding.yl.youle.login.activity.ActivityPhoneLogin;
 import com.laiding.yl.youle.login.entity.User;
+import com.laiding.yl.youle.widget.cookie.CookieBar;
 import com.sunfusheng.glideimageview.GlideImageView;
 import com.vondear.rxtools.view.dialog.RxDialogSureCancel;
+
+import java.util.List;
 
 import static com.vondear.rxtools.RxBarTool.getStatusBarHeight;
 
 /**
  * Created by JunChen on 2018/1/18.
  * Remarks
- *
  */
 
-public abstract class MyBaseActivity extends BaseActivity {
+public abstract class MyBaseActivity extends BaseActivity implements IEaseNotification {
     protected TextView mTitle;
     protected LinearLayout mIvBack;
 
@@ -46,35 +52,37 @@ public abstract class MyBaseActivity extends BaseActivity {
 
     private void initBar() {
         mTitle = findViewById(R.id.tv_title);
-        mIvBack =  findViewById(R.id.ll_back);
+        mIvBack = findViewById(R.id.ll_back);
     }
 
     /**
      * 返回键
+     *
      * @param back
      */
-    protected void isBack(boolean back){
-        if(null==mIvBack)
+    protected void isBack(boolean back) {
+        if (null == mIvBack)
             return;
-        if(back){
+        if (back) {
             mIvBack.setVisibility(View.VISIBLE);
-            mIvBack.setOnClickListener(v ->isBackOnclik());
+            mIvBack.setOnClickListener(v -> isBackOnclik());
         }
     }
 
     /**
      * 返回键点击事件
      */
-    public void isBackOnclik(){
+    public void isBackOnclik() {
         this.finish();
     }
 
     /**
      * 标题
+     *
      * @param title
      */
-    protected void setTitle(String title){
-        if(null==mTitle)
+    protected void setTitle(String title) {
+        if (null == mTitle)
             return;
         mTitle.setVisibility(View.VISIBLE);
         mTitle.setText(title);
@@ -82,18 +90,20 @@ public abstract class MyBaseActivity extends BaseActivity {
 
     /**
      * 头部右侧文字
+     *
      * @param
      */
-    protected void setRightText(TextView mText,String content){
+    protected void setRightText(TextView mText, String content) {
         mText.setText(content);
         mText.setVisibility(View.VISIBLE);
     }
 
     /**
      * 头部右侧图标
+     *
      * @param
      */
-    protected void setRightImag(GlideImageView mBarRightImgView, @DrawableRes int resId){
+    protected void setRightImag(GlideImageView mBarRightImgView, @DrawableRes int resId) {
         mBarRightImgView.loadLocalImage(resId, resId);
         mBarRightImgView.setVisibility(View.VISIBLE);
     }
@@ -112,8 +122,8 @@ public abstract class MyBaseActivity extends BaseActivity {
             //设置状态栏颜色
             window.setStatusBarColor(color);
             //设置导航栏颜色
-            window.setNavigationBarColor(color);
-            ViewGroup contentView =  findViewById(android.R.id.content);
+//            window.setNavigationBarColor(color);
+            ViewGroup contentView = findViewById(android.R.id.content);
             View childAt = contentView.getChildAt(0);
             if (childAt != null) {
                 childAt.setFitsSystemWindows(true);
@@ -138,7 +148,8 @@ public abstract class MyBaseActivity extends BaseActivity {
     }
 
     /**
-     *  token 过期重新登录
+     * token 过期重新登录
+     *
      * @param erreMsg
      */
     @Override
@@ -146,16 +157,15 @@ public abstract class MyBaseActivity extends BaseActivity {
         final RxDialogSureCancel rxDialogSureCancel = new RxDialogSureCancel(mContext);//提示弹窗
         rxDialogSureCancel.setContent(erreMsg);
         rxDialogSureCancel.getTitleView().setBackgroundResource(R.mipmap.home_log);
-        rxDialogSureCancel.getSureView().setOnClickListener(v ->{
+        rxDialogSureCancel.getSureView().setOnClickListener(v -> {
             ActivityStackManager.getManager().finishAllActivity();
             ActivityPhoneLogin.start(mContext);
-
             EMClient.getInstance().logout(true, new EMCallBack() {
-
                 @Override
                 public void onSuccess() {
                     // TODO Auto-generated method stub
                     LogUtils.e("推出成功");
+
                 }
 
                 @Override
@@ -170,9 +180,25 @@ public abstract class MyBaseActivity extends BaseActivity {
                     LogUtils.e("推出失败");
                 }
             });
+
         });
         rxDialogSureCancel.getCancelView().setOnClickListener(v -> rxDialogSureCancel.cancel());
         rxDialogSureCancel.show();
+    }
+
+    @Override
+    public void showNotifiCation(List<EMMessage> list) {
+        if (list == null || list.size() < 1)
+            return;
+        if (list.size() > 0) {
+            EMMessage emMessage = list.get(list.size() - 1);
+            EMMessageBody body = emMessage.getBody();
+            String s = body.toString();
+            String[] split = s.split("\"");
+            if (split.length > 1) {
+                new CookieBar.Builder(this).setMessage("客服消息：" + split[1]).setBackgroundColor(R.color.action_color).setLayoutGravity(Gravity.TOP).show();
+            }
+        }
     }
 
     @Override

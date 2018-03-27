@@ -1,4 +1,4 @@
-package com.laiding.yl.youle.Information.entity;
+package com.laiding.yl.youle.information.entity;
 
 import java.util.List;
 

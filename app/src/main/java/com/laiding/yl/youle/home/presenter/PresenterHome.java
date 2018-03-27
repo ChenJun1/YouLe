@@ -80,6 +80,10 @@ public class PresenterHome extends MyBaseFrgPresenter<IHomeFragment,FragmentHome
     public void startCalendar(){
         Intent intent = new Intent(Intent.ACTION_INSERT);
         intent.setData(CalendarContract.Events.CONTENT_URI);
-        getFrgment().startActivity(intent);
+        try {
+            getFrgment().startActivity(intent);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

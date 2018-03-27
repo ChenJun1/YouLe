@@ -1,8 +1,7 @@
-package com.laiding.yl.youle.Information.activity;
+package com.laiding.yl.youle.information.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -13,15 +12,13 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.laiding.yl.youle.Information.activity.view.IInformationDetail;
-import com.laiding.yl.youle.Information.adapter.AdapterInformationDetail;
-import com.laiding.yl.youle.Information.entity.CommentBean;
-import com.laiding.yl.youle.Information.entity.CommentListBean;
-import com.laiding.yl.youle.Information.entity.InformationDetailBean;
-import com.laiding.yl.youle.Information.presenter.PresenterInformationDetail;
 import com.laiding.yl.youle.R;
 import com.laiding.yl.youle.base.MyBaseActivity;
-import com.laiding.yl.youle.utils.MConstant;
+import com.laiding.yl.youle.information.activity.view.IInformationDetail;
+import com.laiding.yl.youle.information.adapter.AdapterInformationDetail;
+import com.laiding.yl.youle.information.entity.CommentListBean;
+import com.laiding.yl.youle.information.entity.InformationDetailBean;
+import com.laiding.yl.youle.information.presenter.PresenterInformationDetail;
 import com.sunfusheng.glideimageview.GlideImageView;
 import com.vondear.rxtools.view.RxToast;
 
@@ -29,7 +26,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -37,7 +33,7 @@ import butterknife.OnClick;
  * Remarks 资讯详情
  */
 
-public class  ActivityInformationDetail extends MyBaseActivity implements IInformationDetail {
+public class ActivityInformationDetail extends MyBaseActivity implements IInformationDetail {
     public static final String NID = "NID";
     public static final int PAGE_SIZE = 10;
     @BindView(R.id.iv_bar_right)
@@ -95,13 +91,13 @@ public class  ActivityInformationDetail extends MyBaseActivity implements IInfor
      */
     private void addHeadView() {
         View head = getLayoutInflater().inflate(R.layout.include_information_detail, (ViewGroup) mHomeRl.getParent(), false);
-        mTvInformationTitle=head.findViewById(R.id.tv_information_title);
-        mPhotoGiv=head.findViewById(R.id.photo_giv);
-        mUNnameTv=head.findViewById(R.id.u_nname_tv);
-        mTimeTv=head.findViewById(R.id.time_tv);
-        mFileGiv=head.findViewById(R.id.file_giv);
-        mNContentTv=head.findViewById(R.id.n_content_tv);
-        mTotalNumberTv=head.findViewById(R.id.total_number_tv);
+        mTvInformationTitle = head.findViewById(R.id.tv_information_title);
+        mPhotoGiv = head.findViewById(R.id.photo_giv);
+        mUNnameTv = head.findViewById(R.id.u_nname_tv);
+        mTimeTv = head.findViewById(R.id.time_tv);
+        mFileGiv = head.findViewById(R.id.file_giv);
+        mNContentTv = head.findViewById(R.id.n_content_tv);
+        mTotalNumberTv = head.findViewById(R.id.total_number_tv);
         adapter.addHeaderView(head);
     }
 
@@ -196,9 +192,11 @@ public class  ActivityInformationDetail extends MyBaseActivity implements IInfor
 
     @Override
     public void postdCommentResult(List<CommentListBean.MessageInfoBean> list) {
-        RxToast.success("发表评论成功");
-        mContentEt.setText("");
-        adapter.setNewData(list);
+        if (list != null) {
+            RxToast.success("发表评论成功");
+            mContentEt.setText("");
+            adapter.setNewData(list);
+        }
     }
 
 
@@ -210,10 +208,9 @@ public class  ActivityInformationDetail extends MyBaseActivity implements IInfor
             case R.id.ll_im_bar_right:
                 break;
             case R.id.submit_bt:
-                if(!mContentEt.getText().toString().isEmpty()){
+                if (!mContentEt.getText().toString().isEmpty()) {
                     present.postedComment();
                 }
-
                 break;
         }
     }

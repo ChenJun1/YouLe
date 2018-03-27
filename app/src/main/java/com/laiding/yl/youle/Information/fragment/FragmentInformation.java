@@ -1,4 +1,4 @@
-package com.laiding.yl.youle.Information.fragment;
+package com.laiding.yl.youle.information.fragment;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -9,23 +9,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.jorge.circlelibrary.ImageCycleView;
 import com.laiding.yl.mvprxretrofitlibrary.utlis.LogUtils;
-import com.laiding.yl.youle.Information.activity.ActivityInformationDetail;
-import com.laiding.yl.youle.Information.adapter.AdapterInformationFragment;
-import com.laiding.yl.youle.Information.entity.AdsPictures;
-import com.laiding.yl.youle.Information.fragment.view.IInformationFragment;
-import com.laiding.yl.youle.Information.presenter.PresenterInformation;
 import com.laiding.yl.youle.MyApplication;
 import com.laiding.yl.youle.R;
 import com.laiding.yl.youle.base.MyBaseFragment;
 import com.laiding.yl.youle.home.entity.CommunityBean;
-import com.laiding.yl.youle.utils.MConstant;
+import com.laiding.yl.youle.information.activity.ActivityInformationDetail;
+import com.laiding.yl.youle.information.adapter.AdapterInformationFragment;
+import com.laiding.yl.youle.information.entity.AdsPictures;
+import com.laiding.yl.youle.information.fragment.view.IInformationFragment;
+import com.laiding.yl.youle.information.presenter.PresenterInformation;
 import com.laiding.yl.youle.webview.ActivityWebView;
 import com.laiding.yl.youle.widget.MyItemDecoration;
 

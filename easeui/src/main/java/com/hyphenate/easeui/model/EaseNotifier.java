@@ -28,6 +28,7 @@ import android.support.v4.app.NotificationCompat;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.easeui.EaseUI;
 import com.hyphenate.easeui.EaseUI.EaseSettingsProvider;
+import com.hyphenate.easeui.R;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.hyphenate.util.EMLog;
 import com.hyphenate.util.EasyUtils;
@@ -226,7 +227,7 @@ public class EaseNotifier {
 
             // create and send notificaiton
             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(appContext)
-                                                                        .setSmallIcon(appContext.getApplicationInfo().icon)
+                                                                        .setSmallIcon(R.drawable.ic_launcher)
                                                                         .setWhen(System.currentTimeMillis())
                                                                         .setAutoCancel(true);
 
@@ -261,7 +262,6 @@ public class EaseNotifier {
                     mBuilder.setSmallIcon(smallIcon);
                 }
             }
-
             mBuilder.setContentTitle(contentTitle);
             mBuilder.setTicker(notifyText);
             mBuilder.setContentText(summaryBody);

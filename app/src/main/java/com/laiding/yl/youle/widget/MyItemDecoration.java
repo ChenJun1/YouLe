@@ -6,7 +6,7 @@ import android.view.View;
 
 /**
  * Created by JunChen on 2018/1/17.
- * Remarks
+ * Remarks RecyclerView 间隔线
  */
 
 public class MyItemDecoration extends RecyclerView.ItemDecoration {

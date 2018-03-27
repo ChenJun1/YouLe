@@ -1,10 +1,9 @@
 package com.laiding.yl.youle.api;
 
 import com.laiding.yl.mvprxretrofitlibrary.http.retrofit.HttpResponse;
-import com.laiding.yl.youle.Information.entity.AdsPictures;
-import com.laiding.yl.youle.Information.entity.CommentBean;
-import com.laiding.yl.youle.Information.entity.CommentListBean;
-import com.laiding.yl.youle.Information.entity.InformationDetailBean;
+import com.laiding.yl.youle.information.entity.AdsPictures;
+import com.laiding.yl.youle.information.entity.CommentListBean;
+import com.laiding.yl.youle.information.entity.InformationDetailBean;
 import com.laiding.yl.youle.home.entity.CommunityBean;
 
 import java.util.List;

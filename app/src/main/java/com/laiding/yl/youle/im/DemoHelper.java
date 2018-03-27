@@ -177,83 +177,86 @@ public class DemoHelper {
 //        options.setRestServer("118.193.28.212:31080");
 //        options.setIMServer("118.193.28.212");
 //        options.setImPort(31097);
+        //use default options if options is null
+        try {
+            if (EaseUI.getInstance().init(context, options)) {
+                appContext = context;
 
-	    //use default options if options is null
-		if (EaseUI.getInstance().init(context, options)) {
-		    appContext = context;
-		    
-		    //debug mode, you'd better set it to false, if you want release your App officially.
-		    EMClient.getInstance().setDebugMode(true);
-		    //get easeui instance
-		    easeUI = EaseUI.getInstance();
-		    //to set user's profile and avatar
-		    setEaseUIProviders();
-			//initialize preference manager
-			PreferenceManager.init(context);
-			//initialize profile manager
-			getUserProfileManager().init(context);
-            //set Call options
-            setCallOptions();
+                //debug mode, you'd better set it to false, if you want release your App officially.
+                EMClient.getInstance().setDebugMode(true);
+                //get easeui instance
+                easeUI = EaseUI.getInstance();
+                //to set user's profile and avatar
+                setEaseUIProviders();
+                //initialize preference manager
+                PreferenceManager.init(context);
+                //initialize profile manager
+                getUserProfileManager().init(context);
+                //set Call options
+                setCallOptions();
 
-            // TODO: set Call options
-            // min video kbps
-            int minBitRate = PreferenceManager.getInstance().getCallMinVideoKbps();
-            if (minBitRate != -1) {
-                EMClient.getInstance().callManager().getCallOptions().setMinVideoKbps(minBitRate);
-            }
-
-            // max video kbps
-            int maxBitRate = PreferenceManager.getInstance().getCallMaxVideoKbps();
-            if (maxBitRate != -1) {
-                EMClient.getInstance().callManager().getCallOptions().setMaxVideoKbps(maxBitRate);
-            }
-
-            // max frame rate
-            int maxFrameRate = PreferenceManager.getInstance().getCallMaxFrameRate();
-            if (maxFrameRate != -1) {
-                EMClient.getInstance().callManager().getCallOptions().setMaxVideoFrameRate(maxFrameRate);
-            }
-
-            // audio sample rate
-            int audioSampleRate = PreferenceManager.getInstance().getCallAudioSampleRate();
-            if (audioSampleRate != -1) {
-                EMClient.getInstance().callManager().getCallOptions().setAudioSampleRate(audioSampleRate);
-            }
-
-            /**
-             * This function is only meaningful when your app need recording
-             * If not, remove it.
-             * This function need be called before the video stream started, so we set it in onCreate function.
-             * This method will set the preferred video record encoding codec.
-             * Using default encoding format, recorded file may not be played by mobile player.
-             */
-            //EMClient.getInstance().callManager().getVideoCallHelper().setPreferMovFormatEnable(true);
-
-            // resolution
-            String resolution = PreferenceManager.getInstance().getCallBackCameraResolution();
-            if (resolution.equals("")) {
-                resolution = PreferenceManager.getInstance().getCallFrontCameraResolution();
-            }
-            String[] wh = resolution.split("x");
-            if (wh.length == 2) {
-                try {
-                    EMClient.getInstance().callManager().getCallOptions().setVideoResolution(new Integer(wh[0]).intValue(), new Integer(wh[1]).intValue());
-                } catch (Exception e) {
-                    e.printStackTrace();
+                // TODO: set Call options
+                // min video kbps
+                int minBitRate = PreferenceManager.getInstance().getCallMinVideoKbps();
+                if (minBitRate != -1) {
+                    EMClient.getInstance().callManager().getCallOptions().setMinVideoKbps(minBitRate);
                 }
+
+                // max video kbps
+                int maxBitRate = PreferenceManager.getInstance().getCallMaxVideoKbps();
+                if (maxBitRate != -1) {
+                    EMClient.getInstance().callManager().getCallOptions().setMaxVideoKbps(maxBitRate);
+                }
+
+                // max frame rate
+                int maxFrameRate = PreferenceManager.getInstance().getCallMaxFrameRate();
+                if (maxFrameRate != -1) {
+                    EMClient.getInstance().callManager().getCallOptions().setMaxVideoFrameRate(maxFrameRate);
+                }
+
+                // audio sample rate
+                int audioSampleRate = PreferenceManager.getInstance().getCallAudioSampleRate();
+                if (audioSampleRate != -1) {
+                    EMClient.getInstance().callManager().getCallOptions().setAudioSampleRate(audioSampleRate);
+                }
+
+                /**
+                 * This function is only meaningful when your app need recording
+                 * If not, remove it.
+                 * This function need be called before the video stream started, so we set it in onCreate function.
+                 * This method will set the preferred video record encoding codec.
+                 * Using default encoding format, recorded file may not be played by mobile player.
+                 */
+                //EMClient.getInstance().callManager().getVideoCallHelper().setPreferMovFormatEnable(true);
+
+                // resolution
+                String resolution = PreferenceManager.getInstance().getCallBackCameraResolution();
+                if (resolution.equals("")) {
+                    resolution = PreferenceManager.getInstance().getCallFrontCameraResolution();
+                }
+                String[] wh = resolution.split("x");
+                if (wh.length == 2) {
+                    try {
+                        EMClient.getInstance().callManager().getCallOptions().setVideoResolution(new Integer(wh[0]).intValue(), new Integer(wh[1]).intValue());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                // enabled fixed sample rate
+                boolean enableFixSampleRate = PreferenceManager.getInstance().isCallFixedVideoResolution();
+                EMClient.getInstance().callManager().getCallOptions().enableFixedVideoResolution(enableFixSampleRate);
+
+                // Offline call push
+                EMClient.getInstance().callManager().getCallOptions().setIsSendPushIfOffline(getModel().isPushCall());
+
+                setGlobalListeners();
+                broadcastManager = LocalBroadcastManager.getInstance(appContext);
+                initDbDao();
             }
-
-            // enabled fixed sample rate
-            boolean enableFixSampleRate = PreferenceManager.getInstance().isCallFixedVideoResolution();
-            EMClient.getInstance().callManager().getCallOptions().enableFixedVideoResolution(enableFixSampleRate);
-
-            // Offline call push
-            EMClient.getInstance().callManager().getCallOptions().setIsSendPushIfOffline(getModel().isPushCall());
-
-            setGlobalListeners();
-			broadcastManager = LocalBroadcastManager.getInstance(appContext);
-	        initDbDao();
-		}
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 	}
 
 
@@ -447,7 +450,7 @@ public class DemoHelper {
             @Override
             public int getSmallIcon(EMMessage message) {
               //you can update icon here
-                return 0;
+                return R.mipmap.ic_launcher;
             }
             
             @Override
@@ -638,7 +641,9 @@ public class DemoHelper {
             }
         });
         //register incoming call receiver
-        appContext.registerReceiver(callReceiver, callFilter);    
+            //电话监听 没使用 就注释掉了
+//        appContext.registerReceiver(callReceiver, callFilter);
+        appContext.registerReceiver(null, callFilter);
         //register connection listener
         EMClient.getInstance().addConnectionListener(connectionListener);
         //register group and contact event listener

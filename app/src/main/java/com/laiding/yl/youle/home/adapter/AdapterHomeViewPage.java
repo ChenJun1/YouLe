@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.laiding.yl.youle.Information.fragment.FragmentInformation;
+import com.laiding.yl.youle.information.fragment.FragmentInformation;
 import com.laiding.yl.youle.clinic.fragment.FragmentClinic;
 import com.laiding.yl.youle.home.fragment.FragmentHome;
 import com.laiding.yl.youle.inquiry.fragment.FragmentInquiry;

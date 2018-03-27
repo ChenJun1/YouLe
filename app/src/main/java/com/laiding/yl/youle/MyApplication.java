@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.multidex.MultiDex;
 import android.util.Log;
 
 import com.hyphenate.chat.EMClient;
@@ -67,5 +68,11 @@ public class MyApplication extends Application {
         PlatformConfig.setSinaWeibo("2969732329", "6ce849c5ac6f0fd6f9d225eff590ec97","http://sns.whalecloud.com/sina2/callback");
         //QQ
         PlatformConfig.setQQZone("1106685755", "9TW7I4vJ8IlRfZ7P");
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
     }
 }

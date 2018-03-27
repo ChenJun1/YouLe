@@ -67,10 +67,10 @@ public class ActivityPregnancyTest extends MyBaseFragmentActivity {
 
     @OnClick(R.id.ll_im_bar_right)
     public void onViewClicked() {
-        if(EMClient.getInstance().isConnected()){
-            ActivityChat.start(mContext, "8899","备孕","s撒大大的事发生的纠纷你上雕刻技法能看到");
-        }else{
-            RxToast.error("客服未连接");
+        if (!EMClient.getInstance().isConnected()) {
+            isTokenExpired("客服未连接,请重新登录");
+        } else {
+            ActivityChat.start(mContext, "19", "", "");
         }
     }
 }

@@ -13,7 +13,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.hyphenate.easeui.runtimepermissions.PermissionsAPI;
 import com.laiding.yl.mvprxretrofitlibrary.utlis.LogUtils;
-import com.laiding.yl.youle.Information.activity.ActivityInformationDetail;
+import com.laiding.yl.youle.information.activity.ActivityInformationDetail;
 import com.laiding.yl.youle.MyApplication;
 import com.laiding.yl.youle.R;
 import com.laiding.yl.youle.base.MyBaseFragment;
@@ -195,7 +195,7 @@ public class FragmentHome extends MyBaseFragment implements IHomeFragment {
         homeRl.addItemDecoration(new MyItemDecoration());
 
         adapter = new AdapterHomeFragement(R.layout.item_fragment_home, list);
-        adapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_LEFT);
+        adapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
         adapter.setEnableLoadMore(false); //不使用加载更多
 //        adapter.setOnLoadMoreListener(() -> loadMore(), homeRl);
         homeRl.setAdapter(adapter);

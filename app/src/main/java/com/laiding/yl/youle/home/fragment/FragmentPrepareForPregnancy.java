@@ -9,17 +9,14 @@ import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
-import com.laiding.yl.youle.Information.activity.ActivityInformationDetail;
 import com.laiding.yl.youle.MyApplication;
 import com.laiding.yl.youle.R;
 import com.laiding.yl.youle.base.MyBaseFragment;
 import com.laiding.yl.youle.home.activty.ActivityPregnancyDetail;
 import com.laiding.yl.youle.home.adapter.AdapterPregnancyFragment;
-import com.laiding.yl.youle.home.entity.ForumPostsBean;
 import com.laiding.yl.youle.home.entity.PregnancyBean;
 import com.laiding.yl.youle.home.fragment.view.IPregnancyFragment;
 import com.laiding.yl.youle.home.presenter.PresenterPregnancy;
-import com.laiding.yl.youle.login.entity.UserBean;
 import com.laiding.yl.youle.widget.MyItemDecoration;
 
 import java.util.ArrayList;
@@ -103,7 +100,7 @@ public class FragmentPrepareForPregnancy extends MyBaseFragment implements IPreg
         mRcyView.addItemDecoration(new MyItemDecoration());
 
         adapter = new AdapterPregnancyFragment(list);
-        adapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_LEFT);
+        adapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_BOTTOM);
         adapter.setEnableLoadMore(true);
         adapter.setOnLoadMoreListener(() -> loadMore(), mRcyView);
         mRcyView.setAdapter(adapter);
@@ -131,34 +128,34 @@ public class FragmentPrepareForPregnancy extends MyBaseFragment implements IPreg
 
     @Override
     public void showResult(List<PregnancyBean> list) {
-        if(list==null){
-            if(isRefresh){
-                mSwipeLayout.setRefreshing(false);
-            }else{
-                adapter.loadMoreFail();
-            }
-            adapter.setEmptyView(notDataView);
-        }else {
-
+        adapter.removeFooterView(notDataView);
+        if (list == null) {
             if (isRefresh) {
-                adapter.setNewData(list);
                 mSwipeLayout.setRefreshing(false);
-
-            } else {
-                if (list.size() > 0) {
-                    adapter.addData(list);
-                }
-            }
-            if (adapter.getData().size() == 0) {
-                adapter.setEmptyView(notDataView);
-            }
-
-            if (list.size() < PAGE_SIZE) {
-                //第一页如果不够一页就不显示没有更多数据布局
+                adapter.setNewData(null);
+                adapter.addFooterView(notDataView);
+            }else{
                 adapter.loadMoreEnd(isRefresh);
-            } else {
-                adapter.loadMoreComplete();
             }
+            return;
+        }
+        if (isRefresh) {
+            adapter.setNewData(list);
+            mSwipeLayout.setRefreshing(false);
+            if (list.size() < 1) {
+                adapter.addFooterView(notDataView);
+            }
+        } else {
+            if (list.size() > 0) {
+                adapter.addData(list);
+            }
+        }
+
+        if (list.size() < PAGE_SIZE) {
+            //第一页如果不够一页就不显示没有更多数据布局
+            adapter.loadMoreEnd(isRefresh);
+        } else {
+            adapter.loadMoreComplete();
         }
 
     }

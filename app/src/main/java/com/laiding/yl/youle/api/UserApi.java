@@ -3,9 +3,11 @@ package com.laiding.yl.youle.api;
 import com.laiding.yl.mvprxretrofitlibrary.http.retrofit.HttpResponse;
 import com.laiding.yl.youle.login.entity.User;
 import com.laiding.yl.youle.login.entity.UserBean;
+import com.laiding.yl.youle.mine.entity.CommonToolBean;
 import com.laiding.yl.youle.mine.entity.UserInfo;
 
 
+import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
@@ -134,4 +136,12 @@ public interface UserApi {
     @POST("?r=user/forget_pwd")
     Observable<HttpResponse> forgetPwd(@FieldMap Map<String, Object> request);
 
+    /**
+     *  常用工具
+     * @param
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("?r=assistant/assistant_info")
+    Observable<HttpResponse<List<CommonToolBean>>> getAssistantInfo(@FieldMap Map<String, Object> request);
 }

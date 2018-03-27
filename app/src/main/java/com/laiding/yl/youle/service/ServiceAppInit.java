@@ -9,12 +9,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.hyphenate.chat.EMChatManager;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMOptions;
 import com.laiding.yl.youle.BuildConfig;
 import com.laiding.yl.youle.im.DemoHelper;
 import com.laiding.yl.youle.login.entity.DaoMaster;
 import com.laiding.yl.youle.login.entity.DaoSession;
+import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.UMShareAPI;
 import com.vondear.rxtools.RxTool;
 
@@ -56,6 +58,7 @@ public class ServiceAppInit extends IntentService{
 
     private void performInit(){
         RxTool.init(this);
+        UMConfigure.init(this, "5aa7446fa40fa33b4900001e", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, null);
         UMShareAPI.get(this);//初始化sdk
         initIM();
         setupDatabase();
@@ -123,5 +126,9 @@ public class ServiceAppInit extends IntentService{
         DaoSession daoSession = daoMaster.newSession();
     }
 
-
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        this.stopSelf();
+    }
 }

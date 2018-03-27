@@ -128,7 +128,6 @@ public class FragmentInquiry extends MyBaseFragment{
     public void onViewClicked(View view) {
         if (!EMClient.getInstance().isConnected()) {
             isTokenExpired("客服未连接,请重新登录");
-//            RxToast.error("客服未连接,请重新登录");
             return;
         }
         switch (view.getId()) {

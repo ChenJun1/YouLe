@@ -2,6 +2,8 @@ package com.laiding.yl.mvprxretrofitlibrary.base;
 
 import com.laiding.yl.mvprxretrofitlibrary.listener.ProgressListener;
 
+import java.util.List;
+
 /**
  * IBaseView
  *
@@ -14,4 +16,6 @@ public interface IBaseView extends ProgressListener{
     void isTokenExpired(String erreMsg);
 
     boolean isLogin();
+
+
 }

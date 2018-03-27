@@ -31,15 +31,18 @@ public class ActivityLauncher extends AppCompatActivity{
         }.start();
     }
 
+    public static ActivityLauncher sActivityLauncher;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         RxBarTool.hideStatusBar(this);
         setContentView(R.layout.activity_launcher);
+        sActivityLauncher = this;
         init();
     }
 
     public void toMain() {
-        RxActivityTool.skipActivityAndFinish(this, ActivityHome.class);
+        ActivityHome.start(this);
     }
 }

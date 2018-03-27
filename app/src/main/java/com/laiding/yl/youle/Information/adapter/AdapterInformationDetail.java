@@ -1,14 +1,13 @@
-package com.laiding.yl.youle.Information.adapter;
+package com.laiding.yl.youle.information.adapter;
 
 import android.support.annotation.Nullable;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.laiding.yl.youle.Information.entity.CommentListBean;
 import com.laiding.yl.youle.R;
+import com.laiding.yl.youle.information.entity.CommentListBean;
 import com.laiding.yl.youle.utils.MConstant;
 import com.sunfusheng.glideimageview.GlideImageView;
-import com.vondear.rxtools.RxDataTool;
 
 import java.util.List;
 

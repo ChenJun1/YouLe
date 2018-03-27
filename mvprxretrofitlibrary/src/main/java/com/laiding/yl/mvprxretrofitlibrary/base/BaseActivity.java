@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.laiding.yl.mvprxretrofitlibrary.R;
 import com.laiding.yl.mvprxretrofitlibrary.listener.LifeCycleListener;
 import com.laiding.yl.mvprxretrofitlibrary.manager.ActivityStackManager;
 import com.laiding.yl.mvprxretrofitlibrary.utlis.LogUtils;

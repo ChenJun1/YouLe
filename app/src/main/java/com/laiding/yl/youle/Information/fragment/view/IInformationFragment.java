@@ -1,9 +1,8 @@
-package com.laiding.yl.youle.Information.fragment.view;
+package com.laiding.yl.youle.information.fragment.view;
 
 import com.laiding.yl.mvprxretrofitlibrary.base.IBaseView;
-import com.laiding.yl.youle.Information.entity.AdsPictures;
 import com.laiding.yl.youle.home.entity.CommunityBean;
-import com.laiding.yl.youle.login.entity.UserBean;
+import com.laiding.yl.youle.information.entity.AdsPictures;
 
 import java.util.List;
 

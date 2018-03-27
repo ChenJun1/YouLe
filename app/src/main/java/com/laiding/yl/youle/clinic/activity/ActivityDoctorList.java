@@ -19,6 +19,7 @@ import com.laiding.yl.youle.clinic.adapter.AdapterDocotrList;
 import com.laiding.yl.youle.clinic.entity.ClinicDetailBean;
 import com.laiding.yl.youle.home.entity.ForumPostsBean;
 import com.laiding.yl.youle.widget.MyItemDecoration;
+import com.vondear.rxtools.RxDeviceTool;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -104,7 +105,7 @@ public class ActivityDoctorList extends MyBaseActivity implements IDoctorList {
 
     @OnClick(R.id.ll_call_doctor)
     public void onViewClicked() {
-
+        RxDeviceTool.dial(mContext,"13120995099");
     }
 
 }

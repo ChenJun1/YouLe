@@ -181,7 +181,8 @@ public class BGAPhotoHelper {
 
     /**
      * 根据文件创建 Uri
-     *
+     *   在官方7.0的以上的系统中，尝试传递 file://URI可能会触发FileUriExposedException。
+     *   需要用FileProvider
      * @param file
      * @return
      */

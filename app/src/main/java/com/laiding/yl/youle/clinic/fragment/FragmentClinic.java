@@ -93,6 +93,8 @@ public class FragmentClinic extends MyBaseFragment implements IFragmentClinic {
 
     @Override
     protected void init() {
+        page=1;
+        isRefresh = true;
         initEvent();
         initAdapter();
         initRefresh();
@@ -109,10 +111,10 @@ public class FragmentClinic extends MyBaseFragment implements IFragmentClinic {
         areaList.add("地区");
 
         gradeList.add("等级");
-        gradeList.add("一级");
-        gradeList.add("二级");
-        gradeList.add("三级");
-        gradeList.add("四级");
+        gradeList.add("一甲");
+        gradeList.add("二甲");
+        gradeList.add("三甲");
+        gradeList.add("私立");
 
         serviceList.add("服务");
         serviceList.add("代孕");
@@ -135,12 +137,12 @@ public class FragmentClinic extends MyBaseFragment implements IFragmentClinic {
     @SuppressLint("NewApi")
     private void initSpinner() {
         deviceWidth = RxDeviceTool.getScreenWidth(mContext);
-        final ArrayAdapter<String> areaAdapter = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_item, areaList);
-        final ArrayAdapter<String> gradeAdapter = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_item, gradeList);
-        final ArrayAdapter<String> serviceAdapter = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_item, serviceList);
-        areaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        gradeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        serviceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        final ArrayAdapter<String> areaAdapter = new ArrayAdapter<>(mContext, R.layout.item_spinner_clinic, areaList);
+        final ArrayAdapter<String> gradeAdapter = new ArrayAdapter<>(mContext, R.layout.item_spinner_clinic, gradeList);
+        final ArrayAdapter<String> serviceAdapter = new ArrayAdapter<>(mContext, R.layout.item_spinner_clinic, serviceList);
+        areaAdapter.setDropDownViewResource(R.layout.item_spinner_clinic);
+        gradeAdapter.setDropDownViewResource(R.layout.item_spinner_clinic);
+        serviceAdapter.setDropDownViewResource(R.layout.item_spinner_clinic);
         mSpinArea.setAdapter(areaAdapter);
         mSpinGrade.setAdapter(gradeAdapter);
         mSpinService.setAdapter(serviceAdapter);
@@ -200,7 +202,7 @@ public class FragmentClinic extends MyBaseFragment implements IFragmentClinic {
      */
     private void initRefresh() {
         mSwipeLayout.setColorSchemeResources(R.color.color_FF4081, R.color.color_303F9F);
-        mSwipeLayout.setOnRefreshListener(() -> refreshData());
+        mSwipeLayout.setOnRefreshListener(this::refreshData);
     }
 
     /**
@@ -236,14 +238,15 @@ public class FragmentClinic extends MyBaseFragment implements IFragmentClinic {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
                 ClinicBean.HospitalListBean item = mAdapter.getItem(position);
+                assert item != null;
                 ActivityClinicDetail.start(mContext, item.getH_id());
             }
         });
 
         mAdapter = new AdapterClinicFragment(list);
-        mAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_LEFT);
+        mAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_BOTTOM);
         mAdapter.setEnableLoadMore(true);
-        mAdapter.setOnLoadMoreListener(() -> loadMore(), mClinicRl);
+        mAdapter.setOnLoadMoreListener(this::loadMore, mClinicRl);
         mClinicRl.setAdapter(mAdapter);
     }
 
@@ -295,10 +298,11 @@ public class FragmentClinic extends MyBaseFragment implements IFragmentClinic {
         if (clinicBean == null) {
             if (isRefresh) {
                 mSwipeLayout.setRefreshing(false);
+                mAdapter.setNewData(null);
+                mAdapter.setEmptyView(notDataView);
             } else {
-                mAdapter.loadMoreFail();
+                mAdapter.loadMoreEnd(false);
             }
-            mAdapter.setEmptyView(notDataView);
             return;
         }
 

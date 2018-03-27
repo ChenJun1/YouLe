@@ -34,6 +34,8 @@ public class MConstant {
 
     public static final String RECORDIMG = "http://m.51laiding.xyz/photo/";//诊疗记录详情IMG
 
+    public static final String PROTOCOL = "http://m.51laiding.xyz/yhxy/index.html";//用户协议
+
 
     //子宫问题：
     //宫外孕：

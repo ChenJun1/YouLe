@@ -10,7 +10,7 @@ import android.widget.ProgressBar;
 /**
  * 自定义Loading弹窗
  *
- * @author ZhongDafeng
+ * by JunChen on 2018/1/22.
  */
 public class RLoadingDialog extends Dialog {
 

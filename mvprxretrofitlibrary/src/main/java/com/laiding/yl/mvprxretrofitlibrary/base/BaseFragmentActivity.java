@@ -2,7 +2,9 @@ package com.laiding.yl.mvprxretrofitlibrary.base;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.Gravity;
 
+import com.laiding.yl.mvprxretrofitlibrary.R;
 import com.laiding.yl.mvprxretrofitlibrary.listener.LifeCycleListener;
 import com.laiding.yl.mvprxretrofitlibrary.manager.ActivityStackManager;
 import com.trello.rxlifecycle2.components.support.RxFragmentActivity;

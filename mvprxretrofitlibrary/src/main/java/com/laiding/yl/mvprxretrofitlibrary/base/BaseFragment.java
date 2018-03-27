@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.laiding.yl.mvprxretrofitlibrary.R;
 import com.laiding.yl.mvprxretrofitlibrary.listener.FrgLifeCycleListener;
 import com.trello.rxlifecycle2.components.support.RxFragment;
 import com.vondear.rxtools.view.RxToast;

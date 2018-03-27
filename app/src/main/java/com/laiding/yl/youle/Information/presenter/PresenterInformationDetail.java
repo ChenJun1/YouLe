@@ -1,22 +1,18 @@
-package com.laiding.yl.youle.Information.presenter;
+package com.laiding.yl.youle.information.presenter;
 
 import com.laiding.yl.mvprxretrofitlibrary.http.exception.ApiException;
 import com.laiding.yl.mvprxretrofitlibrary.http.observer.HttpRxObservable;
 import com.laiding.yl.mvprxretrofitlibrary.http.observer.HttpRxObserver;
 import com.laiding.yl.mvprxretrofitlibrary.http.retrofit.HttpRequest;
 import com.laiding.yl.mvprxretrofitlibrary.http.retrofit.HttpResponse;
-import com.laiding.yl.youle.Information.activity.ActivityInformationDetail;
-import com.laiding.yl.youle.Information.activity.view.IInformationDetail;
-import com.laiding.yl.youle.Information.entity.CommentBean;
-import com.laiding.yl.youle.Information.entity.CommentListBean;
-import com.laiding.yl.youle.Information.entity.InformationDetailBean;
-import com.laiding.yl.youle.Information.fragment.FragmentInformation;
 import com.laiding.yl.youle.api.ApiUtlis;
 import com.laiding.yl.youle.base.MyBasePresenter;
 import com.laiding.yl.youle.dao.UserInfoManager;
-import com.laiding.yl.youle.home.entity.CommunityBean;
+import com.laiding.yl.youle.information.activity.ActivityInformationDetail;
+import com.laiding.yl.youle.information.activity.view.IInformationDetail;
+import com.laiding.yl.youle.information.entity.CommentListBean;
+import com.laiding.yl.youle.information.entity.InformationDetailBean;
 import com.trello.rxlifecycle2.android.ActivityEvent;
-import com.trello.rxlifecycle2.android.FragmentEvent;
 
 import java.util.List;
 import java.util.Map;
@@ -30,6 +26,7 @@ import io.reactivex.disposables.Disposable;
 
 public class PresenterInformationDetail extends MyBasePresenter<IInformationDetail, ActivityInformationDetail> {
     private static final String TAG = "PresenterInformationDet";
+
     public PresenterInformationDetail(IInformationDetail view, ActivityInformationDetail activity) {
         super(view, activity);
     }
@@ -46,7 +43,8 @@ public class PresenterInformationDetail extends MyBasePresenter<IInformationDeta
 
         HttpRxObserver httpRxObserver = new HttpRxObserver<HttpResponse<InformationDetailBean>>(TAG + "requestInforMationDetail", getView()) {
             @Override
-            protected void onStart(Disposable d) { }
+            protected void onStart(Disposable d) {
+            }
 
             @Override
             protected void onError(ApiException e) {
@@ -82,11 +80,12 @@ public class PresenterInformationDetail extends MyBasePresenter<IInformationDeta
         final Map<String, Object> request = HttpRequest.getRequest();
         request.put("n_id", getView().getNid());
         request.put("p", getView().getPage());
-        request.put("limit",ActivityInformationDetail.PAGE_SIZE);
+        request.put("limit", ActivityInformationDetail.PAGE_SIZE);
 
         HttpRxObserver httpRxObserver = new HttpRxObserver<HttpResponse<CommentListBean>>(TAG + "requestCommentList", getView()) {
             @Override
-            protected void onStart(Disposable d) { }
+            protected void onStart(Disposable d) {
+            }
 
             @Override
             protected void onError(ApiException e) {
@@ -123,16 +122,16 @@ public class PresenterInformationDetail extends MyBasePresenter<IInformationDeta
         request.put("u_id", UserInfoManager.getUserInfo().getU_id());
         request.put("m_message", getView().getPostCommetText());
         request.put("n_id", getView().getNid());
+        request.put("token", UserInfoManager.getUserInfo().getToken());
 
         HttpRxObserver httpRxObserver = new HttpRxObserver<HttpResponse<List<CommentListBean.MessageInfoBean>>>(TAG + "postedComment", getView()) {
             @Override
-            protected void onStart(Disposable d) { }
+            protected void onStart(Disposable d) {
+            }
 
             @Override
             protected void onError(ApiException e) {
-                if (getView() != null) {
-                    getView().postdCommentResult(null);
-                }
+                getView().postdCommentResult(null);
             }
 
             @Override

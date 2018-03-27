@@ -10,6 +10,7 @@
     <include layout="@layout/layout_head" />
 
     <LinearLayout
+        android:background="@color/colorWhite"
         android:layout_marginTop="@dimen/margin_8"
         android:layout_width="match_parent"
         android:layout_height="@dimen/margin_45"
@@ -37,12 +38,13 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:text="177767676767"
+            android:text=""
             android:textColor="@color/color_505050" />
 
     </LinearLayout>
 
     <LinearLayout
+        android:visibility="gone"
         android:layout_marginTop="@dimen/margin_1"
         android:layout_width="match_parent"
         android:layout_height="@dimen/margin_45"
@@ -74,6 +76,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:visibility="gone"
         android:layout_marginTop="@dimen/margin_1"
         android:layout_width="match_parent"
         android:layout_height="@dimen/margin_45"
@@ -104,6 +107,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:visibility="gone"
         android:layout_marginTop="@dimen/margin_1"
         android:layout_width="match_parent"
         android:layout_height="@dimen/margin_45"

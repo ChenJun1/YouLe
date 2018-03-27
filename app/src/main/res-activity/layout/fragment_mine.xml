@@ -159,7 +159,6 @@
 
 
         <LinearLayout
-            android:visibility="gone"
             android:id="@+id/ll_utils"
             android:layout_width="match_parent"
             android:layout_height="@dimen/margin_45"
@@ -172,7 +171,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@mipmap/ic_launcher" />
+                android:src="@mipmap/icon_gongju" />
 
             <TextView
                 android:layout_width="match_parent"

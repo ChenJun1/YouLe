@@ -4,16 +4,19 @@ apply plugin: 'com.jakewharton.butterknife'
 
 Properties prop = new Properties()
 prop.load(new FileInputStream(file("signing.properties")))
+def releaseTime() {
+    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
+}
 android {
 
-    compileSdkVersion 26
+    compileSdkVersion 27
     buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "com.laiding.yl.youle"
-        minSdkVersion 15
-        targetSdkVersion 26
-        versionCode 1
-        versionName "1.0.0"
+        minSdkVersion 16
+        targetSdkVersion 27
+        versionCode 3
+        versionName "1.0.2"
         // dex突破65535的限制
         multiDexEnabled true
     }
@@ -33,6 +36,23 @@ android {
             keyPassword "android"
         }
     }
+//    flavorDimensions "${defaultConfig.versionName}"
+//    //多渠道打包支持
+//    productFlavors {
+//
+//        Tencent {//投放应用宝市场
+//        }
+//        Xiaomi {//投放小米市场
+//        }
+//        Meizu {//投放魅族市场
+//        }
+//        Huawei {//投放华为应用市场
+//        }
+//    }
+//    //注意我注释掉的，可以去掉注释，那样的话，下面这句就可以不用了
+//    productFlavors.all {
+//        flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+//    }
 
     buildTypes {
 
@@ -55,6 +75,17 @@ android {
             //apk签名
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+//            applicationVariants.all { variant ->
+//                variant.outputs.all { output ->
+//                    def outputFile = output.outputFile
+//                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+//                        // 输出apk名称为wooyun_v1.0_wandoujia.apk
+//                        def fileName = "youleme_v${defaultConfig.versionName}_${releaseTime()}_${variant.productFlavors[0].name}.apk"
+//                        output.outputFileName = new File("", fileName)
+//                    }
+//                }
+//            }
         }
     }
     lintOptions {
@@ -78,6 +109,7 @@ android {
                            'src/main/res-public',
                            'src/main/res-photo',
                            'src/main/res-umeng',
+                           'src/main/res-cookie',
             ]
         }
     }
@@ -91,10 +123,10 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':mvprxretrofitlibrary')
     //noinspection GradleCompatible
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation 'com.android.support:design:26.1.0'
-    implementation 'com.android.support:support-v4:26.0.2'
-    implementation 'com.android.support:recyclerview-v7:26.1.0'
+    implementation 'com.android.support:appcompat-v7:27.1.0'
+    implementation 'com.android.support:design:27.1.0'
+    implementation 'com.android.support:support-v4:27.1.0'
+    implementation 'com.android.support:recyclerview-v7:27.1.0'
     compile 'org.greenrobot:greendao:3.2.2'
     /*数据库*/
     compile 'com.jakewharton:butterknife:8.4.0'
@@ -122,16 +154,7 @@ dependencies {
     /*富文本加载*/
     compile 'com.just.agentweb:agentweb:4.0.2'
     /*WebView*/
-    compile 'com.umeng.sdk:common:latest.integration'
-    compile 'com.umeng.sdk:analytics:latest.integration'
-    /*友盟*/
-    implementation files('libs/SocialSDK_QQ_Simplify.jar')
-    implementation files('libs/SocialSDK_WeChat_Simplify.jar')
-    implementation files('libs/umeng_shareboard_widget.jar')
-    implementation files('libs/umeng_social_api.jar')
-    implementation files('libs/umeng_social_net.jar')
-    implementation files('libs/umeng_social_shareboard.jar')
-    implementation files('libs/umeng_social_shareview.jar')
-    implementation files('libs/umeng_social_tool.jar')
-    implementation files('libs/SocialSDK_Sina_Simplify.jar')
+    compile 'com.android.support:multidex:1.0.3'
+    /*7.0*/
+
 }

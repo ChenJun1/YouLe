@@ -1,4 +1,4 @@
-package com.laiding.yl.youle.Information.adapter;
+package com.laiding.yl.youle.information.adapter;
 
 import android.support.annotation.Nullable;
 import android.text.Html;
@@ -7,13 +7,9 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.laiding.yl.youle.R;
 import com.laiding.yl.youle.home.entity.CommunityBean;
-import com.laiding.yl.youle.home.entity.ForumPostsBean;
-import com.laiding.yl.youle.utils.MConstant;
 import com.sunfusheng.glideimageview.GlideImageView;
-import com.vondear.rxtools.RxDataTool;
 import com.vondear.rxtools.RxTimeTool;
 
-import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 
